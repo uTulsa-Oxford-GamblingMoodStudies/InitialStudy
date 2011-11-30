@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">MoodStudy</string>
+    <string name="play">Play</string>
+    <string name="register">Register</string>
+    <string name="instructions">In this game, you can roll a die for monetary prizes. The procedure is simple. On each go, we will tell you a winning number and ask you to touch the prize that goes with that number on the touch screen. This is so that we can be sure you know which prize is at stake. Then we will ask you to roll a single fair die. If you roll the winning number you will win the prize; if you don’t roll the winning number, you will be offered another go. In this game, the prizes are as follows: you will win 10p if you roll a \'1\'; 20p if you roll a \'2\'; 30p if you roll a \'3\'; 40p if you roll a \'4\'; 50p if you roll a \'5\' and 60p if you roll a \'6\' The die in the game is fair and the outcomes of each play are random.</string>
+    <string name="skip">Skip Instructions</string>
+    <string name="start_survey_prompt">How lucky do you feel right now?</string>
+    <string name="start_survey_low">None at all</string>
+    <string name="start_survey_high">Very</string>
+    <string name="next_continue">Continue</string>
+    <string name="play_prompt">This time roll a...</string>
+    <string name="touch_prompt">Please touch its allotted prize</string>
+	<string name="prize1">10p</string>
+    <string name="prize2">20p</string>
+    <string name="prize3">30p</string>
+    <string name="prize4">40p</string>
+    <string name="prize5">50p</string>
+    <string name="prize6">60p</string>
+    <string name="final_survey_prompt">How much control did you have over game outcomes?</string>
+    <string name="final_survey_low">None at all</string>
+    <string name="final_survey_high">Total control</string>
+    <string name="placeholder">placeholder</string>    
+</resources>
