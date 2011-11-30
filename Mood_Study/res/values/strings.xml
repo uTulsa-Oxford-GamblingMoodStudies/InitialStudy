@@ -20,5 +20,7 @@
     <string name="final_survey_prompt">How much control did you have over game outcomes?</string>
     <string name="final_survey_low">None at all</string>
     <string name="final_survey_high">Total control</string>
+    <string name="replay">Replay</string>
+    <string name="exit">Exit</string>
     <string name="placeholder">placeholder</string>    
 </resources>

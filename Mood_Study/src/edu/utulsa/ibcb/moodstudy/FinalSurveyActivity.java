@@ -27,10 +27,17 @@ public class FinalSurveyActivity extends Activity implements OnClickListener{
         
         Button exitButton = (Button) findViewById(R.id.exitButton);
         exitButton.setOnClickListener(this);
+        
+        Button replayButton = (Button) findViewById(R.id.replayButton);
+        replayButton.setOnClickListener(this);
+        
     }
 
 	public void onClick(View v) {
-		finish();
+		switch(v.getId()){
+			case R.id.exitButton: finish(); break;
+			case R.id.replayButton: startActivity(new Intent(this, GamePromptActivity.class));
+		}
 	}
 	
 }

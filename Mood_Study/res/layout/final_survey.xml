@@ -12,12 +12,20 @@
 
     <Button
         android:id="@+id/exitButton"
-        android:layout_width="wrap_content"
+        android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:gravity="center"
-        android:text="@string/placeholder" >
+        android:text="@string/exit" android:layout_alignParentLeft="true">
 </Button>
+
+    <Button
+        android:id="@+id/replayButton"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:text="@string/replay" android:layout_alignParentRight="true"/>
+
 </RelativeLayout>
 </LinearLayout>
