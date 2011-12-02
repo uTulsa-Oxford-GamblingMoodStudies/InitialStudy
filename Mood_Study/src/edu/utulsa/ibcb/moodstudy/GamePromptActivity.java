@@ -15,8 +15,10 @@ import android.widget.Button;
 import android.widget.ImageView;
 
 /**
-*@author Eric Kuxhausen
-*/
+ *Prompts user to try to roll for a certain number.
+ *Ensures user is aware of that number by asking user to click on the corresponding prize to continue
+ *@author Eric Kuxhausen
+ */
 public class GamePromptActivity extends Activity implements OnClickListener {
 	
 	private int promptedRoll;
@@ -28,6 +30,7 @@ public class GamePromptActivity extends Activity implements OnClickListener {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,    
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        //Load layout from game_prompt.xml
         setContentView(R.layout.game_prompt);
         
         Button Prize1Button = (Button) findViewById(R.id.prize1Button);

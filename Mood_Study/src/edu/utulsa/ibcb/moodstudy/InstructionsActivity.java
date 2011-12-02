@@ -12,8 +12,10 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 
 /**
-*@author Eric Kuxhausen
-*/
+ *Displays game instructions
+ *Provides button for user to continue to the game's initial survey
+ *@author Eric Kuxhausen
+ */
 public class InstructionsActivity extends Activity implements OnClickListener{
     
 	/** Called when the activity is first created. */
@@ -23,6 +25,8 @@ public class InstructionsActivity extends Activity implements OnClickListener{
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,    
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        
+        //Load layout from instructions.xml
         setContentView(R.layout.instructions);
         
         Button continueButton = (Button) findViewById(R.id.continueButton);

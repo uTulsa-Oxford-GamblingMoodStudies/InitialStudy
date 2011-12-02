@@ -12,8 +12,10 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 
 /**
-*@author Eric Kuxhausen
-*/
+ *The splash/main page first seen when the app is launched
+ *Provides buttons to play(move to the instructions page) or register(not yet implemented)
+ *@author Eric Kuxhausen
+ */
 public class MainActivity extends Activity implements OnClickListener{
     
 	/** Called when the activity is first created. */
@@ -23,12 +25,16 @@ public class MainActivity extends Activity implements OnClickListener{
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,    
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
-       setContentView(R.layout.main);
+       
+        //Load layout from main.xml
+        setContentView(R.layout.main);
         
         Button playButton = (Button) findViewById(R.id.playButton);
         playButton.setOnClickListener(this);
         
         Button registerButton = (Button) findViewById(R.id.registerButton);
+        
+        //@Temporary code: disable registerButton until it actually links to something 
         registerButton.setClickable(false);
         registerButton.setFocusable(false);
     }
@@ -36,6 +42,7 @@ public class MainActivity extends Activity implements OnClickListener{
 	public void onClick(View v) {
     	switch(v.getId()){
        		case R.id.playButton:  startActivity(new Intent(this,InstructionsActivity.class)); break;
+       		case R.id.registerButton:  /*TODO start registration process*/; break;
     	}
 	}
 }

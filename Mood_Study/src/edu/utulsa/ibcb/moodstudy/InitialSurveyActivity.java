@@ -13,8 +13,9 @@ import android.widget.Button;
 
 
 /**
-*@author Eric Kuxhausen
-*/
+ *Initial survey of mood before playing the game
+ *@author Eric Kuxhausen
+ */
 public class InitialSurveyActivity extends Activity implements OnClickListener{
     
 	/** Called when the activity is first created. */
@@ -24,6 +25,8 @@ public class InitialSurveyActivity extends Activity implements OnClickListener{
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,    
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        
+        //Load layout from initial_survey.xml
         setContentView(R.layout.initial_survey);
         
         Button playButton = (Button) findViewById(R.id.playButton);
@@ -31,8 +34,10 @@ public class InitialSurveyActivity extends Activity implements OnClickListener{
     }
 
 	public void onClick(View v) {
+    	Intent iNext = new Intent(this,GamePromptActivity.class);
+		//TODO pass survey results before leaving
     	switch(v.getId()){
-       		case R.id.playButton:  startActivity(new Intent(this,GamePromptActivity.class)); break;
+       		case R.id.playButton:  startActivity(iNext); break;
     	}
 	}
 	
