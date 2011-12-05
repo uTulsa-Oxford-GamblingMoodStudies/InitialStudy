@@ -22,6 +22,9 @@ public class MainActivity extends Activity implements OnClickListener{
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        
+        RpcClient.getInstance(this);
+        
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,    
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
@@ -33,16 +36,30 @@ public class MainActivity extends Activity implements OnClickListener{
         playButton.setOnClickListener(this);
         
         Button registerButton = (Button) findViewById(R.id.registerButton);
+        registerButton.setOnClickListener(this);
         
-        //@Temporary code: disable registerButton until it actually links to something 
-        registerButton.setClickable(false);
-        registerButton.setFocusable(false);
+        if(RpcClient.getInstance(this).getOption("username")==null){
+        	playButton.setText("Test OpenGL");
+        	registerButton.setText("Register");
+        }
+        else{
+        	playButton.setText("Play");
+        	registerButton.setText("Logout");
+        }
     }
-
+    
+    
 	public void onClick(View v) {
-    	switch(v.getId()){
-       		case R.id.playButton:  startActivity(new Intent(this,InstructionsActivity.class)); break;
-       		case R.id.registerButton:  /*TODO start registration process*/; break;
-    	}
+		if(RpcClient.getInstance(this).getOption("username")!=null){
+	    	switch(v.getId()){
+	       		case R.id.playButton:  startActivity(new Intent(this, InstructionsActivity.class)); break;
+	       		case R.id.registerButton: break;
+	    	}
+		}else{
+			switch(v.getId()){
+       			case R.id.playButton:  startActivity(new Intent(this, OpenGLTestActivity.class)); break;
+       			case R.id.registerButton: startActivity(new Intent(this, RegistrationActivity.class));;
+			}
+		}
 	}
 }

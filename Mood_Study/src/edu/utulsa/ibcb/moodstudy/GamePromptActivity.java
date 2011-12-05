@@ -1,8 +1,12 @@
 package edu.utulsa.ibcb.moodstudy;
 
+import org.xmlrpc.android.XMLRPCException;
+
 import edu.utulsa.ibcb.moodstudy.R;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -22,6 +26,7 @@ import android.widget.ImageView;
 public class GamePromptActivity extends Activity implements OnClickListener {
 	
 	private int promptedRoll;
+	private int actualRoll;
 	
 	/** Called when the activity is first created. */
     @Override
@@ -32,6 +37,32 @@ public class GamePromptActivity extends Activity implements OnClickListener {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         //Load layout from game_prompt.xml
         setContentView(R.layout.game_prompt);
+        
+        int winning = 0;
+        int play = 0;
+        try{
+        	Integer[] response = RpcClient.getInstance(this).play();
+        	winning = response[0];
+        	play = response[1];
+        }catch(XMLRPCException xrpc){
+        	xrpc.printStackTrace();
+        	
+        	StackTraceElement[] stack = xrpc.getStackTrace();
+        	
+        	AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        	builder.setMessage("Error:" + xrpc.getMessage() + "\nIn:" + stack[stack.length-1].getClassName())
+        		   .setTitle("Error")
+        	       .setNeutralButton("Ok", new DialogInterface.OnClickListener() {
+        	           public void onClick(DialogInterface dialog, int id) {
+        	                GamePromptActivity.this.finish();
+        	           }
+        	       });
+        	AlertDialog alert = builder.create();
+        	alert.show();
+        }
+        
+        promptedRoll = winning;
+        actualRoll = play;
         
         Button Prize1Button = (Button) findViewById(R.id.prize1Button);
         Prize1Button.setOnClickListener(this);
@@ -46,12 +77,6 @@ public class GamePromptActivity extends Activity implements OnClickListener {
         Button Prize6Button = (Button) findViewById(R.id.prize6Button);
         Prize6Button.setOnClickListener(this);
         
-        
-        
-        
-        
-        
-        setDicePrompt();
         Log.d("network", "loaded");
         ImageView PromptImage = (ImageView)findViewById(R.id.dicePromptImageView);
         switch(promptedRoll){
@@ -65,17 +90,32 @@ public class GamePromptActivity extends Activity implements OnClickListener {
         
         
     }
-
+    
+    public void showWrongDialog(){
+    	AlertDialog.Builder builder = new AlertDialog.Builder(this);
+    	builder.setMessage("Sorry, that is not the winning die for this game.")
+    		   .setTitle("Try Again...")
+    	       .setNeutralButton("Ok", new DialogInterface.OnClickListener() {
+    	           public void onClick(DialogInterface dialog, int id) {
+    	                dialog.dismiss();
+    	           }
+    	       });
+    	AlertDialog alert = builder.create();
+    	alert.show();
+    }
+    
 	public void onClick(View v) {
 		Intent iDiceGame = new Intent(this, DiceGameActivity.class);
 		iDiceGame.putExtra("prompt", promptedRoll);
+		iDiceGame.putExtra("actual", actualRoll);
+		
 		switch(v.getId()){
-   			case R.id.prize1Button: startActivity(iDiceGame); break;
-   			case R.id.prize2Button: startActivity(iDiceGame); break;
-   			case R.id.prize3Button: startActivity(iDiceGame); break;
-   			case R.id.prize4Button: startActivity(iDiceGame); break;
-   			case R.id.prize5Button: startActivity(iDiceGame); break;
-   			case R.id.prize6Button: startActivity(iDiceGame); break;
+   			case R.id.prize1Button: if(promptedRoll == 1) startActivity(iDiceGame); else showWrongDialog(); break;
+   			case R.id.prize2Button: if(promptedRoll == 2) startActivity(iDiceGame); else showWrongDialog(); break;
+   			case R.id.prize3Button: if(promptedRoll == 3) startActivity(iDiceGame); else showWrongDialog(); break;
+   			case R.id.prize4Button: if(promptedRoll == 4) startActivity(iDiceGame); else showWrongDialog(); break;
+   			case R.id.prize5Button: if(promptedRoll == 5) startActivity(iDiceGame); else showWrongDialog(); break;
+   			case R.id.prize6Button: if(promptedRoll == 6) startActivity(iDiceGame); else showWrongDialog(); break;
 		}
 		Log.d("input", "button pressed");
 	}
@@ -84,14 +124,4 @@ public class GamePromptActivity extends Activity implements OnClickListener {
 	public void onBackPressed() {
 	    startActivity(new Intent(this,FinalSurveyActivity.class));
 	}
-	
-	//TODO pull value from network?
-	/**
-	 * @return dice face value{1,2,3,4,5,6}
-	 */
-	private void setDicePrompt()
-	{
-		promptedRoll= (int) (1+Math.floor(6*Math.random()));
-	}
-
 }
