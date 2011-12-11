@@ -5,7 +5,6 @@ import android.opengl.GLSurfaceView;
 import android.os.Bundle;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.Button;
 
 public class OpenGLTestActivity extends Activity {
 	/** Called when the activity is first created. */

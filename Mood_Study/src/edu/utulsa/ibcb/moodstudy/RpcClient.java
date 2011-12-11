@@ -21,9 +21,9 @@ public class RpcClient {
 	private static final String configFile = ".settings";
 	
 	private static final String protocol = "http";
-	private static final String RPCserver = "129.244.245.114";
-	private static final String RPCport = "80";
-	private static final String RPCscript = "service.php";
+	private static final String RPCserver = "10.0.1.156";
+	//private static final String RPCport = "80";
+	public static String RPCscript = "service.php";
 	
 	private static RpcClient instance = new RpcClient();
 	
@@ -31,11 +31,29 @@ public class RpcClient {
 	private XMLRPCClient client = null;
 	private ConcurrentHashMap<String, String> options = null;
 	
-	 
+	private int session=-1;
+	
+	public void setSession(int session_id){
+		session=session_id;
+	}
+	
+	public int getSessionId(){
+		return session;
+	}
 	
 	public static RpcClient getInstance(Context context){
 		instance.ensureLoaded(context);
 		return instance;
+	}
+	
+	public Integer startSession(int lucky) throws XMLRPCException{
+		Object ret = client.call("startSession", options.get("username"),options.get("password"), lucky);
+		System.out.println((String)ret);
+		return Integer.parseInt((String)ret);
+	}
+	
+	public Boolean finalizeSession(int control) throws XMLRPCException{
+		return (Boolean) client.call("finalizeSession", options.get("username"),options.get("password"), session, control);
 	}
 	
 	public Boolean login(String user, String pass) throws XMLRPCException{
@@ -43,21 +61,24 @@ public class RpcClient {
 	}
 	
 	public Integer score() throws XMLRPCException{
-		return (Integer) client.call("score", options.get("username"),options.get("password"));
+		Object ret = client.call("score", options.get("username"),options.get("password"));
+		System.out.println((String)ret);
+		return Integer.parseInt((String)ret);
 	}
 	
-	public Integer[] play() throws XMLRPCException{
-		return (Integer[])client.call("play",options.get("username"),options.get("password"));
+	public int[] play() throws XMLRPCException{
+		String rval = (String)client.call("play",options.get("username"),options.get("password"));
+		String[] items = rval.split(" ");
+		return new int[]{Integer.parseInt(items[0]),Integer.parseInt(items[1])};
 	}
 	
 	public Object[] requestCaptcha() throws XMLRPCException{
-		Object[] rval = (Object[])client.call("requestCode");
-		return rval;
+		return (Object[])client.call("requestCode");
 	}
 	
 	public boolean register(String user, String pass, String name, String captcha, String session) throws XMLRPCException {
-		boolean rval = (Boolean)client.call("register",user,pass,name,captcha,session);
-		return rval;
+		return (Boolean)client.call("register",user,pass,name,captcha,session);
+		
 	}
 	
 	private synchronized void ensureLoaded(Context context){
@@ -66,7 +87,7 @@ public class RpcClient {
 			client = new XMLRPCClient(url);
 			options = new ConcurrentHashMap<String,String>();
 			
-			//setOptions(context,"username","matt.matlock@gmail.com","password","z38lives");
+			setOptions(context,"username","matt.matlock@gmail.com","password","z38lives");
 			
 			load(context);
 		}
@@ -76,6 +97,14 @@ public class RpcClient {
 		if(options.containsKey(option))
 			return options.get(option);
 		return null;
+	}
+	
+	public synchronized void deleteOptions(Context context, String ... args){
+		for(String option : args){
+			options.remove(option);
+		}
+		
+		save(context);
 	}
 	
 	public synchronized void setOptions(Context context, String ... args){

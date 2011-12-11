@@ -1,5 +1,8 @@
 package edu.utulsa.ibcb.moodstudy;
 
+import org.xmlrpc.android.XMLRPCClient;
+import org.xmlrpc.android.XMLRPCException;
+
 import edu.utulsa.ibcb.moodstudy.R;
 
 import android.app.Activity;
@@ -32,14 +35,14 @@ public class MainActivity extends Activity implements OnClickListener{
         //Load layout from main.xml
         setContentView(R.layout.main);
         
-        Button playButton = (Button) findViewById(R.id.playButton);
+        Button playButton = (Button) findViewById(R.id.playButtonMain);
         playButton.setOnClickListener(this);
         
-        Button registerButton = (Button) findViewById(R.id.registerButton);
+        Button registerButton = (Button) findViewById(R.id.registerButtonMain);
         registerButton.setOnClickListener(this);
         
         if(RpcClient.getInstance(this).getOption("username")==null){
-        	playButton.setText("Test OpenGL");
+        	playButton.setText("Login");
         	registerButton.setText("Register");
         }
         else{
@@ -48,17 +51,24 @@ public class MainActivity extends Activity implements OnClickListener{
         }
     }
     
-    
 	public void onClick(View v) {
+		
+		
 		if(RpcClient.getInstance(this).getOption("username")!=null){
 	    	switch(v.getId()){
-	       		case R.id.playButton:  startActivity(new Intent(this, InstructionsActivity.class)); break;
-	       		case R.id.registerButton: break;
+	       		case R.id.playButtonMain:  startActivity(new Intent(this, InstructionsActivity.class)); break;
+	       		case R.id.registerButtonMain: 
+	       			RpcClient.getInstance(this).deleteOptions(this, "username","password");
+	       			Button playButton = (Button) findViewById(R.id.playButtonMain);
+	       	        Button registerButton = (Button) findViewById(R.id.registerButtonMain);
+	       			playButton.setText("Login");
+	            	registerButton.setText("Register");
+	       			break;
 	    	}
 		}else{
 			switch(v.getId()){
-       			case R.id.playButton:  startActivity(new Intent(this, OpenGLTestActivity.class)); break;
-       			case R.id.registerButton: startActivity(new Intent(this, RegistrationActivity.class));;
+       			case R.id.playButtonMain:  startActivity(new Intent(this, LoginActivity.class)); break;
+       			case R.id.registerButtonMain: startActivity(new Intent(this, RegistrationActivity.class));
 			}
 		}
 	}

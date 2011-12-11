@@ -44,17 +44,18 @@ public class RegistrationActivity extends Activity implements OnClickListener{
 		try{
 			Object[] response = callServer.requestCaptcha();
 			
-			session = (Integer)response[0];
+			session = Integer.parseInt((String)response[0]);
 			base64_img = (String)response[1];
 			
 			//decode base64_img
 			
-			base64_img.replace("data:image/jpeg;base64,", "");
+			base64_img = base64_img.substring("data:image/jpeg;base64,".length());
 			
 			byte[] img_data = Base64.decode(base64_img, Base64.DEFAULT);
 			
 			Bitmap bm = BitmapFactory.decodeByteArray(img_data, 0, img_data.length);
 			
+			System.out.println("Img:"+bm.getHeight()+"x"+bm.getWidth());
 			// set to image
 			ImageView captchaView = (ImageView) findViewById(R.id.captchaImage);
 			captchaView.setImageBitmap(bm);
@@ -107,6 +108,11 @@ public class RegistrationActivity extends Activity implements OnClickListener{
 			
 			if(success){
 				callServer.setOptions(this, RpcClient.USERNAME_OPTION, user, RpcClient.PASSWORD_OPTION, pass1);
+				((TextView) findViewById(R.id.username_field)).setText("");
+				((TextView) findViewById(R.id.pass1_field)).setText("");
+				((TextView) findViewById(R.id.pass2_field)).setText("");
+				((TextView) findViewById(R.id.realname_field)).setText("");
+				((TextView) findViewById(R.id.captchaEntry)).setText("");
 				finish();
 			}
 		}catch(XMLRPCException xrpc){
@@ -122,6 +128,11 @@ public class RegistrationActivity extends Activity implements OnClickListener{
         	if(xrpc.getMessage().contains("Incorrect Captcha Code")){
         		getCaptcha();
         		((EditText) findViewById(R.id.captchaEntry)).getText().clear();
+        	}
+        	if(xrpc.getMessage().toLowerCase().contains("password")){
+        		getCaptcha();
+        		((EditText) findViewById(R.id.pass1_field)).getText().clear();
+        		((EditText) findViewById(R.id.pass2_field)).getText().clear();
         	}
 		}
 	}

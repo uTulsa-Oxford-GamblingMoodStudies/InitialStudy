@@ -1,8 +1,12 @@
 package edu.utulsa.ibcb.moodstudy;
 
+import org.xmlrpc.android.XMLRPCException;
+
 import edu.utulsa.ibcb.moodstudy.R;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -10,6 +14,7 @@ import android.view.View.OnClickListener;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.SeekBar;
 
 
 /**
@@ -35,10 +40,36 @@ public class InitialSurveyActivity extends Activity implements OnClickListener{
 
 	public void onClick(View v) {
     	Intent iNext = new Intent(this,GamePromptActivity.class);
-		//TODO pass survey results before leaving
-    	switch(v.getId()){
-       		case R.id.playButton:  startActivity(iNext); break;
+    	
+    	int lucky = ((SeekBar)findViewById(R.id.moodSeekBar)).getProgress();
+    	
+    	try{
+    		Integer session_id = RpcClient.getInstance(this).startSession(lucky);
+    		
+    		RpcClient.getInstance(this).setSession(session_id);
+    		
+    		//TODO pass survey results before leaving
+        	switch(v.getId()){
+           		case R.id.playButton:  startActivity(iNext); break;
+        	}
+    	}catch(XMLRPCException xrpc){
+			xrpc.printStackTrace();
+        	
+        	StackTraceElement[] stack = xrpc.getStackTrace();
+        	
+        	AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        	builder.setMessage("Error:" + xrpc.getMessage() + "\nIn:" + stack[stack.length-1].getClassName())
+        		   .setTitle("Error")
+        	       .setNeutralButton("Ok", new DialogInterface.OnClickListener() {
+        	           public void onClick(DialogInterface dialog, int id) {
+        	                InitialSurveyActivity.this.finish();
+        	           }
+        	       });
+        	AlertDialog alert = builder.create();
+        	alert.show();
     	}
+    	
+		
 	}
 	
 }

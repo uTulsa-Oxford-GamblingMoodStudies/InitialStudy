@@ -8,7 +8,6 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -41,7 +40,7 @@ public class GamePromptActivity extends Activity implements OnClickListener {
         int winning = 0;
         int play = 0;
         try{
-        	Integer[] response = RpcClient.getInstance(this).play();
+        	int[] response = RpcClient.getInstance(this).play();
         	winning = response[0];
         	play = response[1];
         }catch(XMLRPCException xrpc){
@@ -93,7 +92,7 @@ public class GamePromptActivity extends Activity implements OnClickListener {
     
     public void showWrongDialog(){
     	AlertDialog.Builder builder = new AlertDialog.Builder(this);
-    	builder.setMessage("Sorry, that is not the winning die for this game.")
+    	builder.setMessage("Sorry, that is not the winning die for this roll.")
     		   .setTitle("Try Again...")
     	       .setNeutralButton("Ok", new DialogInterface.OnClickListener() {
     	           public void onClick(DialogInterface dialog, int id) {
