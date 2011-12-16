@@ -86,8 +86,6 @@ public class GamePromptActivity extends Activity implements OnClickListener {
 			case 5:  PromptImage.setImageDrawable(getResources().getDrawable(R.drawable.d5)); break;
 			case 6:  PromptImage.setImageDrawable(getResources().getDrawable(R.drawable.d6)); break;
         }
-        
-        
     }
     
     public void showWrongDialog(){

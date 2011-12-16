@@ -21,7 +21,7 @@ public class RpcClient {
 	private static final String configFile = ".settings";
 	
 	private static final String protocol = "http";
-	private static final String RPCserver = "10.0.1.156";
+	private static final String RPCserver = "192.168.1.119";
 	//private static final String RPCport = "80";
 	public static String RPCscript = "service.php";
 	
