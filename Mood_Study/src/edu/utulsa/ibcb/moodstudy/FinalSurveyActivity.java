@@ -7,6 +7,7 @@ import edu.utulsa.ibcb.moodstudy.R;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -44,7 +45,7 @@ public class FinalSurveyActivity extends Activity implements OnClickListener{
 
     	int control = ((SeekBar)findViewById(R.id.moodSeekBar)).getProgress();
     	
-    	try{
+/*    	try{
     		RpcClient.getInstance(this).finalizeSession(control);
     		RpcClient.getInstance(this).setSession(-1);
     		finish();
@@ -64,6 +65,12 @@ public class FinalSurveyActivity extends Activity implements OnClickListener{
         	AlertDialog alert = builder.create();
         	alert.show();
     	}
+*/	
+    	switch(v.getId()){
+    	case R.id.exitButton: finish(); break;
+    	case R.id.replayButton: startActivity(new Intent(this, GamePromptActivity.class));
+    	}	
+	
 	}
 	
 }
