@@ -43,16 +43,16 @@ public class InitialSurveyActivity extends Activity implements OnClickListener{
     	
     	int lucky = ((SeekBar)findViewById(R.id.moodSeekBar)).getProgress();
     	
-    	try{
-    		Integer session_id = RpcClient.getInstance(this).startSession(lucky);
+//    	try{
+//    		Integer session_id = RpcClient.getInstance(this).startSession(lucky);
     		
-    		RpcClient.getInstance(this).setSession(session_id);
+//    		RpcClient.getInstance(this).setSession(session_id);
     		
     		//TODO pass survey results before leaving
         	switch(v.getId()){
            		case R.id.playButton:  startActivity(iNext); break;
         	}
-    	}catch(XMLRPCException xrpc){
+/*    	}catch(XMLRPCException xrpc){
 			xrpc.printStackTrace();
         	
         	StackTraceElement[] stack = xrpc.getStackTrace();
@@ -68,7 +68,7 @@ public class InitialSurveyActivity extends Activity implements OnClickListener{
         	AlertDialog alert = builder.create();
         	alert.show();
     	}
-    	
+*/    	
 		
 	}
 	
