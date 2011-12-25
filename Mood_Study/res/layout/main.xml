@@ -5,7 +5,7 @@
     android:background="@drawable/splash_background"
     android:gravity="center"
     android:orientation="vertical" >
-
+
     <ImageView
         android:id="@+id/logoImageView"
         android:layout_width="wrap_content"
@@ -14,19 +14,16 @@
         android:layout_marginRight="20dp"
         android:adjustViewBounds="true"
         android:src="@drawable/main_logo" />
-
     <Button
         android:id="@+id/playButtonMain"
         style="@style/AppText.Main"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/play" />
-
     <Button
         android:id="@+id/registerButtonMain"
         style="@style/AppText.Main"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/register"/>
-
 </LinearLayout>
