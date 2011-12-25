@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">MoodStudy</string>
+    <string name="app_name">The Dice Is Right</string>
     <string name="email_entry">E-mail Address:</string>
     <string name="password_entry">Desired Password:</string>
     <string name="password_entry_login">Password:</string>
