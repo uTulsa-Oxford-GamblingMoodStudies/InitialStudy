@@ -37,8 +37,8 @@ public class GamePromptActivity extends Activity implements OnClickListener {
         //Load layout from game_prompt.xml
         setContentView(R.layout.game_prompt);
         
-        int winning = 1;//0
-        int play = 1;//0
+        int winning = (int)(Math.ceil(6*Math.random()));//0
+        int play = (int)(Math.ceil(6*Math.random()));//0
 /*        try{
         	int[] response = RpcClient.getInstance(this).play();
         	winning = response[0];

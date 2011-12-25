@@ -31,7 +31,9 @@ public class DiceGame2DActivity extends Activity {
     private WindowManager mWindowManager;
     private Display mDisplay;
     private WakeLock mWakeLock;
-
+    protected int actual;
+    protected int prompt;
+    
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -52,6 +54,11 @@ public class DiceGame2DActivity extends Activity {
         
         mSimulationView = new SimulationView(this);
         setContentView(mSimulationView);
+        mSimulationView.setDice(prompt,actual);
+        
+        actual = getIntent().getExtras().getInt("actual", 1);
+        prompt = getIntent().getExtras().getInt("prompt", 1);
+        
     }
     
     @Override
@@ -124,7 +131,7 @@ startActivity(new Intent(this,FinalSurveyActivity.class));
         private Bitmap mWood;
         private Bitmap mFrontCup;
         private Bitmap mBackCup;
-        private int mW=0, mH=0;
+        private int mW=0, mH=0, actual=0, prompt=0;
         private float mXOrigin;
         private float mYOrigin;
         private float mSensorX;
@@ -335,7 +342,21 @@ startActivity(new Intent(this,FinalSurveyActivity.class));
             mSensorManager.registerListener(this, mAccelerometer, SensorManager.SENSOR_DELAY_UI);
         }
 
-        public void stopSimulation() {
+        public void setDice(int p, int a) {
+			prompt = p;
+			actual= a;
+			switch(a){
+			case 1: break;
+			case 2: break;
+			case 3: break;
+			case 4: break;
+			case 5: break;
+			case 6: break;
+			}
+			
+		}
+
+		public void stopSimulation() {
             mSensorManager.unregisterListener(this);
         }
 
@@ -350,6 +371,8 @@ startActivity(new Intent(this,FinalSurveyActivity.class));
             mMetersToPixelsX = mXDpi / 0.0254f;
             mMetersToPixelsY = mYDpi / 0.0254f;
 
+            
+            
             // rescale the ball so it's about 0.5 cm on screen
             Bitmap ball = BitmapFactory.decodeResource(getResources(), R.drawable.dice1);
             final int dstWidth = (int) (sBallDiameter * mMetersToPixelsX + 0.5f);
