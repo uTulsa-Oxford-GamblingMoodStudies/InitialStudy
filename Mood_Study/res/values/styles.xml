@@ -5,7 +5,7 @@
 
     
     <style name="AppText.Main">
-        <item name="android:background">@color/blue</item>
+        <item name="android:background">@drawable/blue_button</item>
         <item name="android:layout_marginBottom">10dp</item>
         <item name="android:layout_marginLeft">40dp</item>
         <item name="android:layout_marginRight">40dp</item>
