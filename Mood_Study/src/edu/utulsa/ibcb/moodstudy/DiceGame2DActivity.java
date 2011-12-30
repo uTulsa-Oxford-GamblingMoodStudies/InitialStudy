@@ -54,17 +54,18 @@ public class DiceGame2DActivity extends Activity {
         
         mSimulationView = new SimulationView(this);
         setContentView(mSimulationView);
-        mSimulationView.setDice(prompt,actual);
         
-        actual = getIntent().getExtras().getInt("actual", 1);
-        prompt = getIntent().getExtras().getInt("prompt", 1);
+        actual = getIntent().getExtras().getInt("actual", 0);
+        prompt = getIntent().getExtras().getInt("prompt", 0);
+        mSimulationView.setDice(prompt,actual);
+
         
     }
     
     @Override
-public void onBackPressed() {
-startActivity(new Intent(this,FinalSurveyActivity.class));
-}
+	public void onBackPressed() {
+	startActivity(new Intent(this,FinalSurveyActivity.class));
+	}
 
     @Override
     protected void onResume() {
@@ -113,7 +114,7 @@ startActivity(new Intent(this,FinalSurveyActivity.class));
 */
     class SimulationView extends View implements SensorEventListener {
         // diameter of the balls in meters
-        private static final float sBallDiameter = 0.01f;
+        private static final float sBallDiameter = 0.02f;
         private static final float sBallDiameter2 = sBallDiameter * sBallDiameter;
 
         // friction of the virtual table and air
@@ -128,10 +129,11 @@ startActivity(new Intent(this,FinalSurveyActivity.class));
         private float mMetersToPixelsX;
         private float mMetersToPixelsY;
         private Bitmap mBitmap;
-        private Bitmap mWood;
+        private Bitmap mBackground;
         private Bitmap mFrontCup;
         private Bitmap mBackCup;
         private int mW=0, mH=0, actual=0, prompt=0;
+        private boolean endingAnimation = false;
         private float mXOrigin;
         private float mYOrigin;
         private float mSensorX;
@@ -164,40 +166,52 @@ startActivity(new Intent(this,FinalSurveyActivity.class));
             }
 
             public void computePhysics(float sx, float sy, float dT, float dTC) {
-                // Force of gravity applied to our virtual object
-                final float m = 1000.0f; // mass of our virtual object
-                final float gx = -sx * m;
-                final float gy = -sy * m;
+                if(!endingAnimation)
+                {
+                	// Force of gravity applied to our virtual object
+	                final float m = 1000.0f; // mass of our virtual object
+	                final float gx = -sx * m;
+	                final float gy = -sy * m;
 
-                /*
-* ·F = mA <=> A = ·F / m We could simplify the code by
-* completely eliminating "m" (the mass) from all the equations,
-* but it would hide the concepts from this sample code.
-*/
-                final float invm = 1.0f / m;
-                final float ax = gx * invm;
-                final float ay = gy * invm;
+	                /*
+					* ·F = mA <=> A = ·F / m We could simplify the code by
+					* completely eliminating "m" (the mass) from all the equations,
+					* but it would hide the concepts from this sample code.
+					*/
+	                final float invm = 1.0f / m;
+	                final float ax = gx * invm;
+	                final float ay = gy * invm;
 
-                /*
-* Time-corrected Verlet integration The position Verlet
-* integrator is defined as x(t+Æt) = x(t) + x(t) - x(t-Æt) +
-* a(t)Ætö2 However, the above equation doesn't handle variable
-* Æt very well, a time-corrected version is needed: x(t+Æt) =
-* x(t) + (x(t) - x(t-Æt)) * (Æt/Æt_prev) + a(t)Ætö2 We also add
-* a simple friction term (f) to the equation: x(t+Æt) = x(t) +
-* (1-f) * (x(t) - x(t-Æt)) * (Æt/Æt_prev) + a(t)Ætö2
-*/
-                final float dTdT = dT * dT;
-                final float x = mPosX + mOneMinusFriction * dTC * (mPosX - mLastPosX) + mAccelX
-                        * dTdT;
-                final float y = mPosY + mOneMinusFriction * dTC * (mPosY - mLastPosY) + mAccelY
-                        * dTdT;
-                mLastPosX = mPosX;
-                mLastPosY = mPosY;
-                mPosX = x;
-                mPosY = y;
-                mAccelX = ax;
-                mAccelY = ay;
+	                /*
+					* Time-corrected Verlet integration The position Verlet
+					* integrator is defined as x(t+Æt) = x(t) + x(t) - x(t-Æt) +
+					* a(t)Ætö2 However, the above equation doesn't handle variable
+					* Æt very well, a time-corrected version is needed: x(t+Æt) =
+					* x(t) + (x(t) - x(t-Æt)) * (Æt/Æt_prev) + a(t)Ætö2 We also add
+					* a simple friction term (f) to the equation: x(t+Æt) = x(t) +
+					* (1-f) * (x(t) - x(t-Æt)) * (Æt/Æt_prev) + a(t)Ætö2
+					*/
+	                final float dTdT = dT * dT;
+	                final float x = mPosX + mOneMinusFriction * dTC * (mPosX - mLastPosX) + mAccelX
+	                        * dTdT;
+	                final float y = mPosY + mOneMinusFriction * dTC * (mPosY - mLastPosY) + mAccelY
+	                        * dTdT;
+	                mLastPosX = mPosX;
+	                mLastPosY = mPosY;
+	                mPosX = x;
+	                mPosY = y;
+	                mAccelX = ax;
+	                mAccelY = ay;
+                }
+                else{
+                	mPosX *=.95;
+                	mPosY *=.95;
+                	if(Math.abs(mPosX)<.0001 && Math.abs(mPosY)<.0001)
+                	{
+                		//TODO trigger ending toast?
+                		onBackPressed();
+                	}
+                }
             }
 
             /*
@@ -217,7 +231,8 @@ startActivity(new Intent(this,FinalSurveyActivity.class));
                     mPosX = -xmax;
                 }
                 if (y > ymax) {
-                    mPosY = ymax;
+                    mPosY = -ymax;
+                    endingAnimation=true;
                 } else if (y < -ymax) {
                     mPosY = -ymax;
                 }
@@ -345,14 +360,22 @@ startActivity(new Intent(this,FinalSurveyActivity.class));
         public void setDice(int p, int a) {
 			prompt = p;
 			actual= a;
+			int id = R.drawable.icon;
 			switch(a){
-			case 1: break;
-			case 2: break;
-			case 3: break;
-			case 4: break;
-			case 5: break;
-			case 6: break;
+			case 1: id = R.drawable.dice1; break;
+			case 2: id = R.drawable.dice2; break;
+			case 3: id = R.drawable.dice3; break;
+			case 4: id = R.drawable.dice4; break;
+			case 5: id = R.drawable.dice5; break;
+			case 6: id = R.drawable.dice6; break;
 			}
+			
+			
+			// rescale the ball so it's about 2 cm on screen
+            Bitmap ball = BitmapFactory.decodeResource(getResources(), id);
+            final int dstWidth = (int) (sBallDiameter * mMetersToPixelsX + 0.5f);
+            final int dstHeight = (int) (sBallDiameter * mMetersToPixelsY + 0.5f);
+            mBitmap = Bitmap.createScaledBitmap(ball, dstWidth, dstHeight, true);
 			
 		}
 
@@ -370,21 +393,23 @@ startActivity(new Intent(this,FinalSurveyActivity.class));
             mYDpi = metrics.ydpi;
             mMetersToPixelsX = mXDpi / 0.0254f;
             mMetersToPixelsY = mYDpi / 0.0254f;
-
             
             
-            // rescale the ball so it's about 0.5 cm on screen
-            Bitmap ball = BitmapFactory.decodeResource(getResources(), R.drawable.dice1);
+            // rescale the ball so it's about 2 cm on screen
+            Bitmap temp = BitmapFactory.decodeResource(getResources(), R.drawable.icon);
             final int dstWidth = (int) (sBallDiameter * mMetersToPixelsX + 0.5f);
             final int dstHeight = (int) (sBallDiameter * mMetersToPixelsY + 0.5f);
-            mBitmap = Bitmap.createScaledBitmap(ball, dstWidth, dstHeight, true);
+            mBitmap = Bitmap.createScaledBitmap(temp, dstWidth, dstHeight, true);
 
             Options opts = new Options();
             opts.inDither = true;
             opts.inPreferredConfig = Bitmap.Config.RGB_565;
-            mWood = BitmapFactory.decodeResource(getResources(), R.drawable.grass, opts);
-            mFrontCup = BitmapFactory.decodeResource(getResources(), R.drawable.cup_bottom, opts);
-            mBackCup = BitmapFactory.decodeResource(getResources(), R.drawable.cup_together, opts);
+            temp = BitmapFactory.decodeResource(getResources(), R.drawable.dice_table, opts);
+            mBackground = Bitmap.createScaledBitmap(temp,(int)(metrics.widthPixels),(int)(metrics.heightPixels), true);
+            temp = BitmapFactory.decodeResource(getResources(), R.drawable.cup_bottom, opts);
+            mFrontCup = Bitmap.createScaledBitmap(temp, metrics.widthPixels, (int)(temp.getHeight()*(metrics.widthPixels/(float)temp.getWidth())), true);
+            temp = BitmapFactory.decodeResource(getResources(), R.drawable.cup_together, opts);
+            mBackCup = Bitmap.createScaledBitmap(temp, metrics.widthPixels, (int)(temp.getHeight()*(metrics.widthPixels/(float)temp.getWidth())), true);
         }
 
         @Override
@@ -442,8 +467,10 @@ startActivity(new Intent(this,FinalSurveyActivity.class));
 * draw the background
 */
 
-            canvas.drawBitmap(mWood, 0, 0, null);
-            canvas.drawBitmap(mBackCup, mW-mBackCup.getWidth(), mH-mBackCup.getHeight(), null);
+            if(!endingAnimation)
+            	canvas.drawBitmap(mBackCup, mW-mBackCup.getWidth(), mH-mBackCup.getHeight(), null);
+            else
+            	canvas.drawBitmap(mBackground, 0, 0, null);
             /*
 * compute the new position of our object, based on accelerometer
 * data and present time.
@@ -474,7 +501,8 @@ startActivity(new Intent(this,FinalSurveyActivity.class));
                 canvas.drawBitmap(bitmap, x, y, null);
             }
             
-            canvas.drawBitmap(mFrontCup, mW-mFrontCup.getWidth(), mH-mFrontCup.getHeight(), null);
+            if(!endingAnimation)
+            	canvas.drawBitmap(mFrontCup, mW-mFrontCup.getWidth(), mH-mFrontCup.getHeight(), null);
             
             // and make sure to redraw asap
             invalidate();
