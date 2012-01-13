@@ -68,8 +68,6 @@ public class InitialSurveyActivity extends Activity implements OnClickListener{
         	AlertDialog alert = builder.create();
         	alert.show();
     	}
-*/    	
-		
-	}
+*/	}
 	
 }

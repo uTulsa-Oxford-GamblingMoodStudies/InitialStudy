@@ -1,16 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:gravity="center_horizontal" android:background="@drawable/lucky_background">
-
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" 
+    android:gravity="center_horizontal" 
+    android:background="@drawable/lucky_background">
+	<Button
+	        android:id="@+id/playButton"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_alignParentBottom="true"
+	        android:layout_centerHorizontal="true"
+	        android:gravity="center"
+	        android:text="@string/next_continue" 
+	        android:background="@drawable/lightblue_button" 
+	        android:layout_marginLeft="35dp" 
+	        android:layout_marginRight="35dp" 
+	        android:padding="5dp" 
+	        android:textColor="@color/prize_text">
+	</Button>
 	<RelativeLayout
 	    android:id="@+id/relativeLayout"
 	    android:layout_width="fill_parent"
 	    android:layout_height="wrap_content"
-	    android:layout_margin="10dp"
-	    android:background="@drawable/lucky_background_bluebox" android:padding="25dp">
+	    android:background="@drawable/lucky_background_bluebox" 
+	    android:layout_above="@id/playButton" 
+	    android:paddingLeft="50dp" 
+	    android:paddingRight="50dp" 
+	    android:paddingTop="20dp" 
+	    android:paddingBottom="20dp">
 
 	    <TextView android:layout_height="wrap_content" 
 	        android:text="@string/start_survey_prompt" 
@@ -41,15 +58,5 @@
 	        android:text="@string/start_survey_high" 
 	        android:layout_centerVertical="true">
 	    </TextView>
-	
-	    <Button
-	        android:id="@+id/playButton"
-	        android:layout_width="fill_parent"
-	        android:layout_height="wrap_content"
-	        android:layout_alignParentBottom="true"
-	        android:layout_centerHorizontal="true"
-	        android:gravity="center"
-	        android:text="@string/next_continue" android:background="@drawable/lightblue_button" android:layout_marginLeft="35dp" android:layout_marginRight="35dp">
-	        </Button>
 	</RelativeLayout>
-</LinearLayout>
+</RelativeLayout>
