@@ -13,14 +13,16 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import Jama.Matrix;
+import edu.utulsa.ibcb.moodstudy.opengl.Solver;
 
 public class Mesh {
 	String name;
-	
+		
 	float[][] vertices;
 	float[][] tvertices;
 	float[][] normals;
+	float[][] fnormals;
+	
 	short[] faces;
 	short[] tfaces;
 	
@@ -31,6 +33,11 @@ public class Mesh {
 	FloatBuffer glNormalBuffer;
 	ShortBuffer glDrawArray;
 	
+	
+	public void computeFaceNormals(){
+		// not implemented yet
+	}
+	
 	public void setName(String name){
 		this.name = name;
 	}
@@ -39,9 +46,11 @@ public class Mesh {
 		vertices = new float[verts][3];
 		tvertices = new float[tverts][2];
 		normals = new float[verts][3];
+		fnormals = new float[facecnt][3];
 		
 		faces = new short[facecnt*3];
 		tfaces = new short[facecnt*3];
+		
 	}
 	
 	public FloatBuffer getGLVertices(){
@@ -151,6 +160,14 @@ public class Mesh {
 	}
 	public String getName(){
 		return name;
+	}
+	
+	public void scale(float x, float y, float z){
+		for(float[] v : vertices){
+			v[0] *= x;
+			v[1] *= y;
+			v[2] *= z;
+		}
 	}
 	
 	public void scale(double factor){
@@ -270,6 +287,13 @@ public class Mesh {
 				}
 			}
 			if(stack.getLast().equals("*MESH_NORMALS")){
+				if(line.startsWith("*MESH_FACENORMAL")){
+					String[] items = line.split("\\s+");
+					int index = Integer.parseInt(items[1]);
+					cmesh.fnormals[index][0] = Float.parseFloat(items[2]);
+					cmesh.fnormals[index][1] = Float.parseFloat(items[3]);
+					cmesh.fnormals[index][2] = Float.parseFloat(items[4]);
+				}
 				if(line.startsWith("*MESH_VERTEXNORMAL")){
 					String[] items = line.split("\\s+");
 					int index = Integer.parseInt(items[1]);
@@ -290,6 +314,7 @@ public class Mesh {
 					String[] items = line.split("\\s+");
 					int numfaces = Integer.parseInt(items[1]);
 					cmesh.faces = new short[3*numfaces];
+					cmesh.fnormals = new float[numfaces][3];
 				}
 				if(line.startsWith("*MESH_NUMTVERTEX")){
 					String[] items = line.split("\\s+");
@@ -314,6 +339,10 @@ public class Mesh {
 		}
 		
 		dataIn.close();
+		
+		for(Mesh object : objects){
+			object.computeFaceNormals();
+		}
 		
 		return objects;
 	}

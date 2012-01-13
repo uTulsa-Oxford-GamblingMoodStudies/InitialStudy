@@ -1,32 +1,12 @@
 package edu.utulsa.ibcb.moodstudy.opengl;
 
-import android.opengl.GLU;
-import Jama.Matrix;
+import javax.vecmath.Vector3f;
 
-public class Camera {
+import android.opengl.GLU;
+
+public abstract class Camera {
 	
-	Matrix target;
-	Matrix position;
+	public abstract Vector3f getTarget();
+	public abstract Vector3f getPosition();
 	
-	public Camera(){
-		target = new Matrix(3,1);
-		position = new Matrix(3,1);
-	}
-	
-	public void lookAt(GLU glu){
-		
-	}
-	
-	public Matrix getWorldCoordinates(){
-		return target.plus(position);
-	}
-	public Matrix getTarget(){
-		return target;
-	}
-	public void setTarget(Matrix m){
-		target.setMatrix(0, 2, 0, 0, m);
-	}
-	public void setPosition(Matrix m){
-		position.setMatrix(0, 2, 0, 0, m);
-	}
 }

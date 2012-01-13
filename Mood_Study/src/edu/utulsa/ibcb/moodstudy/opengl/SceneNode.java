@@ -1,10 +1,14 @@
 package edu.utulsa.ibcb.moodstudy.opengl;
 
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 
+import javax.vecmath.Matrix3f;
+import javax.vecmath.Matrix4f;
+import javax.vecmath.Vector3f;
+import javax.vecmath.Vector4f;
 
-import Jama.Matrix;
+import com.bulletphysics.dynamics.RigidBody;
 
 public class SceneNode {
 	
@@ -14,19 +18,50 @@ public class SceneNode {
 		public void stop(Object o);
 	}
 	
-	Matrix orientation;
-	Matrix translation;
+	protected Vector3f x;
+	protected Matrix3f R;
+	
+	protected RigidBody rb = null;
 	
 	String name;
 	
-	protected boolean collider;
-	
-	LinkedList<Mesh> meshes = new LinkedList<Mesh>();
-	
 	SceneNode parent = null;
-	LinkedList<SceneNode> children = new LinkedList<SceneNode>();
+	ArrayList<SceneNode> children = new ArrayList<SceneNode>();
+	
+	ArrayList<Mesh> meshes = new ArrayList<Mesh>();
 	
 	RenderState rs = null;
+	
+	public boolean isSimulated(){
+		return rb != null;
+	}
+	
+	public RigidBody getRigidBody(){
+		return rb;
+	}
+	
+	public void setRigidBody(RigidBody rb){
+		this.rb = rb;
+	}
+	
+	public void setOrientation(Matrix3f m){
+		R = m;
+	}
+	public void setPosition(Vector3f v){
+		x = v;
+	}
+	public void orient(Matrix3f m){
+		R.mul(m);
+	}
+	public void translate(Vector3f v){
+		x.add(v);
+	}
+	public Matrix3f getOrientation(){
+		return R;
+	}
+	public Vector3f getTranslation(){
+		return x;
+	}
 	
 	public void setParent(SceneNode n){
 		parent = n;
@@ -52,21 +87,10 @@ public class SceneNode {
 	public SceneNode(String n){
 		name=n;
 		
-		orientation = Matrix.identity(3, 3);
-		translation = new Matrix(3, 1);
+		R = new Matrix3f(Solver.identity);
+		x = new Vector3f(0,0,0);
 	}
-	public void setOrientation(Matrix m){
-		orientation = m;
-	}
-	public void setPosition(Matrix v){
-		translation = v;
-	}
-	public void orient(Matrix m){
-		orientation = orientation.times(m);
-	}
-	public void translate(Matrix v){
-		translation.plusEquals(v);
-	}
+	
 	
 	public List<Mesh> getObjects(){
 		return meshes;
@@ -84,10 +108,4 @@ public class SceneNode {
 		return children;
 	}
 	
-	public Matrix getOrientation(){
-		return orientation;
-	}
-	public Matrix getTranslation(){
-		return translation;
-	}
 }

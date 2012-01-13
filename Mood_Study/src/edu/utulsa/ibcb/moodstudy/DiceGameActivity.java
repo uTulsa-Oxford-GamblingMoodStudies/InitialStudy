@@ -1,7 +1,9 @@
 package edu.utulsa.ibcb.moodstudy;
 
 import edu.utulsa.ibcb.moodstudy.R;
+import edu.utulsa.ibcb.moodstudy.opengl.CupEnvironment;
 import edu.utulsa.ibcb.moodstudy.opengl.DiceRenderer;
+import edu.utulsa.ibcb.moodstudy.opengl.DiceRollEnvironment;
 
 import android.app.Activity;
 import android.content.Context;
@@ -22,12 +24,16 @@ import android.util.DisplayMetrics;
 import android.view.Display;
 import android.view.Surface;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.Window;
 import android.view.WindowManager;
 
-public class DiceGameActivity extends Activity {
+public class DiceGameActivity extends Activity implements OnClickListener {
 	
 	DiceRenderer diceview;
+	
+	DiceRollEnvironment dre;
+	CupEnvironment cup;
 	
     /** Called when the activity is first created. */
     @Override
@@ -38,18 +44,65 @@ public class DiceGameActivity extends Activity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,    
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         
+        
+        
         try{
 	        GLSurfaceView drawSurface = new GLSurfaceView(this);
-	        diceview=new DiceRenderer(this);
+	        drawSurface.setOnClickListener(this);
+	        
+	        DiceRenderer.setContext(this);
+	        diceview=DiceRenderer.getInstance();
+	        
 	        drawSurface.setRenderer(diceview);
 	        setContentView(drawSurface);
 	        
 	        Intent mintent = getIntent();
-	        int t = mintent.getIntExtra("actual", 6);
+	        int actual_roll = mintent.getIntExtra("actual", 6);
+	        int force_level = 1;
 	        
-	        diceview.showNumber(t);
+	        dre = new DiceRollEnvironment();
+	        cup = new CupEnvironment();
+	        
+	        dre.animationMode();
+	        cup.setSimulated(true);
+	        
+	        diceview.addEnvironment("cup", cup);
+	        diceview.addEnvironment("roll", dre);
+	        
+	        dre.setupPlay(force_level, actual_roll);
+	        
+	        diceview.setEnvironment("cup");
+	        
+	        
         }catch(Exception e){
         	e.printStackTrace();
         }
     }
+    
+    int clicks = 0;
+
+	public void onClick(View arg0) {
+		
+		if(clicks == 0){
+			cup.throwDie();
+	        
+			try{
+		        Thread.sleep(1000);
+			}catch(Exception e){
+				e.printStackTrace();
+			}
+	        
+	        diceview.setEnvironment("roll");
+	        
+			clicks++;
+		}else{
+			startActivity(new Intent(this,GamePromptActivity.class));
+			clicks=0;
+		}
+	}
+	
+	public void onBackPressed() {
+		startActivity(new Intent(this,FinalSurveyActivity.class));
+	}
+    
 }

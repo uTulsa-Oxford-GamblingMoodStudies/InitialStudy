@@ -102,7 +102,7 @@ public class GamePromptActivity extends Activity implements OnClickListener {
     }
     
 	public void onClick(View v) {
-		Intent iDiceGame = new Intent(this, DiceGame2DActivity.class);//TODO switch back to 3D graphics
+		Intent iDiceGame = new Intent(this, DiceGameActivity.class);//TODO switch back to 3D graphics
 		iDiceGame.putExtra("prompt", promptedRoll);
 		iDiceGame.putExtra("actual", actualRoll);
 		
