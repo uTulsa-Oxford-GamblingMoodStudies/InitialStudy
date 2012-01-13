@@ -376,6 +376,13 @@ public class CupEnvironment extends Environment {
 		return t.origin.y > 8;
 	}
 	
+	public synchronized float diceVerticalVelocity(){
+		Vector3f vel = new Vector3f();
+		die.getRigidBody().getLinearVelocity(vel);
+		
+		return vel.y;
+	}
+	
 	float gx=0,gy=-20f,gz=0;
 	
 	public synchronized void throwDie(){
