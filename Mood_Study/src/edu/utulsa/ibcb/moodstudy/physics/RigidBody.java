@@ -17,7 +17,7 @@ public class RigidBody extends SceneNode {
 	
 	public RigidBody(String n){
 		super(n);
-		super.collider=true;
+//		super.collider=true;
 	}
 	
 	public void setParent(SceneNode n){
