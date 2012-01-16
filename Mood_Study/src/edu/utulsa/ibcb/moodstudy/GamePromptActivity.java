@@ -8,7 +8,9 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -26,6 +28,7 @@ public class GamePromptActivity extends Activity implements OnClickListener {
 	
 	private int promptedRoll;
 	private int actualRoll;
+	private boolean threeD;
 	
 	/** Called when the activity is first created. */
     @Override
@@ -34,8 +37,19 @@ public class GamePromptActivity extends Activity implements OnClickListener {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,    
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        //Load layout from game_prompt.xml
-        setContentView(R.layout.game_prompt);
+        
+        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(this);
+    	Boolean gameshow = false;
+        //Load layout
+        if(settings.getString("Theme", "").equals("game_show")){
+        	gameshow= true;
+        	setContentView(R.layout.game_prompt);
+        }
+        else
+        	setContentView(R.layout.game_prompt);
+        if(settings.getString("GraphicsMode", "").equals("3D"))
+        	threeD=true;
+        
         
         int winning = (int)(Math.ceil(6*Math.random()));//0
         int play = (int)(Math.ceil(6*Math.random()));//0
@@ -102,7 +116,11 @@ public class GamePromptActivity extends Activity implements OnClickListener {
     }
     
 	public void onClick(View v) {
-		Intent iDiceGame = new Intent(this, DiceGameActivity.class);//TODO switch back to 3D graphics
+		Intent iDiceGame;
+		if(threeD)
+			iDiceGame = new Intent(this, DiceGameActivity.class);
+		else
+			iDiceGame = new Intent(this, DiceGame2DActivity.class);
 		iDiceGame.putExtra("prompt", promptedRoll);
 		iDiceGame.putExtra("actual", actualRoll);
 		
