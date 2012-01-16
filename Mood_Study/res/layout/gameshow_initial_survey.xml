@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" 
+    android:gravity="center_horizontal" 
+    android:background="@drawable/lucky_background">
+	<Button
+	        android:id="@+id/playButton"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_alignParentBottom="true"
+	        android:layout_centerHorizontal="true"
+	        android:gravity="center"
+	        android:text="@string/next_continue" 
+	        android:background="@drawable/lightblue_button" 
+	        android:layout_marginLeft="35dp" 
+	        android:layout_marginRight="35dp" 
+	        android:padding="5dp" 
+	        android:textColor="@color/prize_text">
+	</Button>
+	<RelativeLayout
+	    android:id="@+id/relativeLayout"
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+	    android:background="@drawable/lucky_background_bluebox" 
+	    android:layout_above="@id/playButton" 
+	    android:paddingLeft="50dp" 
+	    android:paddingRight="50dp" 
+	    android:paddingTop="20dp" 
+	    android:paddingBottom="20dp">
+
+	    <TextView android:layout_height="wrap_content" 
+	        android:text="@string/start_survey_prompt" 
+	        android:gravity="center" 
+	        android:id="@+id/moodPromptTextView" 
+	        android:layout_width="fill_parent" 
+	        android:textAppearance="?android:attr/textAppearanceLarge"></TextView>
+	    <SeekBar android:id="@+id/moodSeekBar" 
+	        android:layout_height="wrap_content" 
+	        android:layout_width="fill_parent" 
+	        android:progress="50" 
+	        android:layout_centerInParent="true" 
+	        android:max="100">
+	    </SeekBar>
+	    <TextView android:textAppearance="?android:attr/textAppearanceMedium" 
+	        android:layout_height="wrap_content" 
+	        android:layout_width="wrap_content"  
+	        android:id="@+id/badMoodTextView" 
+	        android:text="@string/start_survey_low" 
+	        android:layout_centerVertical="true">
+	    </TextView>
+	    <TextView android:textAppearance="?android:attr/textAppearanceMedium" 
+	        android:layout_height="wrap_content" 
+	        android:layout_width="wrap_content" 
+	        android:layout_alignParentTop="true" 
+	        android:id="@+id/goodMoodTextView" 
+	        android:layout_alignParentRight="true" 
+	        android:text="@string/start_survey_high" 
+	        android:layout_centerVertical="true">
+	    </TextView>
+	</RelativeLayout>
+</RelativeLayout>

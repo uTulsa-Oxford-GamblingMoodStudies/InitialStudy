@@ -7,8 +7,11 @@ import edu.utulsa.ibcb.moodstudy.R;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -20,7 +23,7 @@ import android.widget.Button;
  *Provides buttons to play(move to the instructions page) or register(not yet implemented)
  *@author Eric Kuxhausen
  */
-public class MainActivity extends Activity implements OnClickListener{
+public class MainActivity extends Activity implements OnClickListener, OnSharedPreferenceChangeListener{
     
 	/** Called when the activity is first created. */
     @Override
@@ -33,36 +36,68 @@ public class MainActivity extends Activity implements OnClickListener{
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,    
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
        
-        //Load layout from main.xml
-        setContentView(R.layout.main);
+        //add default preferences if no preferences exist
+        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(this);
+        settings.registerOnSharedPreferenceChangeListener(this);
+        if(!settings.contains("Theme")){
+        	settings.edit().putString("Theme", getString(R.string.theme_preference));
+        	settings.edit().commit();
+        }	
+        if(!settings.contains("GraphicsMode")){
+        	settings.edit().putString("GraphicsMode", getString(R.string.graphics_mode_preference));
+        	settings.edit().commit();
+        }
+        
+        load();
+    }
+    
+    /** Load performs many duties normally found in onCreate, but also needed when reloading after a Theme change 
+     */
+    public void load()
+    {
+    	SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(this);
+    	Boolean gameshow = false;
+        //Load layout
+        if(settings.getString("Theme", "").equals("game_show")){
+        	gameshow= true;
+        	setContentView(R.layout.gameshow_main);
+        }
+        else
+        	setContentView(R.layout.main);
         
         //create the typeface to be used by all app text
         Typeface tf = Typeface.createFromAsset(getApplicationContext().getAssets(), "archer_medium_pro.otf");
         
         Button playButton = (Button) findViewById(R.id.playButtonMain);
         playButton.setOnClickListener(this);
-        playButton.setTypeface(tf);
+        if(gameshow)	
+        	playButton.setTypeface(tf);
   
         Button registerButton = (Button) findViewById(R.id.registerButtonMain);
         registerButton.setOnClickListener(this);
-        registerButton.setTypeface(tf);
+        if(gameshow)
+        	registerButton.setTypeface(tf);
+        
+        Button settingsButton = (Button) findViewById(R.id.settingsButtonMain);
+        settingsButton.setOnClickListener(this);
+        if(gameshow)
+        	settingsButton.setTypeface(tf);
         
 //        if(RpcClient.getInstance(this).getOption("username")==null){
-        	playButton.setText("Login");
-        	registerButton.setText("Register");
+//        	playButton.setText("Login");
+//        	registerButton.setText("Register");
 //        }
 //        else{
-        	playButton.setText("Play");
-        	registerButton.setText("Logout");
+//        	playButton.setText("Play");
+//        	registerButton.setText("Logout");
 //        }
     }
     
 	public void onClick(View v) {
-		
-		
 /*		if(RpcClient.getInstance(this).getOption("username")!=null){
 */	    	switch(v.getId()){
 	       		case R.id.playButtonMain:  startActivity(new Intent(this, InstructionsActivity.class)); break;
+	       		case R.id.settingsButtonMain: startActivity(new Intent(this, DevelopmentPreferencesActivity.class)); break;
 /*	       		case R.id.registerButtonMain: 
 	       			RpcClient.getInstance(this).deleteOptions(this, "username","password");
 	       			Button playButton = (Button) findViewById(R.id.playButtonMain);
@@ -77,5 +112,14 @@ public class MainActivity extends Activity implements OnClickListener{
        			case R.id.registerButtonMain: startActivity(new Intent(this, RegistrationActivity.class));
 			}
 */		}
+	}
+
+	public void onSharedPreferenceChanged(SharedPreferences sharedPreferences,
+			String key) {
+		if(key.equals("Theme"))
+		{
+			//Reload layout
+			load();
+		}	
 	}
 }

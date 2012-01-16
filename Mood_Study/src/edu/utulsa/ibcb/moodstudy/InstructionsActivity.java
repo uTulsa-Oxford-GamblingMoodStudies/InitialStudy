@@ -4,8 +4,10 @@ import edu.utulsa.ibcb.moodstudy.R;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -29,21 +31,27 @@ public class InstructionsActivity extends Activity implements OnClickListener{
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,    
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         
-        //Load layout from instructions.xml
-        setContentView(R.layout.instructions);
-        
-        //create the typeface to be used by all app text
-        Typeface tf = Typeface.createFromAsset(getApplicationContext().getAssets(), "archer_medium_pro.otf");
+        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(this);
+    	Boolean gameshow = false;
+        //Load layout
+        if(settings.getString("Theme", "").equals("game_show")){
+        	gameshow= true;
+        	setContentView(R.layout.gameshow_instructions);
+        }
+        else
+        	setContentView(R.layout.instructions);
         
         TextView instructionView = (TextView) findViewById(R.id.instructionsTextView);
-        instructionView.setTypeface(tf);
-        //changing the typeface for this much text messes with the entire activity layout spacing
-        
-        
         Button continueButton = (Button) findViewById(R.id.continueButton);
         continueButton.setOnClickListener(this);
-        continueButton.setTypeface(tf);
         
+        if(gameshow){
+	        //create the typeface to be used by all app text
+	        Typeface tf = Typeface.createFromAsset(getApplicationContext().getAssets(), "archer_medium_pro.otf");
+	        instructionView.setTypeface(tf);
+	        //changing the typeface for this much text messes with the entire activity layout spacing
+	        continueButton.setTypeface(tf);
+	    }  
     }
 
 	public void onClick(View v) {

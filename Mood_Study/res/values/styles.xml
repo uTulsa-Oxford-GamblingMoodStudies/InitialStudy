@@ -1,14 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <style name="AppText" parent="@android:style/TextAppearance.Medium">
-    </style>
-
-    
+    </style> 
     <style name="AppText.Main">
-        <item name="android:background">@drawable/blue_button</item>
         <item name="android:layout_marginBottom">10dp</item>
-        <item name="android:layout_marginLeft">40dp</item>
-        <item name="android:layout_marginRight">40dp</item>
+        <item name="android:layout_marginLeft">60dp</item>
+        <item name="android:layout_marginRight">60dp</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:padding">5dp</item>
+    </style>
+    <style name="AppText.GameShowMain">
+        <item name="android:background">@drawable/blue_button</item>
+        <item name="android:layout_marginBottom">5dp</item>
+        <item name="android:layout_marginLeft">50dp</item>
+        <item name="android:layout_marginRight">50dp</item>
         <item name="android:padding">5dp</item>
         <item name="android:textColor">@color/yellow</item>
         <item name="android:textSize">30dp</item>

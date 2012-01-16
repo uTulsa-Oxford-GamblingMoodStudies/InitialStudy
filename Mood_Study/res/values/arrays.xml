@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="graphics">
+        <item >2D</item>
+        <item >3D</item>
+    </string-array>
+    <string-array name="themes">
+        <item >Minimalist Theme</item>
+        <item >Game Show Theme</item>
+    </string-array>
+    <string-array name="graphics_values">
+        <item >2D</item>
+        <item >3D</item>
+    </string-array>
+    <string-array name="themes_values">
+        <item >minimalist</item>
+        <item >game_show</item>
+    </string-array>    
+</resources>

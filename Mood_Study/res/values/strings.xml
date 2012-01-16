@@ -30,5 +30,10 @@
     <string name="final_survey_high">Total control</string>
     <string name="replay">Replay</string>
     <string name="exit">Exit</string>
-    <string name="placeholder">placeholder</string>    
+    <string name="placeholder">placeholder</string>
+    <string name="graphics_mode_preference">Graphics Mode</string>
+    <string name="graphics_mode_default">2D</string><string name="theme_preference">Theme</string>
+    
+    <string name="theme_default">minimalist</string>
+    <string name="settings">Settings</string>    
 </resources>
