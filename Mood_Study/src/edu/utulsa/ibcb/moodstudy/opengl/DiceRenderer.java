@@ -55,9 +55,22 @@ public class DiceRenderer implements Renderer {
 	
 	public static DiceRenderer getInstance(){
 		if(singleton==null){
+			System.out.println("Creating new dicerenderer...");
 			singleton = new DiceRenderer();
+			singleton.createEnvironments();
 		}
 		return singleton;
+	}
+	
+	public void createEnvironments(){
+		DiceRollEnvironment dre = new DiceRollEnvironment();
+        CupEnvironment cup = new CupEnvironment();
+        
+        dre.animationMode();
+        cup.setSimulated(true);
+        
+        this.addEnvironment("cup", cup);
+        this.addEnvironment("roll", dre);
 	}
 
 	// GL and display related variables
@@ -160,6 +173,10 @@ public class DiceRenderer implements Renderer {
 		Environment e = environments.get(name);
 		current = e;
 		switchToNewEnvironment=true;
+	}
+	
+	public Environment getEnvironment(String name){
+		return environments.get(name);
 	}
 	
 	public void reset(){

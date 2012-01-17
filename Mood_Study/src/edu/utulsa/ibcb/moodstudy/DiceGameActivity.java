@@ -32,9 +32,6 @@ public class DiceGameActivity extends Activity implements OnClickListener {
 	
 	DiceRenderer diceview;
 	
-	DiceRollEnvironment dre;
-	CupEnvironment cup;
-	
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -60,16 +57,7 @@ public class DiceGameActivity extends Activity implements OnClickListener {
 	        int actual_roll = mintent.getIntExtra("actual", 6);
 	        int force_level = 1;
 	        
-	        dre = new DiceRollEnvironment();
-	        cup = new CupEnvironment();
-	        
-	        dre.animationMode();
-	        cup.setSimulated(true);
-	        
-	        diceview.addEnvironment("cup", cup);
-	        diceview.addEnvironment("roll", dre);
-	        
-	        dre.setupPlay(force_level, actual_roll);
+	        ((DiceRollEnvironment)diceview.getEnvironment("roll")).setupPlay(force_level, actual_roll);
 	        
 	        diceview.setEnvironment("cup");
 	        
@@ -84,7 +72,7 @@ public class DiceGameActivity extends Activity implements OnClickListener {
 	public void onClick(View arg0) {
 		
 		if(clicks == 0){
-			cup.throwDie();
+			((CupEnvironment)diceview.getEnvironment("cup")).throwDie();
 	        
 			try{
 		        Thread.sleep(1000);
