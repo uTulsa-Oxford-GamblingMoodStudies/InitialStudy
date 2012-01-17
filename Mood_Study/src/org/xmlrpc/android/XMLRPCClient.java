@@ -23,6 +23,9 @@ import org.apache.http.params.HttpProtocolParams;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserFactory;
 
+import android.content.Context;
+
+
 /**
  * XMLRPCClient allows to call remote XMLRPC method.
  * 
@@ -79,7 +82,7 @@ public class XMLRPCClient extends XMLRPCCommon {
 	 * XMLRPCClient constructor. Creates new instance based on server URI
 	 * @param XMLRPC server URI
 	 */
-	public XMLRPCClient(URI uri) {
+	public XMLRPCClient(URI uri, Context context) {
 		postMethod = new HttpPost(uri);
 		postMethod.addHeader("Content-Type", "text/xml");
 		
@@ -88,23 +91,23 @@ public class XMLRPCClient extends XMLRPCCommon {
 		// two second delay between sending http POST request and POST body 
 		httpParams = postMethod.getParams();
 		HttpProtocolParams.setUseExpectContinue(httpParams, false);
-		client = new DefaultHttpClient();
+		client = new SSLTrustHttpClient(context);
 	}
 	
 	/**
 	 * Convenience constructor. Creates new instance based on server String address
 	 * @param XMLRPC server address
 	 */
-	public XMLRPCClient(String url) {
-		this(URI.create(url));
+	public XMLRPCClient(String url, Context context) {
+		this(URI.create(url), context);
 	}
 
 	/**
 	 * Convenience XMLRPCClient constructor. Creates new instance based on server URL
 	 * @param XMLRPC server URL
 	 */
-	public XMLRPCClient(URL url) {
-		this(URI.create(url.toExternalForm()));
+	public XMLRPCClient(URL url, Context context) {
+		this(URI.create(url.toExternalForm()), context);
 	}
 
 	/**
@@ -113,8 +116,8 @@ public class XMLRPCClient extends XMLRPCCommon {
 	 * @param HTTP Server - Basic Authentication - Username
 	 * @param HTTP Server - Basic Authentication - Password
 	 */	
-	public XMLRPCClient(URI uri, String username, String password) {
-        this(uri);
+	public XMLRPCClient(URI uri, String username, String password, Context context) {
+        this(uri, context);
         
         ((DefaultHttpClient) client).getCredentialsProvider().setCredentials(
         new AuthScope(uri.getHost(), uri.getPort(),AuthScope.ANY_REALM),
@@ -127,8 +130,8 @@ public class XMLRPCClient extends XMLRPCCommon {
 	 * @param HTTP Server - Basic Authentication - Username
 	 * @param HTTP Server - Basic Authentication - Password
 	 */
-	public XMLRPCClient(String url, String username, String password) {
-		this(URI.create(url), username, password);
+	public XMLRPCClient(String url, String username, String password, Context context) {
+		this(URI.create(url), username, password, context);
 	}
 
 	/**
@@ -137,8 +140,8 @@ public class XMLRPCClient extends XMLRPCCommon {
 	 * @param HTTP Server - Basic Authentication - Username
 	 * @param HTTP Server - Basic Authentication - Password
 	 */
-	public XMLRPCClient(URL url, String username, String password) {
-		this(URI.create(url.toExternalForm()), username, password);
+	public XMLRPCClient(URL url, String username, String password, Context context) {
+		this(URI.create(url.toExternalForm()), username, password, context);
 	}
 
 	/**

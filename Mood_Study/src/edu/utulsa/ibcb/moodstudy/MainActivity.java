@@ -6,6 +6,8 @@ import org.xmlrpc.android.XMLRPCException;
 import edu.utulsa.ibcb.moodstudy.R;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
@@ -94,24 +96,35 @@ public class MainActivity extends Activity implements OnClickListener, OnSharedP
     }
     
 	public void onClick(View v) {
-/*		if(RpcClient.getInstance(this).getOption("username")!=null){
-*/	    	switch(v.getId()){
-	       		case R.id.playButtonMain:  startActivity(new Intent(this, InstructionsActivity.class)); break;
-	       		case R.id.settingsButtonMain: startActivity(new Intent(this, DevelopmentPreferencesActivity.class)); break;
-/*	       		case R.id.registerButtonMain: 
-	       			RpcClient.getInstance(this).deleteOptions(this, "username","password");
-	       			Button playButton = (Button) findViewById(R.id.playButtonMain);
-	       	        Button registerButton = (Button) findViewById(R.id.registerButtonMain);
-	       			playButton.setText("Login");
-	            	registerButton.setText("Register");
-	       			break;
-	    	}
-		}else{
-			switch(v.getId()){
-       			case R.id.playButtonMain:  startActivity(new Intent(this, LoginActivity.class)); break;
-       			case R.id.registerButtonMain: startActivity(new Intent(this, RegistrationActivity.class));
-			}
-*/		}
+    	switch(v.getId()){
+       		case R.id.playButtonMain:  
+       			if(RpcClient.getInstance(this).getOption("username")!=null)
+       				startActivity(new Intent(this, InstructionsActivity.class)); 
+   				else
+   					createDialog("Wait!", "Please register before playing.", 
+								new DialogInterface.OnClickListener(){
+				 	           public void onClick(DialogInterface dialog, int id) {
+					                dialog.dismiss();
+					           }});
+				break;
+       		case R.id.settingsButtonMain: 
+       			startActivity(new Intent(this, DevelopmentPreferencesActivity.class)); 
+       			break;
+       		case R.id.registerButtonMain: 
+       			startActivity(new Intent(this, RegistrationActivity.class));
+       			break;
+    	}
+	}
+	
+	
+	public void createDialog(String title, String message, DialogInterface.OnClickListener click ){
+    	
+    	AlertDialog.Builder builder = new AlertDialog.Builder(this);
+    	builder.setMessage(message)
+    		   .setTitle(title)
+    	       .setNeutralButton("Ok", click);
+    	AlertDialog alert = builder.create();
+    	alert.show();
 	}
 
 	public void onSharedPreferenceChanged(SharedPreferences sharedPreferences,
