@@ -70,6 +70,27 @@ public class CupEnvironment extends Environment {
 		gl.glLightfv(GL10.GL_LIGHT0, GL10.GL_POSITION, FloatBuffer.wrap(new float[]{3.0f,3.0f,0.0f}));
 	}
 	
+	public synchronized void reloadGLContent(GL10 gl){
+		for(Mesh object : diefaces.getObjects()){
+			int texid=0;
+			Context pContext = DiceRenderer.getContext();
+			if(object.getName().equals("f1"))
+				texid = TextureUtils.loadTexture(gl, pContext, R.drawable.f1);
+			if(object.getName().equals("f2"))
+				texid = TextureUtils.loadTexture(gl, pContext, R.drawable.f2);
+			if(object.getName().equals("f3"))
+				texid = TextureUtils.loadTexture(gl, pContext, R.drawable.f3);
+			if(object.getName().equals("f4"))
+				texid = TextureUtils.loadTexture(gl, pContext, R.drawable.f4);
+			if(object.getName().equals("f5"))
+				texid = TextureUtils.loadTexture(gl, pContext, R.drawable.f5);
+			if(object.getName().equals("f6"))
+				texid = TextureUtils.loadTexture(gl, pContext, R.drawable.f6);
+			
+			object.setTexture(texid);
+		}
+	}
+	
 	public synchronized  void setupEnvironment(GL10 gl){
 		
 		try{

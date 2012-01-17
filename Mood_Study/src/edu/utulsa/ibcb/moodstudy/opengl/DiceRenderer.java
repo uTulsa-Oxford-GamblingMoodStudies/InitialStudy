@@ -231,6 +231,13 @@ public class DiceRenderer implements Renderer {
 		// TODO Auto-generated method stub
 		
 		init(gl);
+		
+		
+		for(Environment e : environments.values()){
+			if(e.initialized())
+				e.reloadGLContent(gl);
+		}
+		
 	}
 	
 
@@ -246,6 +253,7 @@ public class DiceRenderer implements Renderer {
 			if(e.isSimulated)
 				e.initJBullet();
 			e.setupEnvironment(gl);
+			e.setInitialized();
 			e.resetScene();
 		}
 

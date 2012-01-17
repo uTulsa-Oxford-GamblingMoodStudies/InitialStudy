@@ -84,9 +84,22 @@ public abstract class Environment {
 	
 	float mintimestep = 1.0f/60.0f;
 	
+	boolean initialized = false;
+	
+	public boolean initialized(){
+		return initialized;
+	}
+	
+	public void setInitialized(){
+		initialized=true;
+	}
+	
 	public abstract void initPhysicalProperties();
 	
 	public abstract void setupEnvironment(GL10 gl);
+	
+	public abstract void reloadGLContent(GL10 gl);
+	
 	public abstract void setupGLProperties(GL10 gl);
 	
 	public abstract void updateForces(float dt);
