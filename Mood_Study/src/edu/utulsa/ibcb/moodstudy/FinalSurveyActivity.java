@@ -43,31 +43,35 @@ public class FinalSurveyActivity extends Activity implements OnClickListener{
 
 	public void onClick(View v) {
 
-    	int control = ((SeekBar)findViewById(R.id.moodSeekBar)).getProgress();
     	
-/*    	try{
-    		RpcClient.getInstance(this).finalizeSession(control);
-    		RpcClient.getInstance(this).setSession(-1);
-    		finish();
-    	}catch(XMLRPCException xrpc){
-			xrpc.printStackTrace();
-        	
-        	StackTraceElement[] stack = xrpc.getStackTrace();
-        	
-        	AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        	builder.setMessage("Error:" + xrpc.getMessage() + "\nIn:" + stack[stack.length-1].getClassName())
-        		   .setTitle("Error")
-        	       .setNeutralButton("Ok", new DialogInterface.OnClickListener() {
-        	           public void onClick(DialogInterface dialog, int id) {
-        	                FinalSurveyActivity.this.finish();
-        	           }
-        	       });
-        	AlertDialog alert = builder.create();
-        	alert.show();
-    	}
-*/	
+
     	switch(v.getId()){
-    	case R.id.exitButton: finish(); break;
+    	case R.id.exitButton: 
+    		int control = ((SeekBar)findViewById(R.id.moodSeekBar)).getProgress();
+        	
+        	try{
+        		RpcClient.getInstance(this).finalizeSession(control);
+        		RpcClient.getInstance(this).setSession(-1);
+        		finish();
+        	}catch(XMLRPCException xrpc){
+    			xrpc.printStackTrace();
+            	
+            	StackTraceElement[] stack = xrpc.getStackTrace();
+            	
+            	AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            	builder.setMessage("Error:" + xrpc.getMessage() + "\nIn:" + stack[stack.length-1].getClassName())
+            		   .setTitle("Error")
+            	       .setNeutralButton("Ok", new DialogInterface.OnClickListener() {
+            	           public void onClick(DialogInterface dialog, int id) {
+            	                FinalSurveyActivity.this.finish();
+            	           }
+            	       });
+            	AlertDialog alert = builder.create();
+            	alert.show();
+        	}
+    		
+    		finish(); 
+    	break;
     	case R.id.replayButton: startActivity(new Intent(this, GamePromptActivity.class));
     	}	
 	

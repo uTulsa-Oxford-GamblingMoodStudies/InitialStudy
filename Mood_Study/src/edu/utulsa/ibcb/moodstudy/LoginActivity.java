@@ -5,6 +5,7 @@ import org.xmlrpc.android.XMLRPCException;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
@@ -32,6 +33,8 @@ public class LoginActivity extends Activity implements OnClickListener{
 		Button login_button = (Button)findViewById(R.id.loginSubmit);
 		login_button.setOnClickListener(this);
         
+		Button register_button = (Button)findViewById(R.id.registerLoginButton);
+		register_button.setOnClickListener(this);
 	}
 	
 	
@@ -45,32 +48,51 @@ public class LoginActivity extends Activity implements OnClickListener{
     	alert.show();
 	}
 	
+	 protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		  super.onActivityResult(requestCode, resultCode, data);
+		  if(resultCode==RESULT_OK && requestCode==1){
+		   String msg = data.getStringExtra("returnedData");
+		   
+		   if(msg.equals("completed")){
+			   finish();
+		   }
+		  }
+	 }
+	
 	public void onClick(View v) {
-		String user = ((TextView) findViewById(R.id.username_field)).getText().toString();
-		String pass = ((TextView) findViewById(R.id.pass_field)).getText().toString();
 		
-		try{
-			boolean success = callServer.login(user, pass);
+		switch(v.getId()){
+		case R.id.loginSubmit:
+			String user = ((TextView) findViewById(R.id.username_field)).getText().toString();
+			String pass = ((TextView) findViewById(R.id.pass_field)).getText().toString();
 			
-			if(success){
-				callServer.setOptions(this, RpcClient.USERNAME_OPTION, user, RpcClient.PASSWORD_OPTION, pass);
-				((TextView) findViewById(R.id.username_field)).setText("");
-				((TextView) findViewById(R.id.pass_field)).setText("");
-				finish();
+			try{
+				boolean success = callServer.login(user, pass);
+				
+				if(success){
+					callServer.setOptions(this, RpcClient.USERNAME_OPTION, user, RpcClient.PASSWORD_OPTION, pass);
+					((TextView) findViewById(R.id.username_field)).setText("");
+					((TextView) findViewById(R.id.pass_field)).setText("");
+					finish();
+				}
+			}catch(XMLRPCException xrpc){
+				xrpc.printStackTrace();
+	        	StackTraceElement[] stack = xrpc.getStackTrace();
+	        	
+	        	createDialog("Error","Error:" + xrpc.getMessage() + "\nIn:" + stack[stack.length-1].getClassName(),new DialogInterface.OnClickListener() {
+	 	           public void onClick(DialogInterface dialog, int id) {
+	 	                dialog.dismiss();
+	 	           }
+	 	        });
+	        	
+	    		((EditText) findViewById(R.id.username_field)).getText().clear();
+	    		((EditText) findViewById(R.id.pass_field)).getText().clear();
+	        	
 			}
-		}catch(XMLRPCException xrpc){
-			xrpc.printStackTrace();
-        	StackTraceElement[] stack = xrpc.getStackTrace();
-        	
-        	createDialog("Error","Error:" + xrpc.getMessage() + "\nIn:" + stack[stack.length-1].getClassName(),new DialogInterface.OnClickListener() {
- 	           public void onClick(DialogInterface dialog, int id) {
- 	                dialog.dismiss();
- 	           }
- 	        });
-        	
-    		((EditText) findViewById(R.id.username_field)).getText().clear();
-    		((EditText) findViewById(R.id.pass_field)).getText().clear();
-        	
+		case R.id.registerLoginButton:
+			startActivityForResult(new Intent(this, RegistrationActivity.class), 1);
+			break;
 		}
+		
 	}
 }

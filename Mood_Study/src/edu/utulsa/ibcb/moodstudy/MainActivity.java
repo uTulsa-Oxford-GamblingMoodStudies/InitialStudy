@@ -75,24 +75,16 @@ public class MainActivity extends Activity implements OnClickListener, OnSharedP
         if(gameshow)	
         	playButton.setTypeface(tf);
   
-        Button registerButton = (Button) findViewById(R.id.registerButtonMain);
-        registerButton.setOnClickListener(this);
+        Button loginButton = (Button) findViewById(R.id.loginButtonMain);
+        loginButton.setOnClickListener(this);
         if(gameshow)
-        	registerButton.setTypeface(tf);
+        	loginButton.setTypeface(tf);
         
         Button settingsButton = (Button) findViewById(R.id.settingsButtonMain);
         settingsButton.setOnClickListener(this);
         if(gameshow)
         	settingsButton.setTypeface(tf);
         
-//        if(RpcClient.getInstance(this).getOption("username")==null){
-//        	playButton.setText("Login");
-//        	registerButton.setText("Register");
-//        }
-//        else{
-//        	playButton.setText("Play");
-//        	registerButton.setText("Logout");
-//        }
     }
     
 	public void onClick(View v) {
@@ -101,7 +93,7 @@ public class MainActivity extends Activity implements OnClickListener, OnSharedP
        			if(RpcClient.getInstance(this).getOption("username")!=null)
        				startActivity(new Intent(this, InstructionsActivity.class)); 
    				else
-   					createDialog("Wait!", "Please register before playing.", 
+   					createDialog("Wait!", "Please register or login before playing.", 
 								new DialogInterface.OnClickListener(){
 				 	           public void onClick(DialogInterface dialog, int id) {
 					                dialog.dismiss();
@@ -110,8 +102,8 @@ public class MainActivity extends Activity implements OnClickListener, OnSharedP
        		case R.id.settingsButtonMain: 
        			startActivity(new Intent(this, DevelopmentPreferencesActivity.class)); 
        			break;
-       		case R.id.registerButtonMain: 
-       			startActivity(new Intent(this, RegistrationActivity.class));
+       		case R.id.loginButtonMain: 
+       			startActivity(new Intent(this, LoginActivity.class));
        			break;
     	}
 	}

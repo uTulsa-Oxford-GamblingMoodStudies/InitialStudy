@@ -33,6 +33,12 @@
         android:layout_height="wrap_content"
         android:inputType="textPassword" />
 
+    <Button
+        android:id="@+id/loginSubmit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/login_submit" />
+
     <LinearLayout
         android:id="@+id/linearLayout1"
         android:layout_width="match_parent"
@@ -40,12 +46,19 @@
         android:orientation="vertical" 
         android:gravity="bottom"
          >
-
-        <Button
-            android:id="@+id/loginSubmit"
-            android:layout_width="match_parent"
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/login_submit" />
+            android:text="Don&apos;t have an account yet?"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+        <Button
+            android:id="@+id/registerLoginButton"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Register..." />
 
     </LinearLayout>
 

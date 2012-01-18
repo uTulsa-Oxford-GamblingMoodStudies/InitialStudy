@@ -5,6 +5,7 @@ import org.xmlrpc.android.XMLRPCException;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -88,6 +89,14 @@ public class RegistrationActivity extends Activity implements OnClickListener{
     	alert.show();
 	}
 	
+	public void onBackPressed(){
+		Intent intent = getIntent();
+		intent.putExtra("returnedData", "failed");
+		setResult(RESULT_OK, intent);
+		
+		finish();
+	}
+	
 	public void onClick(View v) {
 		String user = ((TextView) findViewById(R.id.username_field)).getText().toString();
 		String pass1 = ((TextView) findViewById(R.id.pass1_field)).getText().toString();
@@ -113,6 +122,11 @@ public class RegistrationActivity extends Activity implements OnClickListener{
 				((TextView) findViewById(R.id.pass2_field)).setText("");
 				((TextView) findViewById(R.id.realname_field)).setText("");
 				((TextView) findViewById(R.id.captchaEntry)).setText("");
+				
+				Intent intent = getIntent();
+				intent.putExtra("returnedData", "completed");
+				setResult(RESULT_OK, intent);
+				
 				finish();
 			}
 		}catch(XMLRPCException xrpc){

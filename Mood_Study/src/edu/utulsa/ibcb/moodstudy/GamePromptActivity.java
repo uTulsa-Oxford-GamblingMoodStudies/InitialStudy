@@ -51,9 +51,9 @@ public class GamePromptActivity extends Activity implements OnClickListener {
         	threeD=true;
         
         
-        int winning = (int)(Math.ceil(6*Math.random()));//0
-        int play = (int)(Math.ceil(6*Math.random()));//0
-/*        try{
+        int winning = 0;//(int)(Math.ceil(6*Math.random()));//0
+        int play = 0;//(int)(Math.ceil(6*Math.random()));//0
+        try{
         	int[] response = RpcClient.getInstance(this).play();
         	winning = response[0];
         	play = response[1];
@@ -73,7 +73,7 @@ public class GamePromptActivity extends Activity implements OnClickListener {
         	AlertDialog alert = builder.create();
         	alert.show();
         }
-*/        
+
         promptedRoll = winning;
         actualRoll = play;
         

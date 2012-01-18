@@ -11,6 +11,7 @@
     <string name="login_submit">Submit</string>
     <string name="play">Play</string>
     <string name="register">Register</string>
+    <string name="login">Login</string>
     <string name="instructions">In this game, you can roll a die for monetary prizes. The procedure is simple. On each go, we will tell you a winning number and ask you to touch the prize that goes with that number on the touch screen. This is so that we can be sure you know which prize is at stake. Then we will ask you to roll a single fair die. If you roll the winning number you will win the prize; if you don’t roll the winning number, you will be offered another go. In this game, the prizes are as follows: you will win 10p if you roll a \'1\'; 20p if you roll a \'2\'; 30p if you roll a \'3\'; 40p if you roll a \'4\'; 50p if you roll a \'5\' and 60p if you roll a \'6\' The die in the game is fair and the outcomes of each play are random.</string>
     <string name="skip">Skip Instructions</string>
     <string name="start_survey_prompt">How lucky do you feel right now?</string>

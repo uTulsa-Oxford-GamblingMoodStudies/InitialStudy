@@ -21,7 +21,7 @@ public class RpcClient {
 	private static final String configFile = ".settings";
 	
 	private static final String protocol = "https";
-	private static final String RPCserver = "192.168.1.100";
+	private static final String RPCserver = "129.244.245.205";
 	//private static final String RPCport = "80";
 	public static String RPCscript = "service.php";
 	
@@ -87,7 +87,7 @@ public class RpcClient {
 			client = new XMLRPCClient(url, context);
 			options = new ConcurrentHashMap<String,String>();
 			
-			setOptions(context,"username","matt.matlock@gmail.com","password","z38lives");
+			//setOptions(context,"username","matt.matlock@gmail.com","password","z38lives");
 			
 			load(context);
 		}
