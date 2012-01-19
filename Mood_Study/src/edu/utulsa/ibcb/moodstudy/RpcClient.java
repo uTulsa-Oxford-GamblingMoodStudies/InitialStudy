@@ -12,6 +12,7 @@ import org.xmlrpc.android.XMLRPCClient;
 import org.xmlrpc.android.XMLRPCException;
 
 import android.content.Context;
+import android.util.Base64;
 
 public class RpcClient {
 	
@@ -44,6 +45,11 @@ public class RpcClient {
 	public static RpcClient getInstance(Context context){
 		instance.ensureLoaded(context);
 		return instance;
+	}
+	
+	public void upload(byte[] data) throws XMLRPCException{
+		String base64data = Base64.encodeToString(data, Base64.NO_WRAP);
+		client.call("upload", options.get("username"), options.get("password"), base64data);
 	}
 	
 	public Integer startSession(int lucky) throws XMLRPCException{

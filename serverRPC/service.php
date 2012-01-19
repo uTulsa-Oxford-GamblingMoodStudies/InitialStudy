@@ -171,14 +171,15 @@ global $xmlrpcerruser, $db_user, $db_pass, $db_database, $db_url, $db_port, $dat
     
     $uid = $rval;
     
-    $md5 = $m->getParam(2)->scalarVal();    
-    $data = $m->getParam(3)->scalarVal();
+    $data = $m->getParam(2)->scalarVal();
+    
+    // $md5 = $m->getParam(3)->scalarVal();
 
     // check the data against the MD5
     
-    if(!($md5 === md5($data))){
-        return new xmlrpcresp(0, $xmlrpcerruser, "MD5 mismatch: Data corrupted in transmission?");
-    }
+    // if(!($md5 === md5($data))){
+    //     return new xmlrpcresp(0, $xmlrpcerruser, "MD5 mismatch: Data corrupted in transmission?");
+    // }
         
     // base64 decode
     
@@ -202,7 +203,7 @@ global $xmlrpcerruser, $db_user, $db_pass, $db_database, $db_url, $db_port, $dat
     }
     
     $newfile="$pid.$time.data";
-    $file = fopen ($data_dir.DIRECTORY_SEPARATOR.$newfile, "w");
+    $file = fopen ($data_dir.DIRECTORY_SEPARATOR.$newfile, "wb");
     fwrite($file, $str_form);
     fclose ($file);
     
