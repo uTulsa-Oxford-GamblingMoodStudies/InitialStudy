@@ -33,8 +33,9 @@
     <string name="exit">Exit</string>
     <string name="placeholder">placeholder</string>
     <string name="graphics_mode_preference">Graphics Mode</string>
-    <string name="graphics_mode_default">2D</string><string name="theme_preference">Theme</string>
-    
+    <string name="graphics_mode_default">2D</string><string name="theme_preference">Theme</string> 
     <string name="theme_default">minimalist</string>
-    <string name="settings">Settings</string>    
+    <string name="settings">Settings</string>
+    <string name="winning_message">You have won XXp!</string><string name="losing_message">Bad luck! Have another go....</string>
+    <string name="replay_prompt">Let\'s go</string>    
 </resources>

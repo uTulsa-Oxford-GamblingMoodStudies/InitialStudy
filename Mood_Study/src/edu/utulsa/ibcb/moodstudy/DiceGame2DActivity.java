@@ -58,23 +58,29 @@ public class DiceGame2DActivity extends Activity {
         actual = getIntent().getExtras().getInt("actual", 0);
         prompt = getIntent().getExtras().getInt("prompt", 0);
         mSimulationView.setDice(prompt,actual);
-
-        
+    
+    }
+    
+    public void onGameOver(){
+    	setContentView(R.layout.main);
+    	Intent iOver = new Intent(this,FinalSurveyActivity.class);
+    	iOver.putExtra("won", actual==prompt);
+    	startActivity(iOver);
     }
     
     @Override
 	public void onBackPressed() {
-	startActivity(new Intent(this,FinalSurveyActivity.class));
+    	startActivity(new Intent(this,FinalSurveyActivity.class));
 	}
 
     @Override
     protected void onResume() {
         super.onResume();
         /*
-* when the activity is resumed, we acquire a wake-lock so that the
-* screen stays on, since the user will likely not be fiddling with the
-* screen or buttons.
-*/
+		* when the activity is resumed, we acquire a wake-lock so that the
+		* screen stays on, since the user will likely not be fiddling with the
+		* screen or buttons.
+		*/
         mWakeLock.acquire();
 
         // Start the simulation
@@ -85,9 +91,9 @@ public class DiceGame2DActivity extends Activity {
     protected void onPause() {
         super.onPause();
         /*
-* When the activity is paused, we make sure to stop the simulation,
-* release our sensor resources and wake locks
-*/
+		* When the activity is paused, we make sure to stop the simulation,
+		* release our sensor resources and wake locks
+		*/
 
         // Stop the simulation
         mSimulationView.stopSimulation();
@@ -98,20 +104,20 @@ public class DiceGame2DActivity extends Activity {
 
     
     /**
-* Copyright (C) 2010 The Android Open Source Project
-*
-* Licensed under the Apache License, Version 2.0 (the "License");
-* you may not use this file except in compliance with the License.
-* You may obtain a copy of the License at
-*
-* http://www.apache.org/licenses/LICENSE-2.0
-*
-* Unless required by applicable law or agreed to in writing, software
-* distributed under the License is distributed on an "AS IS" BASIS,
-* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-* See the License for the specific language governing permissions and
-* limitations under the License.
-*/
+	* Based on code Copyright (C) 2010 The Android Open Source Project, modifications have been made
+	*
+	* Licensed under the Apache License, Version 2.0 (the "License");
+	* you may not use this file except in compliance with the License.
+	* You may obtain a copy of the License at
+	*
+	* http://www.apache.org/licenses/LICENSE-2.0
+	*
+	* Unless required by applicable law or agreed to in writing, software
+	* distributed under the License is distributed on an "AS IS" BASIS,
+	* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+	* See the License for the specific language governing permissions and
+	* limitations under the License.
+	*/
     class SimulationView extends View implements SensorEventListener {
         // diameter of the balls in meters
         private static final float sBallDiameter = 0.02f;
@@ -208,8 +214,7 @@ public class DiceGame2DActivity extends Activity {
                 	mPosY *=.95;
                 	if(Math.abs(mPosX)<.0001 && Math.abs(mPosY)<.0001)
                 	{
-                		//TODO trigger ending toast?
-                		onBackPressed();
+                		onGameOver();
                 	}
                 }
             }
