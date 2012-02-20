@@ -18,16 +18,16 @@
             </intent-filter>
         </activity>
         
-            <activity android:name="DiceGame2DActivity" android:screenOrientation="portrait" android:configChanges="keyboard|keyboardHidden|orientation" android:noHistory="true"></activity>
-        <activity android:name="OpenGLTestActivity" android:screenOrientation="portrait" android:configChanges="keyboard|keyboardHidden|orientation" android:noHistory="true"></activity>
         <activity android:name="InstructionsActivity" android:screenOrientation="portrait" android:configChanges="keyboard|keyboardHidden|orientation" android:noHistory="true"></activity>
-        <activity android:name="InitialSurveyActivity" android:screenOrientation="landscape" android:configChanges="keyboard|keyboardHidden|orientation" android:noHistory="true"></activity>
+        <activity android:name="DiceGame2DActivity" android:screenOrientation="portrait" android:configChanges="keyboard|keyboardHidden|orientation" android:noHistory="true"></activity>
+        <activity android:name="OpenGLTestActivity" android:screenOrientation="portrait" android:configChanges="keyboard|keyboardHidden|orientation" android:noHistory="true"></activity>
+        <activity android:name="InitialSurveyActivity" android:screenOrientation="portrait" android:configChanges="keyboard|keyboardHidden|orientation" android:noHistory="true"></activity>
         <activity android:name="GamePromptActivity" android:screenOrientation="landscape" android:configChanges="keyboard|keyboardHidden|orientation" android:noHistory="true"></activity>
         <activity android:name="DiceGameActivity" android:screenOrientation="portrait" android:configChanges="keyboard|keyboardHidden|orientation" android:noHistory="true"></activity>
         <activity android:name="LoginActivity" android:screenOrientation="portrait" android:configChanges="keyboard|keyboardHidden|orientation" android:noHistory="true"></activity>
         <activity android:name="RegistrationActivity" android:screenOrientation="portrait" android:configChanges="keyboard|keyboardHidden|orientation" android:noHistory="true"></activity>
-        <activity android:name=".FinalSurveyActivity" android:screenOrientation="landscape" android:configChanges="keyboard|keyboardHidden|orientation" android:noHistory="true"></activity>
+        <activity android:name="FinalSurveyActivity" android:screenOrientation="portrait" android:configChanges="keyboard|keyboardHidden|orientation" android:noHistory="true"></activity>
         <activity android:name="DevelopmentPreferencesActivity" android:screenOrientation="portrait" android:configChanges="keyboard|keyboardHidden|orientation" android:noHistory="true"></activity>
-
+        <activity android:name="GameResultsActivity" android:screenOrientation="portrait" android:configChanges="keyboard|keyboardHidden|orientation" android:noHistory="true"></activity>
     </application>
 </manifest>
