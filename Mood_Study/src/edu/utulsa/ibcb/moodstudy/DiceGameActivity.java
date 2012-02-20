@@ -15,68 +15,66 @@ import android.view.Window;
 import android.view.WindowManager;
 
 public class DiceGameActivity extends Activity implements OnClickListener {
-	
-	DiceRenderer diceview;
-	
-    /** Called when the activity is first created. */
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-        
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,    
-                WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        
-        
-        
-        try{
-	        GLSurfaceView drawSurface = new GLSurfaceView(this);
-	        drawSurface.setOnClickListener(this);
-	        
-	        DiceRenderer.setContext(this);
-	        diceview=DiceRenderer.getInstance();
-	        
-	        drawSurface.setRenderer(diceview);
-	        setContentView(drawSurface);
-	        
-	        Intent mintent = getIntent();
-	        int actual_roll = mintent.getIntExtra("actual", 6);
-	        int force_level = 1;
-	        
-	        ((DiceRollEnvironment)diceview.getEnvironment("roll")).setupPlay(force_level, actual_roll);
-	        
-	        diceview.setEnvironment("cup");
-	        
-	        
-        }catch(Exception e){
-        	e.printStackTrace();
-        }
-    }
-    
-    int clicks = 0;
 
-	public void onClick(View arg0) {
-		
-		if(clicks == 0){
-			((CupEnvironment)diceview.getEnvironment("cup")).throwDie();
-	        
-			try{
-		        Thread.sleep(1000);
-			}catch(Exception e){
-				e.printStackTrace();
-			}
-	        
-	        diceview.setEnvironment("roll");
-	        
-			clicks++;
-		}else{
-			startActivity(new Intent(this,GamePromptActivity.class));
-			clicks=0;
+	DiceRenderer diceview;
+
+	/** Called when the activity is first created. */
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+
+		requestWindowFeature(Window.FEATURE_NO_TITLE);
+		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+				WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
+		try {
+			GLSurfaceView drawSurface = new GLSurfaceView(this);
+			drawSurface.setOnClickListener(this);
+
+			DiceRenderer.setContext(this);
+			diceview = DiceRenderer.getInstance();
+
+			drawSurface.setRenderer(diceview);
+			setContentView(drawSurface);
+
+			Intent mintent = getIntent();
+			int actual_roll = mintent.getIntExtra("actual", 6);
+			int force_level = 1;
+
+			((DiceRollEnvironment) diceview.getEnvironment("roll")).setupPlay(
+					force_level, actual_roll);
+
+			diceview.setEnvironment("cup");
+
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 	}
-	
-	public void onBackPressed() {
-		startActivity(new Intent(this,FinalSurveyActivity.class));
+
+	int clicks = 0;
+
+	public void onClick(View arg0) {
+
+		if (clicks == 0) {
+			((CupEnvironment) diceview.getEnvironment("cup")).throwDie();
+
+			try {
+				Thread.sleep(1000);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+
+			diceview.setEnvironment("roll");
+
+			clicks++;
+		} else {
+			startActivity(new Intent(this, GamePromptActivity.class));
+			clicks = 0;
+		}
 	}
-    
+
+	public void onBackPressed() {
+		startActivity(new Intent(this, FinalSurveyActivity.class));
+	}
+
 }
