@@ -31,7 +31,7 @@ public class DiceGameActivity extends Activity implements OnClickListener {
 
 		actual = getIntent().getExtras().getInt("actual", 0);
 		prompt = getIntent().getExtras().getInt("prompt", 0);
-		
+
 		try {
 			GLSurfaceView drawSurface = new GLSurfaceView(this);
 			drawSurface.setOnClickListener(this);
