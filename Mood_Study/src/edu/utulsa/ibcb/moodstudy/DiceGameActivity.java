@@ -17,6 +17,8 @@ import android.view.WindowManager;
 public class DiceGameActivity extends Activity implements OnClickListener {
 
 	DiceRenderer diceview;
+	protected int actual;
+	protected int prompt;
 
 	/** Called when the activity is first created. */
 	@Override
@@ -27,6 +29,9 @@ public class DiceGameActivity extends Activity implements OnClickListener {
 		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
 				WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
+		actual = getIntent().getExtras().getInt("actual", 0);
+		prompt = getIntent().getExtras().getInt("prompt", 0);
+		
 		try {
 			GLSurfaceView drawSurface = new GLSurfaceView(this);
 			drawSurface.setOnClickListener(this);
@@ -37,12 +42,10 @@ public class DiceGameActivity extends Activity implements OnClickListener {
 			drawSurface.setRenderer(diceview);
 			setContentView(drawSurface);
 
-			Intent mintent = getIntent();
-			int actual_roll = mintent.getIntExtra("actual", 6);
 			int force_level = 1;
 
 			((DiceRollEnvironment) diceview.getEnvironment("roll")).setupPlay(
-					force_level, actual_roll);
+					force_level, actual);
 
 			diceview.setEnvironment("cup");
 
@@ -74,7 +77,9 @@ public class DiceGameActivity extends Activity implements OnClickListener {
 	}
 
 	public void onBackPressed() {
-		startActivity(new Intent(this, FinalSurveyActivity.class));
+		Intent iOver = new Intent(this, GameResultsActivity.class);
+		iOver.putExtra("won", actual == prompt);
+		startActivity(iOver);
 	}
 
 }

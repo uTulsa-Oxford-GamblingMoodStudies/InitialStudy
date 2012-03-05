@@ -63,7 +63,7 @@ public class DiceGame2DActivity extends Activity {
 
 	public void onGameOver() {
 		setContentView(R.layout.main);
-		Intent iOver = new Intent(this, FinalSurveyActivity.class);
+		Intent iOver = new Intent(this, GameResultsActivity.class);
 		iOver.putExtra("won", actual == prompt);
 		startActivity(iOver);
 	}
