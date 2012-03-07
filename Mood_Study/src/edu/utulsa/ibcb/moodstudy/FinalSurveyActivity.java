@@ -8,7 +8,9 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
@@ -31,8 +33,15 @@ public class FinalSurveyActivity extends Activity implements OnClickListener {
 		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
 				WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-		// Load layout from final_survey.xml
-		setContentView(R.layout.final_survey);
+		SharedPreferences settings = PreferenceManager
+				.getDefaultSharedPreferences(this);
+		Boolean gameshow = false;
+		// Load layout
+		if (settings.getString("Theme", "").equals("game_show")) {
+			gameshow = true;
+			setContentView(R.layout.gameshow_final_survey);
+		} else
+			setContentView(R.layout.final_survey);
 
 		Button exitButton = (Button) findViewById(R.id.exitButton);
 		exitButton.setOnClickListener(this);
