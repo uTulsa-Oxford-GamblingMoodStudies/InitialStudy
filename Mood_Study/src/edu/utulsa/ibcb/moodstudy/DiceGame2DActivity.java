@@ -5,6 +5,7 @@ import edu.utulsa.ibcb.moodstudy.R;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.BitmapFactory.Options;
@@ -16,6 +17,7 @@ import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.os.PowerManager;
 import android.os.PowerManager.WakeLock;
+import android.preference.PreferenceManager;
 import android.util.DisplayMetrics;
 import android.view.Display;
 import android.view.Surface;
@@ -33,6 +35,7 @@ public class DiceGame2DActivity extends Activity {
 	private WakeLock mWakeLock;
 	protected int actual;
 	protected int prompt;
+	protected boolean won;
 
 	/** Called when the activity is first created. */
 	@Override
@@ -52,7 +55,9 @@ public class DiceGame2DActivity extends Activity {
 		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
 				WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-		mSimulationView = new SimulationView(this);
+		SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(this);
+		
+		mSimulationView = new SimulationView(this, settings.getString("Theme", "").equals("game_show"));
 		setContentView(mSimulationView);
 
 		actual = getIntent().getExtras().getInt("actual", 0);
@@ -403,7 +408,7 @@ public class DiceGame2DActivity extends Activity {
 			mSensorManager.unregisterListener(this);
 		}
 
-		public SimulationView(Context context) {
+		public SimulationView(Context context, boolean gameshow) {
 			super(context);
 			mAccelerometer = mSensorManager
 					.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
@@ -426,8 +431,10 @@ public class DiceGame2DActivity extends Activity {
 			Options opts = new Options();
 			opts.inDither = true;
 			opts.inPreferredConfig = Bitmap.Config.RGB_565;
-			temp = BitmapFactory.decodeResource(getResources(),
-					R.drawable.dice_table, opts);
+			if(gameshow)
+				temp = BitmapFactory.decodeResource(getResources(),	R.drawable.dice_table, opts);
+			else
+				temp = BitmapFactory.decodeResource(getResources(),	R.drawable.table, opts);
 			mBackground = Bitmap.createScaledBitmap(temp,
 					(int) (metrics.widthPixels), (int) (metrics.heightPixels),
 					true);
