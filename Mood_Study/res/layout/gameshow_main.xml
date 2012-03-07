@@ -14,22 +14,26 @@
         android:layout_marginRight="30dp"
         android:adjustViewBounds="true"
         android:src="@drawable/main_logo" />
+
     <Button
         android:id="@+id/playButtonMain"
         style="@style/AppText.GameShowMain"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/play" />
+
     <Button
         android:id="@+id/loginButtonMain"
         style="@style/AppText.GameShowMain"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/login"/>
+        android:text="@string/login" />
+
     <Button
         android:id="@+id/settingsButtonMain"
         style="@style/AppText.GameShowMain"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/settings"/>
+        android:text="@string/settings" />
+
 </LinearLayout>
