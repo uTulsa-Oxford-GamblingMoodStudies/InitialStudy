@@ -3,9 +3,8 @@
     style="android:style/Theme.Dialog"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/loser_pop_up"
     android:orientation="vertical"
-    android:padding="50dp" >
+    android:padding="10dp" >
 
     <TextView
         android:id="@+id/resultsTextView"
