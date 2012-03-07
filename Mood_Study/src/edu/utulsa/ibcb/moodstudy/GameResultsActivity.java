@@ -56,10 +56,15 @@ public class GameResultsActivity extends Activity implements OnClickListener {
 	}
 
 	public void onClick(View v) {
-		if (won) // TODO provide more options to winner
-			startActivity(new Intent(this, GamePromptActivity.class));
-		else
-			startActivity(new Intent(this, GamePromptActivity.class));
+		switch (v.getId()) {
+			case R.id.exitButton:	startActivity(new Intent(this, FinalSurveyActivity.class)); break;
+			case R.id.replayButton:	startActivity(new Intent(this, GamePromptActivity.class));
+		}
+	}
+	
+	@Override
+	public void onBackPressed() {
+		startActivity(new Intent(this, FinalSurveyActivity.class));
 	}
 
 }
