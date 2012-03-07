@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:gravity="center"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:id="@+id/horizontalOptionsLinearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal" >
+
+        <LinearLayout
+            android:id="@+id/linearLayoutV1"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_margin="12dp"
+            android:orientation="vertical" >
+
+            <Button
+                android:id="@+id/prize1Button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:text="@string/prize1"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="@color/prize_text" />
+
+            <ImageView
+                android:id="@+id/prize1ImageView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/d1" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linearLayoutV2"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_margin="12dp"
+            android:orientation="vertical" >
+
+            <Button
+                android:id="@+id/prize2Button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:text="@string/prize2"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="@color/prize_text" />
+
+            <ImageView
+                android:id="@+id/prize2ImageView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/d2" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linearLayoutV3"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_margin="12dp"
+            android:orientation="vertical" >
+
+            <Button
+                android:id="@+id/prize3Button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:text="@string/prize3"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="@color/prize_text" />
+
+            <ImageView
+                android:id="@+id/prize3ImageView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/d3" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linearLayoutV4"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_margin="12dp"
+            android:orientation="vertical" >
+
+            <Button
+                android:id="@+id/prize4Button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:text="@string/prize4"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="@color/prize_text" />
+
+            <ImageView
+                android:id="@+id/prize4ImageView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/d4" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linearLayoutV5"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_margin="12dp"
+            android:orientation="vertical" >
+
+            <Button
+                android:id="@+id/prize5Button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:text="@string/prize5"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="@color/prize_text" />
+
+            <ImageView
+                android:id="@+id/prize5ImageView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/d5" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linearLayoutV6"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_margin="12dp"
+            android:orientation="vertical" >
+
+            <Button
+                android:id="@+id/prize6Button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:text="@string/prize6"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="@color/prize_text" />
+
+            <ImageView
+                android:id="@+id/prize6ImageView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/d6" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/horizontalPromptLinearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:gravity="center_horizontal" >
+
+        <TextView
+            android:id="@+id/playPromptTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:text="@string/play_prompt"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+        <ImageView
+            android:id="@+id/dicePromptImageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/d1" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/touchPromptTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/touch_prompt"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+</LinearLayout>
