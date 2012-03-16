@@ -148,38 +148,50 @@ public class GamePromptActivity extends Activity implements OnClickListener {
 
 		switch (v.getId()) {
 		case R.id.prize1Button:
-			if (promptedRoll == 1)
+			if (promptedRoll == 1){
+				setContentView(R.layout.placeholder);
 				startActivity(iDiceGame);
+			}
 			else
 				showWrongDialog();
 			break;
 		case R.id.prize2Button:
-			if (promptedRoll == 2)
+			if (promptedRoll == 2){
+				setContentView(R.layout.placeholder);
 				startActivity(iDiceGame);
+			}
 			else
 				showWrongDialog();
 			break;
 		case R.id.prize3Button:
-			if (promptedRoll == 3)
+			if (promptedRoll == 3){
+				setContentView(R.layout.placeholder);
 				startActivity(iDiceGame);
+			}
 			else
 				showWrongDialog();
 			break;
 		case R.id.prize4Button:
-			if (promptedRoll == 4)
+			if (promptedRoll == 4){
+				setContentView(R.layout.placeholder);
 				startActivity(iDiceGame);
+			}
 			else
 				showWrongDialog();
 			break;
 		case R.id.prize5Button:
-			if (promptedRoll == 5)
+			if (promptedRoll == 5){
+				setContentView(R.layout.placeholder);
 				startActivity(iDiceGame);
+			}
 			else
 				showWrongDialog();
 			break;
 		case R.id.prize6Button:
-			if (promptedRoll == 6)
+			if (promptedRoll == 6){
+				setContentView(R.layout.placeholder);
 				startActivity(iDiceGame);
+			}
 			else
 				showWrongDialog();
 			break;
