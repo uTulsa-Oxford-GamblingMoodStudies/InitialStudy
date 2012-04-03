@@ -16,6 +16,7 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.os.PowerManager;
+import android.os.Vibrator;
 import android.os.PowerManager.WakeLock;
 import android.preference.PreferenceManager;
 import android.util.DisplayMetrics;
@@ -59,7 +60,11 @@ public class DiceGame2DActivity extends Activity {
 		
 		mSimulationView = new SimulationView(this, settings.getString("Theme", "").equals("game_show"));
 		setContentView(mSimulationView);
-
+		
+		// initialize vibrator
+		Vibrator vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+		mSimulationView.setVibrator(vibrator);
+		
 		actual = getIntent().getExtras().getInt("actual", 0);
 		prompt = getIntent().getExtras().getInt("prompt", 0);
 		mSimulationView.setDice(prompt, actual);
@@ -155,6 +160,7 @@ public class DiceGame2DActivity extends Activity {
 		private float mHorizontalBound;
 		private float mVerticalBound;
 		private final ParticleSystem mParticleSystem = new ParticleSystem();
+		public Vibrator vibrator;
 
 		/*
 		 * Each of our particle holds its previous and current position, its
@@ -230,15 +236,17 @@ public class DiceGame2DActivity extends Activity {
 			 * constrained particle in such way that the constraint is
 			 * satisfied.
 			 */
-			public void resolveCollisionWithBounds() {
+			public void resolveCollisionWithBounds(Vibrator vibrator) {
 				final float xmax = mHorizontalBound;
 				final float ymax = mVerticalBound;
 				final float x = mPosX;
 				final float y = mPosY;
 				if (x > xmax) {
 					mPosX = xmax;
+						vibrator.vibrate(45);
 				} else if (x < -xmax) {
 					mPosX = -xmax;
+						vibrator.vibrate(45);
 				}
 				if (y > ymax) {
 					mPosY = -ymax;
@@ -340,7 +348,7 @@ public class DiceGame2DActivity extends Activity {
 						 * Finally make sure the particle doesn't intersects
 						 * with the walls.
 						 */
-						curr.resolveCollisionWithBounds();
+						curr.resolveCollisionWithBounds(vibrator);
 					}
 				}
 			}
@@ -356,6 +364,10 @@ public class DiceGame2DActivity extends Activity {
 			public float getPosY(int i) {
 				return mBalls[i].mPosY;
 			}
+
+			public void setVibrator(Vibrator v) {
+				vibrator = v;
+			}
 		}
 
 		public void startSimulation() {
@@ -368,6 +380,11 @@ public class DiceGame2DActivity extends Activity {
 			 */
 			mSensorManager.registerListener(this, mAccelerometer,
 					SensorManager.SENSOR_DELAY_UI);
+		}
+
+		public void setVibrator(Vibrator vibrator) {
+			mParticleSystem.setVibrator(vibrator);
+			
 		}
 
 		public void setDice(int p, int a) {
