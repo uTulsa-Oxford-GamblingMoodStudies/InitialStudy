@@ -65,32 +65,25 @@ public class MainActivity extends Activity implements OnClickListener,
 	public void load() {
 		SharedPreferences settings = PreferenceManager
 				.getDefaultSharedPreferences(this);
-		Boolean gameshow = false;
+		
 		// Load layout
-		if (settings.getString("Theme", "").equals("game_show")) {
-			gameshow = true;
-			setContentView(R.layout.gameshow_main);
-		} else
-			setContentView(R.layout.main);
+		setContentView(R.layout.main);
 
 		// create the typeface to be used by all app text
-		Typeface tf = Typeface.createFromAsset(getApplicationContext()
-				.getAssets(), "archer_medium_pro.otf");
+		//Typeface tf = Typeface.createFromAsset(getApplicationContext()
+		//		.getAssets(), "archer_medium_pro.otf");
 
 		Button playButton = (Button) findViewById(R.id.playButtonMain);
 		playButton.setOnClickListener(this);
-		if (gameshow)
-			playButton.setTypeface(tf);
+		//playButton.setTypeface(tf);
 
 		Button loginButton = (Button) findViewById(R.id.loginButtonMain);
 		loginButton.setOnClickListener(this);
-		if (gameshow)
-			loginButton.setTypeface(tf);
+		//loginButton.setTypeface(tf);
 
 		Button settingsButton = (Button) findViewById(R.id.settingsButtonMain);
 		settingsButton.setOnClickListener(this);
-		if (gameshow)
-			settingsButton.setTypeface(tf);
+		//settingsButton.setTypeface(tf);
 
 	}
 

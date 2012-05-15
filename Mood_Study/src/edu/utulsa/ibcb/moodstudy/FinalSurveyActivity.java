@@ -35,13 +35,9 @@ public class FinalSurveyActivity extends Activity implements OnClickListener {
 
 		SharedPreferences settings = PreferenceManager
 				.getDefaultSharedPreferences(this);
-		Boolean gameshow = false;
+		
 		// Load layout
-		if (settings.getString("Theme", "").equals("game_show")) {
-			gameshow = true;
-			setContentView(R.layout.gameshow_final_survey);
-		} else
-			setContentView(R.layout.final_survey);
+		setContentView(R.layout.final_survey);
 
 		Button exitButton = (Button) findViewById(R.id.exitButton);
 		exitButton.setOnClickListener(this);

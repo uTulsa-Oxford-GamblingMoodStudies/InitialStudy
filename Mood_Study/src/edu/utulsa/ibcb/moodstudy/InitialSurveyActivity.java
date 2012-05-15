@@ -35,13 +35,9 @@ public class InitialSurveyActivity extends Activity implements OnClickListener {
 
 		SharedPreferences settings = PreferenceManager
 				.getDefaultSharedPreferences(this);
-		Boolean gameshow = false;
+		
 		// Load layout
-		if (settings.getString("Theme", "").equals("game_show")) {
-			gameshow = true;
-			setContentView(R.layout.gameshow_initial_survey);
-		} else
-			setContentView(R.layout.initial_survey);
+		setContentView(R.layout.initial_survey);
 
 		Button playButton = (Button) findViewById(R.id.playButton);
 		playButton.setOnClickListener(this);

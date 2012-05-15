@@ -34,19 +34,15 @@ public class InstructionsActivity extends Activity implements OnClickListener {
 
 		SharedPreferences settings = PreferenceManager
 				.getDefaultSharedPreferences(this);
-		Boolean gameshow = false;
+		
 		// Load layout
-		if (settings.getString("Theme", "").equals("game_show")) {
-			gameshow = true;
-			setContentView(R.layout.gameshow_instructions);
-		} else
-			setContentView(R.layout.instructions);
+		setContentView(R.layout.instructions);
 
 		TextView instructionView = (TextView) findViewById(R.id.instructionsTextView);
 		Button continueButton = (Button) findViewById(R.id.continueButton);
 		continueButton.setOnClickListener(this);
 
-		if (gameshow) {
+		/* {
 			// create the typeface to be used by all app text
 			Typeface tf = Typeface.createFromAsset(getApplicationContext()
 					.getAssets(), "archer_medium_pro.otf");
@@ -54,7 +50,7 @@ public class InstructionsActivity extends Activity implements OnClickListener {
 			// changing the typeface for this much text messes with the entire
 			// activity layout spacing
 			continueButton.setTypeface(tf);
-		}
+		}*/
 	}
 
 	public void onClick(View v) {

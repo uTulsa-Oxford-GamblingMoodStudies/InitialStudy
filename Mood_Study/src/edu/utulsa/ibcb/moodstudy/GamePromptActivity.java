@@ -41,13 +41,11 @@ public class GamePromptActivity extends Activity implements OnClickListener {
 
 		SharedPreferences settings = PreferenceManager
 				.getDefaultSharedPreferences(this);
-		Boolean gameshow = false;
+		
 		// Load layout
-		if (settings.getString("Theme", "").equals("game_show")) {
-			gameshow = true;
-			setContentView(R.layout.gameshow_game_prompt);
-		} else
-			setContentView(R.layout.game_prompt);
+		setContentView(R.layout.game_prompt);
+		
+		// Check graphics mode
 		if (settings.getString("GraphicsMode", "").equals("3D"))
 			threeD = true;
 
