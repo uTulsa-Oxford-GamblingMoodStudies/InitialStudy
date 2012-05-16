@@ -75,6 +75,7 @@ public class DiceGame2DActivity extends Activity {
 		setContentView(R.layout.placeholder);
 		Intent iOver = new Intent(this, GameResultsActivity.class);
 		iOver.putExtra("won", actual == prompt);
+		iOver.putExtra("prize", prompt);
 		startActivity(iOver);
 	}
 
