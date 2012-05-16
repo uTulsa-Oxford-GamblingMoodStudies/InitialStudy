@@ -3,26 +3,23 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center_horizontal"
-    android:orientation="vertical" >
-
-
+    android:orientation="vertical" 
+    >
+    
     <TextView
-        android:id="@+id/textView1"
+        android:id="@+id/instructionsTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/instructions"
-        android:textAppearance="?android:attr/textAppearanceMedium" android:layout_margin="10dp"/>
+        android:textAppearance="?android:attr/textAppearanceMedium" 
+        android:layout_margin="10dp"/>
 
+    <Button
+        android:id="@+id/continueButton"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:padding="5dp"
+        android:text="@string/next_continue" />
 
-
-	<Button
-	android:id="@+id/continueButton"
-	android:layout_width="fill_parent"
-	android:layout_height="wrap_content"
-	android:layout_marginLeft="30dp"
-	android:layout_marginRight="30dp"
-	android:layout_marginTop="20dp"
-	android:padding="5dp"
-	android:text="@string/next_continue"
-	android:layout_marginBottom="10dp"/>
 </LinearLayout>
