@@ -58,7 +58,7 @@ public class DiceGame2DActivity extends Activity {
 
 		SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(this);
 		
-		mSimulationView = new SimulationView(this, settings.getString("Theme", "").equals("game_show"));
+		mSimulationView = new SimulationView(this);
 		setContentView(mSimulationView);
 		
 		// initialize vibrator
@@ -425,7 +425,7 @@ public class DiceGame2DActivity extends Activity {
 			mSensorManager.unregisterListener(this);
 		}
 
-		public SimulationView(Context context, boolean gameshow) {
+		public SimulationView(Context context) {
 			super(context);
 			mAccelerometer = mSensorManager
 					.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
@@ -448,10 +448,8 @@ public class DiceGame2DActivity extends Activity {
 			Options opts = new Options();
 			opts.inDither = true;
 			opts.inPreferredConfig = Bitmap.Config.RGB_565;
-			if(gameshow)
-				temp = BitmapFactory.decodeResource(getResources(),	R.drawable.dice_table, opts);
-			else
-				temp = BitmapFactory.decodeResource(getResources(),	R.drawable.table, opts);
+			
+			temp = BitmapFactory.decodeResource(getResources(),	R.drawable.table, opts);
 			mBackground = Bitmap.createScaledBitmap(temp,
 					(int) (metrics.widthPixels), (int) (metrics.heightPixels),
 					true);

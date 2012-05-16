@@ -97,27 +97,27 @@ public class GamePromptActivity extends Activity implements OnClickListener {
 		switch (promptedRoll) {
 		case 1:
 			PromptImage.setImageDrawable(getResources().getDrawable(
-					R.drawable.d1));
+					R.drawable.dice1));
 			break;
 		case 2:
 			PromptImage.setImageDrawable(getResources().getDrawable(
-					R.drawable.d2));
+					R.drawable.dice2));
 			break;
 		case 3:
 			PromptImage.setImageDrawable(getResources().getDrawable(
-					R.drawable.d3));
+					R.drawable.dice3));
 			break;
 		case 4:
 			PromptImage.setImageDrawable(getResources().getDrawable(
-					R.drawable.d4));
+					R.drawable.dice4));
 			break;
 		case 5:
 			PromptImage.setImageDrawable(getResources().getDrawable(
-					R.drawable.d5));
+					R.drawable.dice5));
 			break;
 		case 6:
 			PromptImage.setImageDrawable(getResources().getDrawable(
-					R.drawable.d6));
+					R.drawable.dice6));
 			break;
 		}
 	}
