@@ -152,7 +152,7 @@ public class DiceRollEnvironment extends Environment {
 			object.setTexture(texid);
 		}
 		
-		surfacetex = TextureUtils.loadTexture(gl, DiceRenderer.getContext(), R.drawable.grass);
+		surfacetex = TextureUtils.loadTexture(gl, DiceRenderer.getContext(), R.drawable.table);
 		
 		table.getObjects().get(0).setTexture(surfacetex);
 	}
@@ -192,7 +192,7 @@ public class DiceRollEnvironment extends Environment {
 				object.scale(0.01);
 				object.createGLArray();
 			}
-			surfacetex = TextureUtils.loadTexture(gl, DiceRenderer.getContext(), R.drawable.grass);
+			surfacetex = TextureUtils.loadTexture(gl, DiceRenderer.getContext(), R.drawable.table);
 			
 			table = new SceneNode("table-top");
 			Mesh tabletop = createGround();

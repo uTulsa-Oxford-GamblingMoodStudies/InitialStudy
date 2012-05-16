@@ -15,84 +15,90 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-public class LoginActivity extends Activity implements OnClickListener{
-	
+public class LoginActivity extends Activity implements OnClickListener {
+
 	private RpcClient callServer = null;
-	
+
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-        
-        callServer = RpcClient.getInstance(this);
-        
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,    
-                WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        
+
+		callServer = RpcClient.getInstance(this);
+
+		requestWindowFeature(Window.FEATURE_NO_TITLE);
+		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+				WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
 		setContentView(R.layout.login);
-		
-		Button login_button = (Button)findViewById(R.id.loginSubmit);
+
+		Button login_button = (Button) findViewById(R.id.loginSubmit);
 		login_button.setOnClickListener(this);
-        
-		Button register_button = (Button)findViewById(R.id.registerLoginButton);
+
+		Button register_button = (Button) findViewById(R.id.registerLoginButton);
 		register_button.setOnClickListener(this);
 	}
-	
-	
-	public void createDialog(String title, String message, DialogInterface.OnClickListener click ){
-    	
-    	AlertDialog.Builder builder = new AlertDialog.Builder(this);
-    	builder.setMessage(message)
-    		   .setTitle(title)
-    	       .setNeutralButton("Ok", click);
-    	AlertDialog alert = builder.create();
-    	alert.show();
+
+	public void createDialog(String title, String message,
+			DialogInterface.OnClickListener click) {
+
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		builder.setMessage(message).setTitle(title)
+				.setNeutralButton("Ok", click);
+		AlertDialog alert = builder.create();
+		alert.show();
 	}
-	
-	 protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		  super.onActivityResult(requestCode, resultCode, data);
-		  if(resultCode==RESULT_OK && requestCode==1){
-		   String msg = data.getStringExtra("returnedData");
-		   
-		   if(msg.equals("completed")){
-			   finish();
-		   }
-		  }
-	 }
-	
+
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+		if (resultCode == RESULT_OK && requestCode == 1) {
+			String msg = data.getStringExtra("returnedData");
+
+			if (msg.equals("completed")) {
+				finish();
+			}
+		}
+	}
+
 	public void onClick(View v) {
-		
-		switch(v.getId()){
+
+		switch (v.getId()) {
 		case R.id.loginSubmit:
-			String user = ((TextView) findViewById(R.id.username_field)).getText().toString();
-			String pass = ((TextView) findViewById(R.id.pass_field)).getText().toString();
-			
-			try{
+			String user = ((TextView) findViewById(R.id.username_field))
+					.getText().toString();
+			String pass = ((TextView) findViewById(R.id.pass_field)).getText()
+					.toString();
+
+			try {
 				boolean success = callServer.login(user, pass);
-				
-				if(success){
-					callServer.setOptions(this, RpcClient.USERNAME_OPTION, user, RpcClient.PASSWORD_OPTION, pass);
+
+				if (success) {
+					callServer.setOptions(this, RpcClient.USERNAME_OPTION,
+							user, RpcClient.PASSWORD_OPTION, pass);
 					((TextView) findViewById(R.id.username_field)).setText("");
 					((TextView) findViewById(R.id.pass_field)).setText("");
 					finish();
 				}
-			}catch(XMLRPCException xrpc){
+			} catch (XMLRPCException xrpc) {
 				xrpc.printStackTrace();
-	        	StackTraceElement[] stack = xrpc.getStackTrace();
-	        	
-	        	createDialog("Error","Error:" + xrpc.getMessage() + "\nIn:" + stack[stack.length-1].getClassName(),new DialogInterface.OnClickListener() {
-	 	           public void onClick(DialogInterface dialog, int id) {
-	 	                dialog.dismiss();
-	 	           }
-	 	        });
-	        	
-	    		((EditText) findViewById(R.id.username_field)).getText().clear();
-	    		((EditText) findViewById(R.id.pass_field)).getText().clear();
-	        	
+				StackTraceElement[] stack = xrpc.getStackTrace();
+
+				createDialog("Error", "Error:" + xrpc.getMessage() + "\nIn:"
+						+ stack[stack.length - 1].getClassName(),
+						new DialogInterface.OnClickListener() {
+							public void onClick(DialogInterface dialog, int id) {
+								dialog.dismiss();
+							}
+						});
+
+				((EditText) findViewById(R.id.username_field)).getText()
+						.clear();
+				((EditText) findViewById(R.id.pass_field)).getText().clear();
+
 			}
 		case R.id.registerLoginButton:
-			startActivityForResult(new Intent(this, RegistrationActivity.class), 1);
+			startActivityForResult(
+					new Intent(this, RegistrationActivity.class), 1);
 			break;
 		}
-		
+
 	}
 }
