@@ -3,150 +3,156 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:gravity="center"
-    android:orientation="vertical" >
+    android:orientation="vertical" android:layout_margin="10dp">
 
     <LinearLayout
         android:id="@+id/horizontalOptionsLinearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center_horizontal" >
+        android:gravity="center_horizontal" android:layout_weight="1">
 
         <LinearLayout
             android:id="@+id/linearLayoutV1"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_margin="12dp"
-            android:orientation="vertical" >
+            android:orientation="vertical" 
+            android:layout_weight="1">
 
             <Button
                 android:id="@+id/prize1Button"
-                android:layout_width="wrap_content"
+                android:text="@string/prize1"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
-                android:text="@string/prize1"
                 android:textAppearance="?android:attr/textAppearanceLarge"
-                android:textColor="@color/prize_text" />
-
+                android:textColor="@color/prize_text" 
+                android:paddingTop="20dp"/>
+            
             <ImageView
                 android:id="@+id/prize1ImageView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/d1" />
+                android:src="@drawable/dice1" 
+                android:layout_width="match_parent" android:layout_height="wrap_content" android:scaleType="fitCenter" android:adjustViewBounds="true"/>
+
         </LinearLayout>
 
         <LinearLayout
             android:id="@+id/linearLayoutV2"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_margin="12dp"
-            android:orientation="vertical" >
-
+            android:orientation="vertical" 
+            android:layout_weight="1">
+            
             <Button
                 android:id="@+id/prize2Button"
-                android:layout_width="wrap_content"
+                android:text="@string/prize2"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
-                android:text="@string/prize2"
                 android:textAppearance="?android:attr/textAppearanceLarge"
-                android:textColor="@color/prize_text" />
+                android:textColor="@color/prize_text" 
+                android:paddingTop="20dp" />
 
             <ImageView
                 android:id="@+id/prize2ImageView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/d2" />
+                android:src="@drawable/dice2"
+                android:layout_width="match_parent" android:layout_height="wrap_content" android:scaleType="fitCenter" android:adjustViewBounds="true"/>
+
         </LinearLayout>
 
         <LinearLayout
             android:id="@+id/linearLayoutV3"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_margin="12dp"
-            android:orientation="vertical" >
-
+            android:orientation="vertical" 
+            android:layout_weight="1">
+            
             <Button
                 android:id="@+id/prize3Button"
-                android:layout_width="wrap_content"
+                android:text="@string/prize3"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
-                android:text="@string/prize3"
                 android:textAppearance="?android:attr/textAppearanceLarge"
-                android:textColor="@color/prize_text" />
+                android:textColor="@color/prize_text" 
+                android:paddingTop="20dp" />
 
             <ImageView
                 android:id="@+id/prize3ImageView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/d3" />
+                android:src="@drawable/dice3"
+                android:layout_width="match_parent" android:layout_height="wrap_content" android:scaleType="fitCenter" android:adjustViewBounds="true"/>
+
         </LinearLayout>
 
         <LinearLayout
             android:id="@+id/linearLayoutV4"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_margin="12dp"
-            android:orientation="vertical" >
+            android:orientation="vertical" 
+            android:layout_weight="1">
 
             <Button
                 android:id="@+id/prize4Button"
-                android:layout_width="wrap_content"
+                android:text="@string/prize4"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
-                android:text="@string/prize4"
                 android:textAppearance="?android:attr/textAppearanceLarge"
-                android:textColor="@color/prize_text" />
+                android:textColor="@color/prize_text" 
+                android:paddingTop="20dp" />
 
             <ImageView
                 android:id="@+id/prize4ImageView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/d4" />
+                android:src="@drawable/dice4"
+                android:layout_width="match_parent" android:layout_height="wrap_content" android:scaleType="fitCenter" android:adjustViewBounds="true"/>
+
         </LinearLayout>
 
         <LinearLayout
             android:id="@+id/linearLayoutV5"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_margin="12dp"
-            android:orientation="vertical" >
+            android:orientation="vertical" 
+            android:layout_weight="1">
 
             <Button
                 android:id="@+id/prize5Button"
-                android:layout_width="wrap_content"
+                android:text="@string/prize5"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
-                android:text="@string/prize5"
                 android:textAppearance="?android:attr/textAppearanceLarge"
-                android:textColor="@color/prize_text" />
-
+                android:textColor="@color/prize_text" 
+                android:paddingTop="20dp" />
+            
             <ImageView
                 android:id="@+id/prize5ImageView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/d5" />
+                android:src="@drawable/dice5"
+                android:layout_width="match_parent" android:layout_height="wrap_content" android:scaleType="fitCenter" android:adjustViewBounds="true"/>
+
         </LinearLayout>
 
         <LinearLayout
             android:id="@+id/linearLayoutV6"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_margin="12dp"
-            android:orientation="vertical" >
+            android:orientation="vertical" 
+            android:layout_weight="1">
 
             <Button
                 android:id="@+id/prize6Button"
-                android:layout_width="wrap_content"
+                android:text="@string/prize6"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
-                android:text="@string/prize6"
                 android:textAppearance="?android:attr/textAppearanceLarge"
-                android:textColor="@color/prize_text" />
+                android:textColor="@color/prize_text" 
+                android:paddingTop="20dp" />
 
             <ImageView
                 android:id="@+id/prize6ImageView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/d6" />
+                android:src="@drawable/dice6"
+                android:layout_width="match_parent" android:layout_height="wrap_content" android:scaleType="fitCenter" android:adjustViewBounds="true"/>
+
         </LinearLayout>
     </LinearLayout>
 
@@ -154,21 +160,20 @@
         android:id="@+id/horizontalPromptLinearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="20dp"
-        android:gravity="center_horizontal" >
+        android:gravity="center" android:layout_gravity="center">
 
         <TextView
             android:id="@+id/playPromptTextView"
             android:layout_width="wrap_content"
-            android:layout_height="fill_parent"
+            android:layout_height="wrap_content"
             android:text="@string/play_prompt"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
+            android:textAppearance="?android:attr/textAppearanceLarge"/>
 
         <ImageView
             android:id="@+id/dicePromptImageView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/d1" />
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            android:src="@drawable/dice1" />
     </LinearLayout>
 
     <TextView
