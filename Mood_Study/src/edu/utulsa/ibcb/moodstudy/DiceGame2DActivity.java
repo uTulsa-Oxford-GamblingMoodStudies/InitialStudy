@@ -1,5 +1,7 @@
 package edu.utulsa.ibcb.moodstudy;
 
+import java.io.IOException;
+
 import edu.utulsa.ibcb.moodstudy.R;
 
 import android.app.Activity;
@@ -14,6 +16,7 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.PowerManager;
 import android.os.Vibrator;
@@ -64,6 +67,19 @@ public class DiceGame2DActivity extends Activity {
 		// initialize vibrator
 		Vibrator vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
 		mSimulationView.setVibrator(vibrator);
+		
+		//initialize media player 
+		 MediaPlayer mediaPlayer = MediaPlayer.create(this, R.raw.chink);
+		 try {
+			mediaPlayer.prepare();
+		} catch (IllegalStateException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        mSimulationView.setMediaPlayer(mediaPlayer);
 		
 		actual = getIntent().getExtras().getInt("actual", 0);
 		prompt = getIntent().getExtras().getInt("prompt", 0);
@@ -162,6 +178,7 @@ public class DiceGame2DActivity extends Activity {
 		private float mVerticalBound;
 		private final ParticleSystem mParticleSystem = new ParticleSystem();
 		public Vibrator vibrator;
+		public MediaPlayer mediaPlayer;
 
 		/*
 		 * Each of our particle holds its previous and current position, its
@@ -171,6 +188,7 @@ public class DiceGame2DActivity extends Activity {
 		class Particle {
 			private float mPosX;
 			private float mPosY;
+			private float mVelX, mVelY;
 			private float mAccelX;
 			private float mAccelY;
 			private float mLastPosX;
@@ -237,17 +255,21 @@ public class DiceGame2DActivity extends Activity {
 			 * constrained particle in such way that the constraint is
 			 * satisfied.
 			 */
-			public void resolveCollisionWithBounds(Vibrator vibrator) {
+			public void resolveCollisionWithBounds(Vibrator vibrator, MediaPlayer mediaPlayer) {
 				final float xmax = mHorizontalBound;
 				final float ymax = mVerticalBound;
 				final float x = mPosX;
 				final float y = mPosY;
 				if (x > xmax) {
 					mPosX = xmax;
-						vibrator.vibrate(45);
+					vibrator.vibrate(45);
+					//mediaPlayer.seekTo(0);
+					mediaPlayer.start();
 				} else if (x < -xmax) {
 					mPosX = -xmax;
-						vibrator.vibrate(45);
+					vibrator.vibrate(45);
+					//mediaPlayer.seekTo(0);
+					mediaPlayer.start();
 				}
 				if (y > ymax) {
 					mPosY = -ymax;
@@ -349,7 +371,7 @@ public class DiceGame2DActivity extends Activity {
 						 * Finally make sure the particle doesn't intersects
 						 * with the walls.
 						 */
-						curr.resolveCollisionWithBounds(vibrator);
+						curr.resolveCollisionWithBounds(vibrator, mediaPlayer);
 					}
 				}
 			}
@@ -369,6 +391,11 @@ public class DiceGame2DActivity extends Activity {
 			public void setVibrator(Vibrator v) {
 				vibrator = v;
 			}
+
+			public void setMediaPlayer(MediaPlayer mp) {
+				mediaPlayer = mp;
+				
+			}
 		}
 
 		public void startSimulation() {
@@ -381,6 +408,11 @@ public class DiceGame2DActivity extends Activity {
 			 */
 			mSensorManager.registerListener(this, mAccelerometer,
 					SensorManager.SENSOR_DELAY_UI);
+		}
+
+		public void setMediaPlayer(MediaPlayer mediaPlayer) {
+			mParticleSystem.setMediaPlayer(mediaPlayer);
+			
 		}
 
 		public void setVibrator(Vibrator vibrator) {
