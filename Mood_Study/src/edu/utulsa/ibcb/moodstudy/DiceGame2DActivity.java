@@ -23,6 +23,7 @@ import android.os.Vibrator;
 import android.os.PowerManager.WakeLock;
 import android.preference.PreferenceManager;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.Display;
 import android.view.Surface;
 import android.view.View;
@@ -188,12 +189,16 @@ public class DiceGame2DActivity extends Activity {
 		class Particle {
 			private float mPosX;
 			private float mPosY;
-			private float mVelX, mVelY;
 			private float mAccelX;
 			private float mAccelY;
 			private float mLastPosX;
 			private float mLastPosY;
 			private float mOneMinusFriction;
+			
+
+			private float mVel;
+			private static final float mVelThreshold = .00001f;
+			
 
 			Particle() {
 				// make each particle a bit different by randomizing its
@@ -234,6 +239,10 @@ public class DiceGame2DActivity extends Activity {
 							* (mPosX - mLastPosX) + mAccelX * dTdT;
 					final float y = mPosY + mOneMinusFriction * dTC
 							* (mPosY - mLastPosY) + mAccelY * dTdT;
+					
+					mVel = (float) (dTC*Math.sqrt(((mPosX - mLastPosX)*(mPosX - mLastPosX))
+							+((mPosY - mLastPosY)*(mPosY - mLastPosY))));
+					
 					mLastPosX = mPosX;
 					mLastPosY = mPosY;
 					mPosX = x;
@@ -260,22 +269,30 @@ public class DiceGame2DActivity extends Activity {
 				final float ymax = mVerticalBound;
 				final float x = mPosX;
 				final float y = mPosY;
-				if (x > xmax) {
-					mPosX = xmax;
-					vibrator.vibrate(45);
-					//mediaPlayer.seekTo(0);
-					mediaPlayer.start();
-				} else if (x < -xmax) {
-					mPosX = -xmax;
-					vibrator.vibrate(45);
-					//mediaPlayer.seekTo(0);
-					mediaPlayer.start();
-				}
-				if (y > ymax) {
-					mPosY = -ymax;
-					endingAnimation = true;
-				} else if (y < -ymax) {
-					mPosY = -ymax;
+				if(!endingAnimation){
+					if (x > xmax) {
+						mPosX = xmax;
+						if(mVel>mVelThreshold){
+							Log.i("mVel",""+mVel);
+							vibrator.vibrate(45);
+							//mediaPlayer.seekTo(0);
+							mediaPlayer.start();
+						}
+					} else if (x < -xmax) {
+						mPosX = -xmax;
+						if(mVel>mVelThreshold){
+							Log.i("mVel",""+mVel);
+							vibrator.vibrate(45);
+							//mediaPlayer.seekTo(0);
+							mediaPlayer.start();
+						}
+					}
+					if (y > ymax) {
+						mPosY = -ymax;
+						endingAnimation = true;
+					} else if (y < -ymax) {
+						mPosY = -ymax;
+					}
 				}
 			}
 		}
@@ -285,15 +302,13 @@ public class DiceGame2DActivity extends Activity {
 		 */
 		class ParticleSystem {
 			static final int NUM_PARTICLES = 1;
-			private Particle mBalls[] = new Particle[NUM_PARTICLES];
+			private Particle mBalls = new Particle();
 
 			ParticleSystem() {
 				/*
 				 * Initially our particles have no speed or acceleration
 				 */
-				for (int i = 0; i < mBalls.length; i++) {
-					mBalls[i] = new Particle();
-				}
+				
 			}
 
 			/*
@@ -307,11 +322,8 @@ public class DiceGame2DActivity extends Activity {
 							* (1.0f / 1000000000.0f);
 					if (mLastDeltaT != 0) {
 						final float dTC = dT / mLastDeltaT;
-						final int count = mBalls.length;
-						for (int i = 0; i < count; i++) {
-							Particle ball = mBalls[i];
-							ball.computePhysics(sx, sy, dT, dTC);
-						}
+						Particle ball = mBalls;
+						ball.computePhysics(sx, sy, dT, dTC);
 					}
 					mLastDeltaT = dT;
 				}
@@ -326,66 +338,24 @@ public class DiceGame2DActivity extends Activity {
 			public void update(float sx, float sy, long now) {
 				// update the system's positions
 				updatePositions(sx, sy, now);
-
-				// We do no more than a limited number of iterations
-				final int NUM_MAX_ITERATIONS = 10;
-
+				
 				/*
-				 * Resolve collisions, each particle is tested against every
-				 * other particle for collision. If a collision is detected the
-				 * particle is moved away using a virtual spring of infinite
-				 * stiffness.
+				 * Finally make sure the particle doesn't intersects
+				 * with the walls.
 				 */
-				boolean more = true;
-				final int count = mBalls.length;
-				for (int k = 0; k < NUM_MAX_ITERATIONS && more; k++) {
-					more = false;
-					for (int i = 0; i < count; i++) {
-						Particle curr = mBalls[i];
-						for (int j = i + 1; j < count; j++) {
-							Particle ball = mBalls[j];
-							float dx = ball.mPosX - curr.mPosX;
-							float dy = ball.mPosY - curr.mPosY;
-							float dd = dx * dx + dy * dy;
-							// Check for collisions
-							if (dd <= sBallDiameter2) {
-								/*
-								 * add a little bit of entropy, after nothing is
-								 * perfect in the universe.
-								 */
-								dx += ((float) Math.random() - 0.5f) * 0.0001f;
-								dy += ((float) Math.random() - 0.5f) * 0.0001f;
-								dd = dx * dx + dy * dy;
-								// simulate the spring
-								final float d = (float) Math.sqrt(dd);
-								final float c = (0.5f * (sBallDiameter - d))
-										/ d;
-								curr.mPosX -= dx * c;
-								curr.mPosY -= dy * c;
-								ball.mPosX += dx * c;
-								ball.mPosY += dy * c;
-								more = true;
-							}
-						}
-						/*
-						 * Finally make sure the particle doesn't intersects
-						 * with the walls.
-						 */
-						curr.resolveCollisionWithBounds(vibrator, mediaPlayer);
-					}
-				}
+				mBalls.resolveCollisionWithBounds(vibrator, mediaPlayer);
 			}
 
 			public int getParticleCount() {
-				return mBalls.length;
+				return 1;
 			}
 
 			public float getPosX(int i) {
-				return mBalls[i].mPosX;
+				return mBalls.mPosX;
 			}
 
 			public float getPosY(int i) {
-				return mBalls[i].mPosY;
+				return mBalls.mPosY;
 			}
 
 			public void setVibrator(Vibrator v) {
