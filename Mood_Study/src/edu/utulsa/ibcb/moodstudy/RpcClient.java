@@ -105,7 +105,9 @@ public class RpcClient {
 			
 			// for testing purposes
 			/**/setOptions(context,"username","matt.matlock@gmail.com","password","z38lives");
+			//setOptions(context,"username","placeholder@gmail.com","password","Place123");
 
+			
 			load(context);
 		}
 	}
