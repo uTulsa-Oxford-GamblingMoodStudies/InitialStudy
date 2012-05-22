@@ -26,13 +26,13 @@
         style="@style/AppText.Main"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/login" />
+        android:text="@string/login" android:clickable="false"/>
 
     <Button
         android:id="@+id/settingsButtonMain"
         style="@style/AppText.Main"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/settings" />
+        android:text="@string/settings" android:visibility="gone"/>
 
 </LinearLayout>

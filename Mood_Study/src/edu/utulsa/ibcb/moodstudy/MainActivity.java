@@ -44,11 +44,7 @@ public class MainActivity extends Activity implements OnClickListener,
 		SharedPreferences settings = PreferenceManager
 				.getDefaultSharedPreferences(this);
 		settings.registerOnSharedPreferenceChangeListener(this);
-		if (!settings.contains("Theme")) {
-			settings.edit().putString("Theme",
-					getString(R.string.theme_preference));
-			settings.edit().commit();
-		}
+		
 		if (!settings.contains("GraphicsMode")) {
 			settings.edit().putString("GraphicsMode",
 					getString(R.string.graphics_mode_preference));
@@ -123,9 +119,7 @@ public class MainActivity extends Activity implements OnClickListener,
 
 	public void onSharedPreferenceChanged(SharedPreferences sharedPreferences,
 			String key) {
-		if (key.equals("Theme")) {
-			// Reload layout
-			load();
-		}
+		
+		
 	}
 }
