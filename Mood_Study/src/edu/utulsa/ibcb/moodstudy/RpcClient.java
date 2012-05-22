@@ -102,8 +102,9 @@ public class RpcClient {
 					+ RPCscript;
 			client = new XMLRPCClient(url, context);
 			options = new ConcurrentHashMap<String, String>();
-
-			// setOptions(context,"username","matt.matlock@gmail.com","password","z38lives");
+			
+			// for testing purposes
+			/**/setOptions(context,"username","matt.matlock@gmail.com","password","z38lives");
 
 			load(context);
 		}
