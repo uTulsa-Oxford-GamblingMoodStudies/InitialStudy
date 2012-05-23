@@ -12,6 +12,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.BitmapFactory.Options;
 import android.graphics.Canvas;
+import android.graphics.Paint;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -167,6 +168,7 @@ public class DiceGame2DActivity extends Activity {
 		private Bitmap mBackground;
 		private Bitmap mFrontCup;
 		private Bitmap mBackCup;
+		private Paint mFrontPaint;		
 		private int mW = 0, mH = 0, actual = 0, prompt = 0;
 		private boolean endingAnimation = false;
 		private float mXOrigin;
@@ -197,7 +199,7 @@ public class DiceGame2DActivity extends Activity {
 			
 
 			private float mVel;
-			private static final float mVelThreshold = .00001f;
+			private static final float mVelThreshold = .001f;
 			
 
 			Particle() {
@@ -458,6 +460,7 @@ public class DiceGame2DActivity extends Activity {
 					true);
 			temp = BitmapFactory.decodeResource(getResources(),
 					R.drawable.cup_bottom, opts);
+			
 			mFrontCup = Bitmap
 					.createScaledBitmap(temp, metrics.widthPixels, (int) (temp
 							.getHeight() * (metrics.widthPixels / (float) temp
@@ -468,6 +471,8 @@ public class DiceGame2DActivity extends Activity {
 					.createScaledBitmap(temp, metrics.widthPixels, (int) (temp
 							.getHeight() * (metrics.widthPixels / (float) temp
 							.getWidth())), true);
+			mFrontPaint = new Paint();
+			//mFrontPaint.setAlpha(200);
 		}
 
 		@Override
@@ -563,7 +568,7 @@ public class DiceGame2DActivity extends Activity {
 
 			if (!endingAnimation)
 				canvas.drawBitmap(mFrontCup, mW - mFrontCup.getWidth(), mH
-						- mFrontCup.getHeight(), null);
+						- mFrontCup.getHeight(), mFrontPaint);
 
 			// and make sure to redraw asap
 			invalidate();
