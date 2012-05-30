@@ -71,17 +71,24 @@ public class DiceGame2DActivity extends Activity {
 		mSimulationView.setVibrator(vibrator);
 		
 		//initialize media player 
-		 MediaPlayer mediaPlayer = MediaPlayer.create(this, R.raw.chink);
+		 MediaPlayer shakePlayer = MediaPlayer.create(this, R.raw.chink);
 		 try {
-			mediaPlayer.prepare();
+			shakePlayer.prepare();
 		} catch (IllegalStateException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-        mSimulationView.setMediaPlayer(mediaPlayer);
+		//initialize media player 
+		 MediaPlayer rollPlayer = MediaPlayer.create(this, R.raw.dice_roll);
+		 try {
+			rollPlayer.prepare();
+		} catch (IllegalStateException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+        mSimulationView.setMediaPlayer(shakePlayer,rollPlayer);
 		
 		actual = getIntent().getExtras().getInt("actual", 0);
 		prompt = getIntent().getExtras().getInt("prompt", 0);
@@ -173,7 +180,8 @@ public class DiceGame2DActivity extends Activity {
 		private Bitmap mBackCup;
 		private Paint mFrontPaint;		
 		private int mW = 0, mH = 0, actual = 0, prompt = 0;
-		private boolean endingAnimation = false;
+		private boolean endingAnimation = false, nearEndingAnimation = false;
+		private float nearEndX, nearEndY;//TODO use to calculate correct direction
 		private float mXOrigin;
 		private float mYOrigin;
 		private float mSensorX;
@@ -184,7 +192,7 @@ public class DiceGame2DActivity extends Activity {
 		private float mVerticalBound;
 		private final ParticleSystem mParticleSystem = new ParticleSystem();
 		public Vibrator vibrator;
-		public MediaPlayer mediaPlayer;
+		public MediaPlayer shakePlayer,rollPlayer;
 
 		/*
 		 * Each of our particle holds its previous and current position, its
@@ -216,9 +224,14 @@ public class DiceGame2DActivity extends Activity {
 				if (!endingAnimation) {
 					// Force of gravity applied to our virtual object
 					final float m = 1000.0f; // mass of our virtual object
-					final float gx = -sx * m;
-					final float gy = -sy * m;
-
+					float gx = -sx * m;
+					float gy = -sy * m;
+					
+					if(nearEndingAnimation){
+						gx=0f;
+						gy=0f;
+					}
+					
 					/*
 					 * ·F = mA <=> A = ·F / m We could simplify the code by
 					 * completely eliminating "m" (the mass) from all the
@@ -269,7 +282,7 @@ public class DiceGame2DActivity extends Activity {
 			 * constrained particle in such way that the constraint is
 			 * satisfied.
 			 */
-			public void resolveCollisionWithBounds(Vibrator vibrator, MediaPlayer mediaPlayer) {
+			public void resolveCollisionWithBounds(Vibrator vibrator, MediaPlayer shakePlayer, MediaPlayer rollPlayer) {
 				final float xmax = mHorizontalBound;
 				final float ymax = mVerticalBound;
 				final float x = mPosX;
@@ -281,7 +294,7 @@ public class DiceGame2DActivity extends Activity {
 							Log.i("mVel",""+mVel);
 							vibrator.vibrate(45);
 							//mediaPlayer.seekTo(0);
-							mediaPlayer.start();
+							shakePlayer.start();
 						}
 					} else if (x < -xmax) {
 						mPosX = -xmax;
@@ -289,12 +302,17 @@ public class DiceGame2DActivity extends Activity {
 							Log.i("mVel",""+mVel);
 							vibrator.vibrate(45);
 							//mediaPlayer.seekTo(0);
-							mediaPlayer.start();
+							shakePlayer.start();
 						}
 					}
 					if (y > ymax) {
 						mPosY = -ymax;
 						endingAnimation = true;
+						
+					}if (y > ymax*.5) {
+						nearEndingAnimation = true;
+						rollPlayer.start();
+						
 					} else if (y < -ymax) {
 						mPosY = -ymax;
 					}
@@ -348,7 +366,7 @@ public class DiceGame2DActivity extends Activity {
 				 * Finally make sure the particle doesn't intersects
 				 * with the walls.
 				 */
-				mBalls.resolveCollisionWithBounds(vibrator, mediaPlayer);
+				mBalls.resolveCollisionWithBounds(vibrator, shakePlayer,rollPlayer);
 			}
 
 			public int getParticleCount() {
@@ -367,8 +385,9 @@ public class DiceGame2DActivity extends Activity {
 				vibrator = v;
 			}
 
-			public void setMediaPlayer(MediaPlayer mp) {
-				mediaPlayer = mp;
+			public void setMediaPlayer(MediaPlayer shake, MediaPlayer roll) {
+				shakePlayer = shake;
+				rollPlayer = roll;
 				
 			}
 		}
@@ -385,8 +404,8 @@ public class DiceGame2DActivity extends Activity {
 					SensorManager.SENSOR_DELAY_UI);
 		}
 
-		public void setMediaPlayer(MediaPlayer mediaPlayer) {
-			mParticleSystem.setMediaPlayer(mediaPlayer);
+		public void setMediaPlayer(MediaPlayer shakePlayer, MediaPlayer rollPlayer) {
+			mParticleSystem.setMediaPlayer(shakePlayer,rollPlayer);
 			
 		}
 
