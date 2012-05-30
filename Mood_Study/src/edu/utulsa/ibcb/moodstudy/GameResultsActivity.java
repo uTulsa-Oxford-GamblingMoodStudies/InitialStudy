@@ -1,5 +1,7 @@
 package edu.utulsa.ibcb.moodstudy;
 
+import java.io.IOException;
+
 import org.xmlrpc.android.XMLRPCException;
 
 import android.app.Activity;
@@ -7,6 +9,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
@@ -64,7 +67,20 @@ public class GameResultsActivity extends Activity implements OnClickListener {
 		
 		Button replayButton = (Button) findViewById(R.id.replayButton);
 		replayButton.setOnClickListener(this);
-
+		
+		//initialize media player 
+		 MediaPlayer mediaPlayer = MediaPlayer.create(this, R.raw.payout);
+		 try {
+			mediaPlayer.prepare();
+		} catch (IllegalStateException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		if(won)
+			mediaPlayer.start();
 	}
 
 	public void onClick(View v) {
