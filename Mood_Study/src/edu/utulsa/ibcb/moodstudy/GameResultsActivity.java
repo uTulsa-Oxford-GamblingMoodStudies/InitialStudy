@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -37,17 +38,19 @@ public class GameResultsActivity extends Activity implements OnClickListener {
 		// Load layout from final_survey.xml
 		won = getIntent().getExtras().getBoolean("won");
 		prizeNumber = getIntent().getExtras().getInt("prize");
+		Log.i("pa",prizeNumber +" "+won);
+		
 		if (won){
 			setContentView(R.layout.win);
 			
 			//look up prize message
 			String prize ="";
 			switch(prizeNumber){
-				case 1: prize = getString(R.string.prize1);
-				case 2: prize = getString(R.string.prize2);
-				case 3: prize = getString(R.string.prize3);
-				case 4: prize = getString(R.string.prize4);
-				case 5: prize = getString(R.string.prize5);
+				case 1: prize = getString(R.string.prize1); break;
+				case 2: prize = getString(R.string.prize2);	break;
+				case 3: prize = getString(R.string.prize3);	break;
+				case 4: prize = getString(R.string.prize4);	break;
+				case 5: prize = getString(R.string.prize5);	break;
 				case 6: prize = getString(R.string.prize6);
 			}
 			

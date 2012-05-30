@@ -94,6 +94,9 @@ public class DiceGame2DActivity extends Activity {
 		Intent iOver = new Intent(this, GameResultsActivity.class);
 		iOver.putExtra("won", actual == prompt);
 		iOver.putExtra("prize", prompt);
+		
+		Log.i("pa",prompt +" "+actual);
+		
 		startActivity(iOver);
 	}
 
