@@ -2,10 +2,14 @@ package edu.utulsa.ibcb.moodstudy;
 
 import java.io.IOException;
 
+import org.xmlrpc.android.XMLRPCException;
+
 import edu.utulsa.ibcb.moodstudy.R;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
@@ -96,6 +100,34 @@ public class DiceGame2DActivity extends Activity {
 
 	}
 
+	public void uploadSensorData(){
+		//TODO implement
+		try {
+			RpcClient.getInstance(this).uploadSensorData(-1, -1, prompt, actual, new long[0], new double[0], new double[0], new double[0], false, new double[0], new double[0], new double[0]);
+			finish();
+		} catch (XMLRPCException xrpc) {
+			xrpc.printStackTrace();
+
+			StackTraceElement[] stack = xrpc.getStackTrace();
+
+			AlertDialog.Builder builder = new AlertDialog.Builder(this);
+			builder.setMessage(
+					"Error:" + xrpc.getMessage() + "\nIn:"
+							+ stack[stack.length - 1].getClassName())
+					.setTitle("Error")
+					.setNeutralButton("Ok",
+							new DialogInterface.OnClickListener() {
+								public void onClick(DialogInterface dialog,
+										int id) {
+									DiceGame2DActivity.this.finish();
+								}
+							});
+			AlertDialog alert = builder.create();;
+			alert.show();
+		}
+		
+	}
+	
 	public void onGameOver() {
 		setContentView(R.layout.placeholder);
 		Intent iOver = new Intent(this, GameResultsActivity.class);
@@ -103,6 +135,8 @@ public class DiceGame2DActivity extends Activity {
 		iOver.putExtra("prize", prompt);
 		
 		Log.i("pa",prompt +" "+actual);
+		
+		uploadSensorData();
 		
 		startActivity(iOver);
 	}
