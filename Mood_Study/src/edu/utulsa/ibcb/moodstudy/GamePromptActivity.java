@@ -143,7 +143,9 @@ public class GamePromptActivity extends Activity implements OnClickListener {
 			iDiceGame = new Intent(this, DiceGame2DActivity.class);
 		iDiceGame.putExtra("prompt", promptedRoll);
 		iDiceGame.putExtra("actual", actualRoll);
-
+		
+		Log.i("pa",promptedRoll +" "+actualRoll);
+		
 		switch (v.getId()) {
 		case R.id.prize1Button:
 			if (promptedRoll == 1){
