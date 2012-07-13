@@ -70,11 +70,17 @@ public class RpcClient {
 				options.get("username"), options.get("password"), session,
 				control);
 	}
-	/** TODO **/
-	public Boolean uploadSensorData(int userID, int luckyFeeling, int desiredRole, int actualRole, long[] timestamp,
-			double[] ax, double[] ay, double[] az, boolean hasGyroFlag, double[] gx, double[] gy, double[] gz) throws XMLRPCException {
-		//TODO implement
-		return false;
+
+	public void uploadSensorDataNoGyro(int play_id, double ax, double ay, double az) throws XMLRPCException{
+		uploadSensorData(play_id, ax, ay, az, 0, "NULL", "NULL", "NULL");
+	}
+
+	public void uploadSensorDataWithGyro(int play_id, double ax, double ay, double az, double gx, double, gy, double gz) throws XMLRPCException{
+		uploadSensorData(play_id, ax, ay, az, 1, gx, gy, gz);
+	}
+
+	private void uploadSensorData(int play_id, double ax, double ay, double az, boolean has_gyro, double gx, double gy, double gz) throws XMLRPCException {
+		client.call("post_accel_data", options.get("username", options.get("password"), play_id, ax, ay, az, has_gyro, gx, gy, gz));
 	}
 
 	public Boolean login(String user, String pass) throws XMLRPCException {

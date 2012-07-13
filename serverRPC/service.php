@@ -38,6 +38,45 @@ function checkUser($email, $pass){
     return $uid;
 }
 
+function post__accel_data($m){
+    global $xmlrpcerruser, $db_user, $db_pass, $db_database, $db_url, $db_port;
+    $email      = $m->getParam(0)->scalarVal();
+    $pass       = $m->getParam(1)->scalarVal();
+    $play_id    = $m->getParam(2)->scalarVal();
+    $ax         = $m->getParam(3)->scalarVal();
+    $ay         = $m->getParam(4)->scalarVal();
+    $az         = $m->getParam(5)->scalarVal();
+    $has_gyro   = $m->getParam(6)->scalarVal();
+    $gx         = $m->getParam(7)->scalarVal();
+    $gy         = $m->getParam(8)->scalarVal();
+    $gz         = $m->getParam(9)->scalarVal();
+
+    $rval = checkUser($email, $pass);
+    if(!is_numeric($rval))
+        return $rval;
+
+    if(!is_numeric($play_id)
+        return new xmlrpcresp(0, $xmlrpcerruser, "Play ID value must be int");
+    }
+ 
+    if(!is_numeric($ax)){
+        return new xmlrpcresp(0, $xmlrpcerruser, "Acceleration X value must be numeric");
+    }
+ 
+    if(!is_numeric($ay)){
+        return new xmlrpcresp(0, $xmlrpcerruser, "Acceleration Y value must be numeric");
+    }
+ 
+    if(!is_numeric($az)){
+        return new xmlrpcresp(0, $xmlrpcerruser, "Acceleration Z value must be numeric");
+    }
+ 
+    $result = mysql_query("INSERT INTO `accelerometer_data` (`pid`, `ax`, `ay', `az`, `has_gyro`, `gx`, `gy`, `gz`) VALUES ($play_id, $ax, $ay, $az, has_gyro, $gx, $gy, $gz);");
+
+    if($resultt == False){
+        return new xmlrpcresp(0, $xmlrpcerruser, "Could not insert accelerometer data into the database.");
+    }
+}
 
 
 function startSession($m){
