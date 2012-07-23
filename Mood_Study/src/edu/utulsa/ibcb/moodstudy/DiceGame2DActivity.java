@@ -1,6 +1,7 @@
 package edu.utulsa.ibcb.moodstudy;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import org.xmlrpc.android.XMLRPCException;
 
@@ -45,6 +46,7 @@ public class DiceGame2DActivity extends Activity {
 	private WakeLock mWakeLock;
 	protected int actual;
 	protected int prompt;
+	protected int luckyFeeling;
 	protected boolean won;
 
 	/** Called when the activity is first created. */
@@ -96,14 +98,24 @@ public class DiceGame2DActivity extends Activity {
 		
 		actual = getIntent().getExtras().getInt("actual", 0);
 		prompt = getIntent().getExtras().getInt("prompt", 0);
+		luckyFeeling = getIntent().getExtras().getInt("luckyFeeling", -1);
 		mSimulationView.setDice(prompt, actual);
 
 	}
 
 	public void uploadSensorData(){
-		//TODO implement
-		try {
-			RpcClient.getInstance(this).uploadSensorData(-1, -1, prompt, actual, new long[0], new double[0], new double[0], new double[0], false, new double[0], new double[0], new double[0]);
+		try {	
+			long[] ts = new long[mSimulationView.timestamp.size()];
+			double[] ax = new double[mSimulationView.timestamp.size()];
+			double[] ay = new double[mSimulationView.timestamp.size()];
+			double[] az = new double[mSimulationView.timestamp.size()];
+			for(int i = 0; i<mSimulationView.timestamp.size(); i++){
+				ts[i] = mSimulationView.timestamp.get(i);
+				ax[i] = mSimulationView.ax.get(i);
+				ay[i] = mSimulationView.ay.get(i);
+				az[i] = mSimulationView.az.get(i);
+			}
+			RpcClient.getInstance(this).uploadSensorData(luckyFeeling, prompt, actual, ts, ax, ay, az, false, new double[0], new double[0], new double[0]);
 			finish();
 		} catch (XMLRPCException xrpc) {
 			xrpc.printStackTrace();
@@ -228,6 +240,11 @@ public class DiceGame2DActivity extends Activity {
 		public Vibrator vibrator;
 		public MediaPlayer shakePlayer,rollPlayer;
 
+		// Data
+		ArrayList<Long> timestamp;
+		ArrayList<Double> ax, ay, az, gx, gy, gz;
+		
+		
 		/*
 		 * Each of our particle holds its previous and current position, its
 		 * acceleration. for added realism each particle has its own friction
@@ -556,6 +573,12 @@ public class DiceGame2DActivity extends Activity {
 			 * to with the screen in its native orientation).
 			 */
 
+			//log data
+			timestamp.add(System.nanoTime());
+			ax.add((double)event.values[0]);
+			ay.add((double)event.values[1]);
+			az.add((double)event.values[2]);
+			
 			switch (mDisplay.getRotation()) {
 			case Surface.ROTATION_0:
 				mSensorX = event.values[0];
