@@ -145,6 +145,7 @@ public class DiceGame2DActivity extends Activity {
 		Intent iOver = new Intent(this, GameResultsActivity.class);
 		iOver.putExtra("won", actual == prompt);
 		iOver.putExtra("prize", prompt);
+		iOver.putExtra("luckyFeeling", luckyFeeling);
 		
 		Log.i("pa",prompt +" "+actual);
 		
@@ -265,7 +266,7 @@ public class DiceGame2DActivity extends Activity {
 			
 
 			private float mVel;
-			private static final float mVelThreshold = .001f;
+			private static final float mVelThreshold = .01f;
 			
 
 			Particle() {

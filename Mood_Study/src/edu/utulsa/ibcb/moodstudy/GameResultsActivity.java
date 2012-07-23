@@ -25,6 +25,7 @@ public class GameResultsActivity extends Activity implements OnClickListener {
 
 	private boolean won;
 	private int prizeNumber;
+	private int luckyFeeling;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +42,7 @@ public class GameResultsActivity extends Activity implements OnClickListener {
 		// Load layout from final_survey.xml
 		won = getIntent().getExtras().getBoolean("won");
 		prizeNumber = getIntent().getExtras().getInt("prize");
+		luckyFeeling = getIntent().getExtras().getInt("luckyFeeling");
 		Log.i("pa",prizeNumber +" "+won);
 		
 		if (won){
@@ -86,7 +88,7 @@ public class GameResultsActivity extends Activity implements OnClickListener {
 	public void onClick(View v) {
 		switch (v.getId()) {
 			case R.id.exitButton:	startActivity(new Intent(this, FinalSurveyActivity.class)); break;
-			case R.id.replayButton:	startActivity(new Intent(this, GamePromptActivity.class));
+			case R.id.replayButton:	Intent i = new Intent(this, GamePromptActivity.class); i.putExtra("luckyFeeling", luckyFeeling);startActivity(i);
 		}
 	}
 	

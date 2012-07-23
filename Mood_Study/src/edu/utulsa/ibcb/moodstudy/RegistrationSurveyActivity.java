@@ -47,7 +47,7 @@ public class RegistrationSurveyActivity extends Activity implements OnClickListe
 		Button previousButton = (Button) findViewById(R.id.previousButton);
 		previousButton.setOnClickListener(this);
 
-		question = (TextView) findViewById(R.id.instructionsTextView);
+		question = (TextView) findViewById(R.id.instructionTextView);
 		
 	}
 
