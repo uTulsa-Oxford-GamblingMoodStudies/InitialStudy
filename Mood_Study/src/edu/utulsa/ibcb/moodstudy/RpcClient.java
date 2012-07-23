@@ -73,6 +73,11 @@ public class RpcClient {
 				control);
 	}
 
+	public void uploadSurveyData(int surveyVersionNumber, int[] responses) throws XMLRPCException {
+		//TODO upload pid and survey results
+	}
+	
+	
 	/**
 	 * 
 	 * @param luckyFeeling
