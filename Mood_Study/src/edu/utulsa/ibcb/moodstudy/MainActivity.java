@@ -80,6 +80,19 @@ public class MainActivity extends Activity implements OnClickListener,
 		playButton.setOnClickListener(this);
 		//playButton.setTypeface(tf);
 
+		Button registerButton = (Button) findViewById(R.id.registerButtonMain);
+		registerButton.setOnClickListener(this);
+		//playButton.setTypeface(tf);
+		
+/*		if (RpcClient.getInstance(this).getOption("username") != null){
+			registerButton.setClickable(false);
+			registerButton.setVisibility(Button.INVISIBLE);
+		}
+		else{
+			playButton.setClickable(false);
+			playButton.setVisibility(Button.INVISIBLE);
+		}
+*/		
 		Button loginButton = (Button) findViewById(R.id.loginButtonMain);
 		loginButton.setOnClickListener(this);
 		//loginButton.setTypeface(tf);
@@ -97,12 +110,15 @@ public class MainActivity extends Activity implements OnClickListener,
 				startActivity(new Intent(this, InstructionsActivity.class));
 			else
 				createDialog("Wait!",
-						"Please register or login before playing.",
+						"Please register before playing.",
 						new DialogInterface.OnClickListener() {
 							public void onClick(DialogInterface dialog, int id) {
 								dialog.dismiss();
 							}
 						});
+			break;
+		case R.id.registerButtonMain:
+			startActivity(new Intent(this, RegistrationSurveyActivity.class));
 			break;
 		case R.id.settingsButtonMain:
 			startActivity(new Intent(this, DevelopmentPreferencesActivity.class));
