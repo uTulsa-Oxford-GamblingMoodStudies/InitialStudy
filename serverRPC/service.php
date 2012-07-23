@@ -38,6 +38,46 @@ function checkUser($email, $pass){
     return $uid;
 }
 
+function post__accel_data($m){
+    global $xmlrpcerruser, $db_user, $db_pass, $db_database, $db_url, $db_port;
+    $email      = $m->getParam(0)->scalarVal();
+    $pass       = $m->getParam(1)->scalarVal();
+    $play_id    = $m->getParam(2)->scalarVal();
+    $time_stamp = $m->getParam(3)->scalarVal();
+    $ax         = $m->getParam(4)->scalarVal();
+    $ay         = $m->getParam(5)->scalarVal();
+    $az         = $m->getParam(6)->scalarVal();
+    $has_gyro   = $m->getParam(7)->scalarVal();
+    $gx         = $m->getParam(8)->scalarVal();
+    $gy         = $m->getParam(9)->scalarVal();
+    $gz         = $m->getParam(10)->scalarVal();
+
+    $rval = checkUser($email, $pass);
+    if(!is_numeric($rval))
+        return $rval;
+
+    if(!is_numeric($play_id)
+        return new xmlrpcresp(0, $xmlrpcerruser, "Play ID value must be int");
+    }
+ 
+    if(!is_numeric($ax)){
+        return new xmlrpcresp(0, $xmlrpcerruser, "Acceleration X value must be numeric");
+    }
+ 
+    if(!is_numeric($ay)){
+        return new xmlrpcresp(0, $xmlrpcerruser, "Acceleration Y value must be numeric");
+    }
+ 
+    if(!is_numeric($az)){
+        return new xmlrpcresp(0, $xmlrpcerruser, "Acceleration Z value must be numeric");
+    }
+ 
+    $result = mysql_query("INSERT INTO `accelerometer_data` (`pid`, `time_stamp`, `ax`, `ay', `az`, `has_gyro`, `gx`, `gy`, `gz`) VALUES ($play_id, $time_stamp, $ax, $ay, $az, has_gyro, $gx, $gy, $gz);");
+
+    if($resultt == False){
+        return new xmlrpcresp(0, $xmlrpcerruser, "Could not insert accelerometer data into the database.");
+    }
+}
 
 
 function startSession($m){
@@ -135,7 +175,9 @@ global $xmlrpcerruser, $db_user, $db_pass, $db_database, $db_url, $db_port, $min
 function play($m) {
 global $xmlrpcerruser, $db_user, $db_pass, $db_database, $db_url, $db_port, $min_play_interval;
     $email = $m->getParam(0)->scalarVal();
-    $pass = $m->getParam(1)->scalarVal();
+    $pass  = $m->getParam(1)->scalarVal();
+    $sid   = $m->getParam(2)->scalarVal();
+
     $rval = checkUser($email, $pass);
     if(!is_numeric($rval))
         return $rval;
@@ -148,13 +190,14 @@ global $xmlrpcerruser, $db_user, $db_pass, $db_database, $db_url, $db_port, $min
     $towin = rand(1,6);
     $result = rand(1,6);
     
-    $rset = mysql_query("INSERT INTO `plays` (uid, winning, result) VALUES ($rval, $towin, $result);");
-    
+    $rset = mysql_query("INSERT INTO `plays` (sid, winning, result) VALUES ($sid, $towin, $result);");
+    $pid = mysql_insert_id();
+
     if($rset == False){
         return new xmlrpcresp(0, $xmlrpcerruser, "Could not create play");
     }
     
-    return new xmlrpcresp(new xmlrpcval("$towin $result", "string"));
+    return new xmlrpcresp(new xmlrpcval("$towin $result $pid", "string"));
 }
 
 
