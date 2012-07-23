@@ -210,7 +210,7 @@ public class DiceGame2DActivity extends Activity {
 				* sBallDiameter;
 
 		// friction of the virtual table and air
-		private static final float sFriction = 0.05f;
+		private static final float sFriction = 0.2f;
 
 		private Sensor mAccelerometer;
 		private long mLastT;
@@ -241,9 +241,13 @@ public class DiceGame2DActivity extends Activity {
 		public MediaPlayer shakePlayer,rollPlayer;
 
 		// Data
-		ArrayList<Long> timestamp;
-		ArrayList<Double> ax, ay, az, gx, gy, gz;
-		
+		ArrayList<Long> timestamp = new ArrayList<Long>();
+		ArrayList<Double> ax =  new ArrayList<Double>();
+		ArrayList<Double> ay =  new ArrayList<Double>();
+		ArrayList<Double> az =  new ArrayList<Double>();
+		ArrayList<Double> gx =  new ArrayList<Double>();
+		ArrayList<Double> gy =  new ArrayList<Double>();
+		ArrayList<Double> gz =  new ArrayList<Double>();
 		
 		/*
 		 * Each of our particle holds its previous and current position, its
