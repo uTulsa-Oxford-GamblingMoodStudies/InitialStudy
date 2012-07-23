@@ -29,6 +29,7 @@ public class GamePromptActivity extends Activity implements OnClickListener {
 
 	private int promptedRoll;
 	private int actualRoll;
+	private int luckyFeeling;
 	private boolean threeD;
 
 	/** Called when the activity is first created. */
@@ -48,6 +49,8 @@ public class GamePromptActivity extends Activity implements OnClickListener {
 		// Check graphics mode
 		if (settings.getString("GraphicsMode", "").equals("3D"))
 			threeD = true;
+		
+		luckyFeeling = getIntent().getExtras().getInt("luckyFeeling", -1);
 
 		int winning = 0;// (int)(Math.ceil(6*Math.random()));//0
 		int play = 0;// (int)(Math.ceil(6*Math.random()));//0
@@ -143,6 +146,7 @@ public class GamePromptActivity extends Activity implements OnClickListener {
 			iDiceGame = new Intent(this, DiceGame2DActivity.class);
 		iDiceGame.putExtra("prompt", promptedRoll);
 		iDiceGame.putExtra("actual", actualRoll);
+		iDiceGame.putExtra("luckyFeeling", luckyFeeling);
 		
 		Log.i("pa",promptedRoll +" "+actualRoll);
 		

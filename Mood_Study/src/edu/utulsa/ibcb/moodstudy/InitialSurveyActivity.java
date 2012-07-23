@@ -44,9 +44,10 @@ public class InitialSurveyActivity extends Activity implements OnClickListener {
 	}
 
 	public void onClick(View v) {
-		Intent iNext = new Intent(this, GamePromptActivity.class);
-
 		int lucky = ((SeekBar) findViewById(R.id.moodSeekBar)).getProgress();
+		
+		Intent iNext = new Intent(this, GamePromptActivity.class);
+		iNext.putExtra("luckyFeeling", lucky);
 
 		try {
 			Integer session_id = RpcClient.getInstance(this)

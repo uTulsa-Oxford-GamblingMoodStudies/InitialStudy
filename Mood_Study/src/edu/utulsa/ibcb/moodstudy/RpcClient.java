@@ -73,16 +73,28 @@ public class RpcClient {
 				control);
 	}
 
-	public void uploadSensorDataNoGyro(long time_stamp, double ax, double ay, double az) throws XMLRPCException{
-		uploadSensorData(pid, time_stamp, ax, ay, az, 0, "NULL", "NULL", "NULL");
+	/**
+	 * 
+	 * @param luckyFeeling
+	 * @param prompt
+	 * @param actual
+	 * @param timestamps of when each data point was collected
+	 * @param ax accelerometer readings on the x-axis for each data point
+	 * @param ay accelerometer readings on the y-axis for each data point
+	 * @param az accelerometer readings on the z-axis for each data point
+	 * @param hasGryo 
+	 * @param gx only valid if hasGyro
+	 * @param gy only valid if hasGyro
+	 * @param gz only valid if hasGyro
+	 */
+	public void uploadSensorData(int luckyFeeling, int prompt, int actual,
+			long[] timestamps, double[] ax, double[] ay, double[] az, boolean hasGryo,
+			double[] gx, double[] gy, double[] gz) throws XMLRPCException {
+		//TODO upload pid and parameters
 	}
-
-	public void uploadSensorDataWithGyro(long time_stamp, double ax, double ay, double az, double gx, double, gy, double gz) throws XMLRPCException{
-		uploadSensorData(pid, time_stamp, ax, ay, az, 1, gx, gy, gz);
-	}
-
+	
 	private void uploadSensorData(int play_id, long time_stamp, double ax, double ay, double az, boolean has_gyro, double gx, double gy, double gz) throws XMLRPCException {
-		client.call("post_accel_data", options.get("username", options.get("password"), play_id, time_stamp, ax, ay, az, has_gyro, gx, gy, gz));
+	//	client.call("post_accel_data", options.get("username", options.get("password"), play_id, time_stamp, ax, ay, az, has_gyro, gx, gy, gz));
 	}
 
 	public Boolean login(String user, String pass) throws XMLRPCException {
@@ -195,4 +207,6 @@ public class RpcClient {
 		}
 
 	}
+
+
 }
