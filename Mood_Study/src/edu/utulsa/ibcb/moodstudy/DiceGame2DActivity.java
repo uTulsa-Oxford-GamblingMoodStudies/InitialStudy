@@ -67,35 +67,36 @@ public class DiceGame2DActivity extends Activity {
 		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
 				WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-		SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(this);
-		
+		SharedPreferences settings = PreferenceManager
+				.getDefaultSharedPreferences(this);
+
 		mSimulationView = new SimulationView(this);
 		setContentView(mSimulationView);
-		
+
 		// initialize vibrator
 		Vibrator vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
 		mSimulationView.setVibrator(vibrator);
-		
-		//initialize media player 
-		 MediaPlayer shakePlayer = MediaPlayer.create(this, R.raw.chink);
-		 try {
+
+		// initialize media player
+		MediaPlayer shakePlayer = MediaPlayer.create(this, R.raw.chink);
+		try {
 			shakePlayer.prepare();
 		} catch (IllegalStateException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		//initialize media player 
-		 MediaPlayer rollPlayer = MediaPlayer.create(this, R.raw.dice_roll);
-		 try {
+		// initialize media player
+		MediaPlayer rollPlayer = MediaPlayer.create(this, R.raw.dice_roll);
+		try {
 			rollPlayer.prepare();
 		} catch (IllegalStateException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-        mSimulationView.setMediaPlayer(shakePlayer,rollPlayer);
-		
+		mSimulationView.setMediaPlayer(shakePlayer, rollPlayer);
+
 		actual = getIntent().getExtras().getInt("actual", 0);
 		prompt = getIntent().getExtras().getInt("prompt", 0);
 		luckyFeeling = getIntent().getExtras().getInt("luckyFeeling", -1);
@@ -103,19 +104,21 @@ public class DiceGame2DActivity extends Activity {
 
 	}
 
-	public void uploadSensorData(){
-		try {	
+	public void uploadSensorData() {
+		try {
 			long[] ts = new long[mSimulationView.timestamp.size()];
 			double[] ax = new double[mSimulationView.timestamp.size()];
 			double[] ay = new double[mSimulationView.timestamp.size()];
 			double[] az = new double[mSimulationView.timestamp.size()];
-			for(int i = 0; i<mSimulationView.timestamp.size(); i++){
+			for (int i = 0; i < mSimulationView.timestamp.size(); i++) {
 				ts[i] = mSimulationView.timestamp.get(i);
 				ax[i] = mSimulationView.ax.get(i);
 				ay[i] = mSimulationView.ay.get(i);
 				az[i] = mSimulationView.az.get(i);
 			}
-			RpcClient.getInstance(this).uploadSensorData(luckyFeeling, prompt, actual, ts, ax, ay, az, false, new double[0], new double[0], new double[0]);
+			RpcClient.getInstance(this).uploadSensorData(luckyFeeling, prompt,
+					actual, ts, ax, ay, az, false, new double[0],
+					new double[0], new double[0]);
 			finish();
 		} catch (XMLRPCException xrpc) {
 			xrpc.printStackTrace();
@@ -134,23 +137,24 @@ public class DiceGame2DActivity extends Activity {
 									DiceGame2DActivity.this.finish();
 								}
 							});
-			AlertDialog alert = builder.create();;
+			AlertDialog alert = builder.create();
+			;
 			alert.show();
 		}
-		
+
 	}
-	
+
 	public void onGameOver() {
 		setContentView(R.layout.placeholder);
 		Intent iOver = new Intent(this, GameResultsActivity.class);
 		iOver.putExtra("won", actual == prompt);
 		iOver.putExtra("prize", prompt);
 		iOver.putExtra("luckyFeeling", luckyFeeling);
-		
-		Log.i("pa",prompt +" "+actual);
-		
+
+		Log.i("pa", prompt + " " + actual);
+
 		uploadSensorData();
-		
+
 		startActivity(iOver);
 	}
 
@@ -225,10 +229,11 @@ public class DiceGame2DActivity extends Activity {
 		private Bitmap mBackground;
 		private Bitmap mFrontCup;
 		private Bitmap mBackCup;
-		private Paint mFrontPaint;		
+		private Paint mFrontPaint;
 		private int mW = 0, mH = 0, actual = 0, prompt = 0;
 		private boolean endingAnimation = false, nearEndingAnimation = false;
-		private float nearEndX, nearEndY;//TODO use to calculate correct direction
+		private float nearEndX, nearEndY;// TODO use to calculate correct
+											// direction
 		private float mXOrigin;
 		private float mYOrigin;
 		private float mSensorX;
@@ -239,17 +244,17 @@ public class DiceGame2DActivity extends Activity {
 		private float mVerticalBound;
 		private final ParticleSystem mParticleSystem = new ParticleSystem();
 		public Vibrator vibrator;
-		public MediaPlayer shakePlayer,rollPlayer;
+		public MediaPlayer shakePlayer, rollPlayer;
 
 		// Data
 		ArrayList<Long> timestamp = new ArrayList<Long>();
-		ArrayList<Double> ax =  new ArrayList<Double>();
-		ArrayList<Double> ay =  new ArrayList<Double>();
-		ArrayList<Double> az =  new ArrayList<Double>();
-		ArrayList<Double> gx =  new ArrayList<Double>();
-		ArrayList<Double> gy =  new ArrayList<Double>();
-		ArrayList<Double> gz =  new ArrayList<Double>();
-		
+		ArrayList<Double> ax = new ArrayList<Double>();
+		ArrayList<Double> ay = new ArrayList<Double>();
+		ArrayList<Double> az = new ArrayList<Double>();
+		ArrayList<Double> gx = new ArrayList<Double>();
+		ArrayList<Double> gy = new ArrayList<Double>();
+		ArrayList<Double> gz = new ArrayList<Double>();
+
 		/*
 		 * Each of our particle holds its previous and current position, its
 		 * acceleration. for added realism each particle has its own friction
@@ -263,11 +268,9 @@ public class DiceGame2DActivity extends Activity {
 			private float mLastPosX;
 			private float mLastPosY;
 			private float mOneMinusFriction;
-			
 
 			private float mVel;
 			private static final float mVelThreshold = .01f;
-			
 
 			Particle() {
 				// make each particle a bit different by randomizing its
@@ -282,12 +285,12 @@ public class DiceGame2DActivity extends Activity {
 					final float m = 1000.0f; // mass of our virtual object
 					float gx = -sx * m;
 					float gy = -sy * m;
-					
-					if(nearEndingAnimation){
-						gx=0f;
-						gy=0f;
+
+					if (nearEndingAnimation) {
+						gx = 0f;
+						gy = 0f;
 					}
-					
+
 					/*
 					 * ·F = mA <=> A = ·F / m We could simplify the code by
 					 * completely eliminating "m" (the mass) from all the
@@ -313,10 +316,11 @@ public class DiceGame2DActivity extends Activity {
 							* (mPosX - mLastPosX) + mAccelX * dTdT;
 					final float y = mPosY + mOneMinusFriction * dTC
 							* (mPosY - mLastPosY) + mAccelY * dTdT;
-					
-					mVel = (float) (dTC*Math.sqrt(((mPosX - mLastPosX)*(mPosX - mLastPosX))
-							+((mPosY - mLastPosY)*(mPosY - mLastPosY))));
-					
+
+					mVel = (float) (dTC * Math
+							.sqrt(((mPosX - mLastPosX) * (mPosX - mLastPosX))
+									+ ((mPosY - mLastPosY) * (mPosY - mLastPosY))));
+
 					mLastPosX = mPosX;
 					mLastPosY = mPosY;
 					mPosX = x;
@@ -338,37 +342,39 @@ public class DiceGame2DActivity extends Activity {
 			 * constrained particle in such way that the constraint is
 			 * satisfied.
 			 */
-			public void resolveCollisionWithBounds(Vibrator vibrator, MediaPlayer shakePlayer, MediaPlayer rollPlayer) {
+			public void resolveCollisionWithBounds(Vibrator vibrator,
+					MediaPlayer shakePlayer, MediaPlayer rollPlayer) {
 				final float xmax = mHorizontalBound;
 				final float ymax = mVerticalBound;
 				final float x = mPosX;
 				final float y = mPosY;
-				if(!endingAnimation){
+				if (!endingAnimation) {
 					if (x > xmax) {
 						mPosX = xmax;
-						if(mVel>mVelThreshold){
-							Log.i("mVel",""+mVel);
+						if (mVel > mVelThreshold) {
+							Log.i("mVel", "" + mVel);
 							vibrator.vibrate(45);
-							//mediaPlayer.seekTo(0);
+							// mediaPlayer.seekTo(0);
 							shakePlayer.start();
 						}
 					} else if (x < -xmax) {
 						mPosX = -xmax;
-						if(mVel>mVelThreshold){
-							Log.i("mVel",""+mVel);
+						if (mVel > mVelThreshold) {
+							Log.i("mVel", "" + mVel);
 							vibrator.vibrate(45);
-							//mediaPlayer.seekTo(0);
+							// mediaPlayer.seekTo(0);
 							shakePlayer.start();
 						}
 					}
 					if (y > ymax) {
 						mPosY = -ymax;
 						endingAnimation = true;
-						
-					}if (y > ymax*.5) {
+
+					}
+					if (y > ymax * .5) {
 						nearEndingAnimation = true;
 						rollPlayer.start();
-						
+
 					} else if (y < -ymax) {
 						mPosY = -ymax;
 					}
@@ -387,7 +393,7 @@ public class DiceGame2DActivity extends Activity {
 				/*
 				 * Initially our particles have no speed or acceleration
 				 */
-				
+
 			}
 
 			/*
@@ -417,12 +423,13 @@ public class DiceGame2DActivity extends Activity {
 			public void update(float sx, float sy, long now) {
 				// update the system's positions
 				updatePositions(sx, sy, now);
-				
+
 				/*
-				 * Finally make sure the particle doesn't intersects
-				 * with the walls.
+				 * Finally make sure the particle doesn't intersects with the
+				 * walls.
 				 */
-				mBalls.resolveCollisionWithBounds(vibrator, shakePlayer,rollPlayer);
+				mBalls.resolveCollisionWithBounds(vibrator, shakePlayer,
+						rollPlayer);
 			}
 
 			public int getParticleCount() {
@@ -444,7 +451,7 @@ public class DiceGame2DActivity extends Activity {
 			public void setMediaPlayer(MediaPlayer shake, MediaPlayer roll) {
 				shakePlayer = shake;
 				rollPlayer = roll;
-				
+
 			}
 		}
 
@@ -460,14 +467,15 @@ public class DiceGame2DActivity extends Activity {
 					SensorManager.SENSOR_DELAY_UI);
 		}
 
-		public void setMediaPlayer(MediaPlayer shakePlayer, MediaPlayer rollPlayer) {
-			mParticleSystem.setMediaPlayer(shakePlayer,rollPlayer);
-			
+		public void setMediaPlayer(MediaPlayer shakePlayer,
+				MediaPlayer rollPlayer) {
+			mParticleSystem.setMediaPlayer(shakePlayer, rollPlayer);
+
 		}
 
 		public void setVibrator(Vibrator vibrator) {
 			mParticleSystem.setVibrator(vibrator);
-			
+
 		}
 
 		public void setDice(int p, int a) {
@@ -531,14 +539,15 @@ public class DiceGame2DActivity extends Activity {
 			Options opts = new Options();
 			opts.inDither = true;
 			opts.inPreferredConfig = Bitmap.Config.RGB_565;
-			
-			temp = BitmapFactory.decodeResource(getResources(),	R.drawable.table, opts);
+
+			temp = BitmapFactory.decodeResource(getResources(),
+					R.drawable.table, opts);
 			mBackground = Bitmap.createScaledBitmap(temp,
 					(int) (metrics.widthPixels), (int) (metrics.heightPixels),
 					true);
 			temp = BitmapFactory.decodeResource(getResources(),
 					R.drawable.cup_bottom, opts);
-			
+
 			mFrontCup = Bitmap
 					.createScaledBitmap(temp, metrics.widthPixels, (int) (temp
 							.getHeight() * (metrics.widthPixels / (float) temp
@@ -550,7 +559,7 @@ public class DiceGame2DActivity extends Activity {
 							.getHeight() * (metrics.widthPixels / (float) temp
 							.getWidth())), true);
 			mFrontPaint = new Paint();
-			//mFrontPaint.setAlpha(200);
+			// mFrontPaint.setAlpha(200);
 		}
 
 		@Override
@@ -578,12 +587,12 @@ public class DiceGame2DActivity extends Activity {
 			 * to with the screen in its native orientation).
 			 */
 
-			//log data
+			// log data
 			timestamp.add(System.nanoTime());
-			ax.add((double)event.values[0]);
-			ay.add((double)event.values[1]);
-			az.add((double)event.values[2]);
-			
+			ax.add((double) event.values[0]);
+			ay.add((double) event.values[1]);
+			az.add((double) event.values[2]);
+
 			switch (mDisplay.getRotation()) {
 			case Surface.ROTATION_0:
 				mSensorX = event.values[0];

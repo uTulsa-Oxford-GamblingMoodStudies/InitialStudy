@@ -22,12 +22,13 @@ import android.widget.TextView;
  * 
  * @author Eric Kuxhausen
  */
-public class RegistrationSurveyActivity extends Activity implements OnClickListener {
+public class RegistrationSurveyActivity extends Activity implements
+		OnClickListener {
 
-	private int questionNumber=0;
+	private int questionNumber = 0;
 	private int[] responses = new int[3];
 	TextView question;
-	
+
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -38,7 +39,7 @@ public class RegistrationSurveyActivity extends Activity implements OnClickListe
 
 		SharedPreferences settings = PreferenceManager
 				.getDefaultSharedPreferences(this);
-		
+
 		// Load layout
 		setContentView(R.layout.registration_survey);
 
@@ -48,63 +49,50 @@ public class RegistrationSurveyActivity extends Activity implements OnClickListe
 		previousButton.setOnClickListener(this);
 
 		question = (TextView) findViewById(R.id.instructionTextView);
-		
+
 	}
 
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.previousButton:
 			questionNumber--;
-			question.setText("Question "+(questionNumber+1));
-			if(questionNumber < 0)
+			question.setText("Question " + (questionNumber + 1));
+			if (questionNumber < 0)
 				onBackPressed();
 			break;
 		case R.id.nextButton:
 			questionNumber++;
-			question.setText("Question "+(questionNumber+1));
-			if(questionNumber == responses.length)
+			question.setText("Question " + (questionNumber + 1));
+			if (questionNumber == responses.length)
 				onBackPressed();
 		}
-		
+
 		/*
-		 int lucky = ((SeekBar) findViewById(R.id.moodSeekBar)).getProgress();
-		 
-		
-		Intent iNext = new Intent(this, GamePromptActivity.class);
-		iNext.putExtra("luckyFeeling", lucky);
-
-		try {
-			Integer session_id = RpcClient.getInstance(this)
-					.startSession(lucky);
-
-			RpcClient.getInstance(this).setSession(session_id);
-
-			// TODO pass survey results before leaving
-			switch (v.getId()) {
-			case R.id.doneButton:
-				startActivity(iNext);
-				break;
-			}
-		} catch (XMLRPCException xrpc) {
-			xrpc.printStackTrace();
-
-			StackTraceElement[] stack = xrpc.getStackTrace();
-
-			AlertDialog.Builder builder = new AlertDialog.Builder(this);
-			builder.setMessage(
-					"Error:" + xrpc.getMessage() + "\nIn:"
-							+ stack[stack.length - 1].getClassName())
-					.setTitle("Error")
-					.setNeutralButton("Ok",
-							new DialogInterface.OnClickListener() {
-								public void onClick(DialogInterface dialog,
-										int id) {
-									RegistrationSurveyActivity.this.finish();
-								}
-							});
-			AlertDialog alert = builder.create();
-			alert.show();
-		}*/
+		 * int lucky = ((SeekBar) findViewById(R.id.moodSeekBar)).getProgress();
+		 * 
+		 * 
+		 * Intent iNext = new Intent(this, GamePromptActivity.class);
+		 * iNext.putExtra("luckyFeeling", lucky);
+		 * 
+		 * try { Integer session_id = RpcClient.getInstance(this)
+		 * .startSession(lucky);
+		 * 
+		 * RpcClient.getInstance(this).setSession(session_id);
+		 * 
+		 * // TODO pass survey results before leaving switch (v.getId()) { case
+		 * R.id.doneButton: startActivity(iNext); break; } } catch
+		 * (XMLRPCException xrpc) { xrpc.printStackTrace();
+		 * 
+		 * StackTraceElement[] stack = xrpc.getStackTrace();
+		 * 
+		 * AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		 * builder.setMessage( "Error:" + xrpc.getMessage() + "\nIn:" +
+		 * stack[stack.length - 1].getClassName()) .setTitle("Error")
+		 * .setNeutralButton("Ok", new DialogInterface.OnClickListener() {
+		 * public void onClick(DialogInterface dialog, int id) {
+		 * RegistrationSurveyActivity.this.finish(); } }); AlertDialog alert =
+		 * builder.create(); alert.show(); }
+		 */
 	}
 
 }

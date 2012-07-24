@@ -46,7 +46,7 @@ public class MainActivity extends Activity implements OnClickListener,
 		SharedPreferences settings = PreferenceManager
 				.getDefaultSharedPreferences(this);
 		settings.registerOnSharedPreferenceChangeListener(this);
-		
+
 		if (!settings.contains("GraphicsMode")) {
 			settings.edit().putString("GraphicsMode",
 					getString(R.string.graphics_mode_preference));
@@ -54,11 +54,11 @@ public class MainActivity extends Activity implements OnClickListener,
 		}
 
 		load();
-		
-		
-		
-		AudioManager audioManager = (AudioManager)getSystemService(Context.AUDIO_SERVICE);
-		audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC) , AudioManager.FLAG_PLAY_SOUND);
+
+		AudioManager audioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
+		audioManager.setStreamVolume(AudioManager.STREAM_MUSIC,
+				audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC),
+				AudioManager.FLAG_PLAY_SOUND);
 	}
 
 	/**
@@ -68,38 +68,36 @@ public class MainActivity extends Activity implements OnClickListener,
 	public void load() {
 		SharedPreferences settings = PreferenceManager
 				.getDefaultSharedPreferences(this);
-		
+
 		// Load layout
 		setContentView(R.layout.main);
 
 		// create the typeface to be used by all app text
-		//Typeface tf = Typeface.createFromAsset(getApplicationContext()
-		//		.getAssets(), "archer_medium_pro.otf");
+		// Typeface tf = Typeface.createFromAsset(getApplicationContext()
+		// .getAssets(), "archer_medium_pro.otf");
 
 		Button playButton = (Button) findViewById(R.id.playButtonMain);
 		playButton.setOnClickListener(this);
-		//playButton.setTypeface(tf);
+		// playButton.setTypeface(tf);
 
 		Button registerButton = (Button) findViewById(R.id.registerButtonMain);
 		registerButton.setOnClickListener(this);
-		//playButton.setTypeface(tf);
-		
-/*		if (RpcClient.getInstance(this).getOption("username") != null){
-			registerButton.setClickable(false);
-			registerButton.setVisibility(Button.INVISIBLE);
-		}
-		else{
-			playButton.setClickable(false);
-			playButton.setVisibility(Button.INVISIBLE);
-		}
-*/		
+		// playButton.setTypeface(tf);
+
+		/*
+		 * if (RpcClient.getInstance(this).getOption("username") != null){
+		 * registerButton.setClickable(false);
+		 * registerButton.setVisibility(Button.INVISIBLE); } else{
+		 * playButton.setClickable(false);
+		 * playButton.setVisibility(Button.INVISIBLE); }
+		 */
 		Button loginButton = (Button) findViewById(R.id.loginButtonMain);
 		loginButton.setOnClickListener(this);
-		//loginButton.setTypeface(tf);
+		// loginButton.setTypeface(tf);
 
 		Button settingsButton = (Button) findViewById(R.id.settingsButtonMain);
 		settingsButton.setOnClickListener(this);
-		//settingsButton.setTypeface(tf);
+		// settingsButton.setTypeface(tf);
 
 	}
 
@@ -109,8 +107,7 @@ public class MainActivity extends Activity implements OnClickListener,
 			if (RpcClient.getInstance(this).getOption("username") != null)
 				startActivity(new Intent(this, InstructionsActivity.class));
 			else
-				createDialog("Wait!",
-						"Please register before playing.",
+				createDialog("Wait!", "Please register before playing.",
 						new DialogInterface.OnClickListener() {
 							public void onClick(DialogInterface dialog, int id) {
 								dialog.dismiss();
@@ -124,7 +121,7 @@ public class MainActivity extends Activity implements OnClickListener,
 			startActivity(new Intent(this, DevelopmentPreferencesActivity.class));
 			break;
 		case R.id.loginButtonMain:
-			//startActivity(new Intent(this, LoginActivity.class));
+			// startActivity(new Intent(this, LoginActivity.class));
 			startActivity(new Intent(this, RegistrationActivity.class));
 			break;
 		}
@@ -142,7 +139,6 @@ public class MainActivity extends Activity implements OnClickListener,
 
 	public void onSharedPreferenceChanged(SharedPreferences sharedPreferences,
 			String key) {
-		
-		
+
 	}
 }

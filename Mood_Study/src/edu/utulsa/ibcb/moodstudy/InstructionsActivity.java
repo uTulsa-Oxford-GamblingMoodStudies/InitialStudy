@@ -34,7 +34,7 @@ public class InstructionsActivity extends Activity implements OnClickListener {
 
 		SharedPreferences settings = PreferenceManager
 				.getDefaultSharedPreferences(this);
-		
+
 		// Load layout
 		setContentView(R.layout.instructions);
 
@@ -42,15 +42,13 @@ public class InstructionsActivity extends Activity implements OnClickListener {
 		Button continueButton = (Button) findViewById(R.id.continueButton);
 		continueButton.setOnClickListener(this);
 
-		/* {
-			// create the typeface to be used by all app text
-			Typeface tf = Typeface.createFromAsset(getApplicationContext()
-					.getAssets(), "archer_medium_pro.otf");
-			instructionView.setTypeface(tf);
-			// changing the typeface for this much text messes with the entire
-			// activity layout spacing
-			continueButton.setTypeface(tf);
-		}*/
+		/*
+		 * { // create the typeface to be used by all app text Typeface tf =
+		 * Typeface.createFromAsset(getApplicationContext() .getAssets(),
+		 * "archer_medium_pro.otf"); instructionView.setTypeface(tf); //
+		 * changing the typeface for this much text messes with the entire //
+		 * activity layout spacing continueButton.setTypeface(tf); }
+		 */
 	}
 
 	public void onClick(View v) {
