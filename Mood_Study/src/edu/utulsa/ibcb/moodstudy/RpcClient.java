@@ -22,7 +22,7 @@ public class RpcClient {
 	private static final String configFile = ".settings";
 
 	private static final String protocol = "https";
-	private static final String RPCserver = "129.244.245.205";
+	private static final String RPCserver = "129.244.231.5";
 	// private static final String RPCport = "80";
 	
 	/** name of the php file server side procedure calls are to**/
@@ -73,8 +73,8 @@ public class RpcClient {
 				control);
 	}
 
-	public void uploadSurveyData(int surveyVersionNumber, int[] responses) throws XMLRPCException {
-		//TODO upload pid and survey results
+	public void uploadSurveyData(int surveyNumber, String response) throws XMLRPCException {
+		client.call("uploadSurveyData", options.get("username"), options.get("password"), surveyNumber, response);
 	}
 	
 	
@@ -92,15 +92,14 @@ public class RpcClient {
 	 * @param gy only valid if hasGyro
 	 * @param gz only valid if hasGyro
 	 */
-	public void uploadSensorData(int luckyFeeling, int prompt, int actual,
-			long[] timestamps, double[] ax, double[] ay, double[] az, boolean hasGryo,
-			double[] gx, double[] gy, double[] gz) throws XMLRPCException {
-		//TODO upload pid and parameters
+	public void uploadSensorData(int[] timestamps, double[] ax, double[] ay, double[] az, boolean hasGyro, double[] gx, double[] gy, double[] gz) throws XMLRPCException {
+		Object [] arg_v = {options.get("username"), options.get("password"), pid, timestamps, ax, ay, az, hasGyro, gx, gy, gz};
+		client.callEx("uploadSensorData", arg_v );
 	}
 	
-	private void uploadSensorData(int play_id, long time_stamp, double ax, double ay, double az, boolean has_gyro, double gx, double gy, double gz) throws XMLRPCException {
+//	private void uploadSensorData(int play_id, long time_stamp, double ax, double ay, double az, boolean has_gyro, double gx, double gy, double gz) throws XMLRPCException {
 	//	client.call("post_accel_data", options.get("username", options.get("password"), play_id, time_stamp, ax, ay, az, has_gyro, gx, gy, gz));
-	}
+//	}
 
 	public Boolean login(String user, String pass) throws XMLRPCException {
 		return (Boolean) client.call("login", user, pass);

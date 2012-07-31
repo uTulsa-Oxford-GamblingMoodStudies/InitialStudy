@@ -50,7 +50,7 @@ public class GamePromptActivity extends Activity implements OnClickListener {
 		if (settings.getString("GraphicsMode", "").equals("3D"))
 			threeD = true;
 		
-		luckyFeeling = getIntent().getExtras().getInt("luckyFeeling", -1);
+//		luckyFeeling = getIntent().getExtras().getInt("luckyFeeling", -1);
 
 		int winning = 0;// (int)(Math.ceil(6*Math.random()));//0
 		int play = 0;// (int)(Math.ceil(6*Math.random()));//0

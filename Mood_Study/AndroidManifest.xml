@@ -30,5 +30,6 @@
         <activity android:name="FinalSurveyActivity" android:screenOrientation="portrait" android:configChanges="keyboard|keyboardHidden|orientation" android:noHistory="true"></activity>
         <activity android:name="DevelopmentPreferencesActivity" android:screenOrientation="portrait" android:configChanges="keyboard|keyboardHidden|orientation" android:noHistory="true"></activity>
         <activity android:name="GameResultsActivity" android:screenOrientation="portrait" android:configChanges="keyboard|keyboardHidden|orientation" android:noHistory="true"></activity>
+        <activity android:name="GamblingSurvey"></activity>
     </application>
 </manifest>

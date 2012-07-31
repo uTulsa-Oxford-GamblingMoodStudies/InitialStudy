@@ -68,9 +68,12 @@ public class GameResultsActivity extends Activity implements OnClickListener {
 		Button replayButton = (Button) findViewById(R.id.replayButton);
 		replayButton.setOnClickListener(this);
 		
+		Button exitButton = (Button) findViewById(R.id.exitButton);
+		exitButton.setOnClickListener(this);
+		
 		//initialize media player 
 		 MediaPlayer mediaPlayer = MediaPlayer.create(this, R.raw.payout);
-		 try {
+/*		 try {
 			mediaPlayer.prepare();
 		} catch (IllegalStateException e) {
 			// TODO Auto-generated catch block
@@ -79,8 +82,12 @@ public class GameResultsActivity extends Activity implements OnClickListener {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+*/
 		if(won)
 			mediaPlayer.start();
+			
+		mediaPlayer.reset();
+		mediaPlayer.release();
 	}
 
 	public void onClick(View v) {

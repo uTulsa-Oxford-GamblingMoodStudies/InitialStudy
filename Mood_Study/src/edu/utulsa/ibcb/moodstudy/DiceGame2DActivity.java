@@ -4,6 +4,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import org.xmlrpc.android.XMLRPCException;
+import org.openintents.sensorsimulator.hardware.Sensor;
+import org.openintents.sensorsimulator.hardware.SensorEvent;
+import org.openintents.sensorsimulator.hardware.SensorEventListener;
+import org.openintents.sensorsimulator.hardware.SensorManagerSimulator;
 
 import edu.utulsa.ibcb.moodstudy.R;
 
@@ -18,9 +22,11 @@ import android.graphics.BitmapFactory;
 import android.graphics.BitmapFactory.Options;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+/*
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
+*/
 import android.hardware.SensorManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
@@ -39,7 +45,7 @@ import android.view.WindowManager;
 public class DiceGame2DActivity extends Activity {
 
 	private SimulationView mSimulationView;
-	private SensorManager mSensorManager;
+	private SensorManagerSimulator mSensorManager;
 	private PowerManager mPowerManager;
 	private WindowManager mWindowManager;
 	private Display mDisplay;
@@ -54,7 +60,10 @@ public class DiceGame2DActivity extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		mSensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
+//		mSensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
+		mSensorManager = SensorManagerSimulator.getSystemService(this, SENSOR_SERVICE);
+		mSensorManager.connectSimulator();
+
 		mPowerManager = (PowerManager) getSystemService(POWER_SERVICE);
 
 		mWindowManager = (WindowManager) getSystemService(WINDOW_SERVICE);
@@ -78,23 +87,23 @@ public class DiceGame2DActivity extends Activity {
 		
 		//initialize media player 
 		 MediaPlayer shakePlayer = MediaPlayer.create(this, R.raw.chink);
-		 try {
+/*		 try {
 			shakePlayer.prepare();
 		} catch (IllegalStateException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		//initialize media player 
+*/		//initialize media player 
 		 MediaPlayer rollPlayer = MediaPlayer.create(this, R.raw.dice_roll);
-		 try {
+/*		 try {
 			rollPlayer.prepare();
 		} catch (IllegalStateException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-        mSimulationView.setMediaPlayer(shakePlayer,rollPlayer);
+*/        mSimulationView.setMediaPlayer(shakePlayer,rollPlayer);
 		
 		actual = getIntent().getExtras().getInt("actual", 0);
 		prompt = getIntent().getExtras().getInt("prompt", 0);
@@ -105,17 +114,17 @@ public class DiceGame2DActivity extends Activity {
 
 	public void uploadSensorData(){
 		try {	
-			long[] ts = new long[mSimulationView.timestamp.size()];
+			int[] ts = new int[mSimulationView.timestamp.size()];
 			double[] ax = new double[mSimulationView.timestamp.size()];
 			double[] ay = new double[mSimulationView.timestamp.size()];
 			double[] az = new double[mSimulationView.timestamp.size()];
 			for(int i = 0; i<mSimulationView.timestamp.size(); i++){
-				ts[i] = mSimulationView.timestamp.get(i);
+				ts[i] = (int) ((mSimulationView.timestamp.get(i)-mSimulationView.timestamp.get(0))/1000);
 				ax[i] = mSimulationView.ax.get(i);
 				ay[i] = mSimulationView.ay.get(i);
 				az[i] = mSimulationView.az.get(i);
 			}
-			RpcClient.getInstance(this).uploadSensorData(luckyFeeling, prompt, actual, ts, ax, ay, az, false, new double[0], new double[0], new double[0]);
+			RpcClient.getInstance(this).uploadSensorData(ts, ax, ay, az, false, new double[1], new double[1], new double[1]);
 			finish();
 		} catch (XMLRPCException xrpc) {
 			xrpc.printStackTrace();
@@ -212,7 +221,9 @@ public class DiceGame2DActivity extends Activity {
 		// friction of the virtual table and air
 		private static final float sFriction = 0.05f;
 
-		private Sensor mAccelerometer;
+//		private Sensor mAccelerometer;
+		private org.openintents.sensorsimulator.hardware.Sensor mAccelerometer;
+
 		private long mLastT;
 		private float mLastDeltaT;
 
@@ -241,8 +252,13 @@ public class DiceGame2DActivity extends Activity {
 		public MediaPlayer shakePlayer,rollPlayer;
 
 		// Data
-		ArrayList<Long> timestamp;
-		ArrayList<Double> ax, ay, az, gx, gy, gz;
+		ArrayList<Long> timestamp = new ArrayList<Long>();
+		ArrayList<Double> ax = new ArrayList<Double>();
+		ArrayList<Double> ay = new ArrayList<Double>();
+		ArrayList<Double> az = new ArrayList<Double>();
+		ArrayList<Double> gx = new ArrayList<Double>();
+		ArrayList<Double> gy = new ArrayList<Double>();
+		ArrayList<Double> gz = new ArrayList<Double>();
 		
 		
 		/*
@@ -451,8 +467,8 @@ public class DiceGame2DActivity extends Activity {
 			 * of the acceleration. As an added benefit, we use less power and
 			 * CPU resources.
 			 */
-			mSensorManager.registerListener(this, mAccelerometer,
-					SensorManager.SENSOR_DELAY_UI);
+//			mSensorManager.registerListener(this, mAccelerometer, SensorManager.SENSOR_DELAY_UI);
+			mSensorManager.registerListener((org.openintents.sensorsimulator.hardware.SensorEventListener) this, mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER), SensorManager.SENSOR_DELAY_UI);
 		}
 
 		public void setMediaPlayer(MediaPlayer shakePlayer, MediaPlayer rollPlayer) {
@@ -500,7 +516,8 @@ public class DiceGame2DActivity extends Activity {
 		}
 
 		public void stopSimulation() {
-			mSensorManager.unregisterListener(this);
+//			mSensorManager.unregisterListener(this);
+			mSensorManager.unregisterListener((org.openintents.sensorsimulator.hardware.SensorEventListener) this);
 		}
 
 		public SimulationView(Context context) {
@@ -562,7 +579,9 @@ public class DiceGame2DActivity extends Activity {
 
 		// @Override
 		public void onSensorChanged(SensorEvent event) {
-			if (event.sensor.getType() != Sensor.TYPE_ACCELEROMETER)
+//			if (event.sensor.getType() != Sensor.TYPE_ACCELEROMETER)
+//				return;
+			if (event.type != Sensor.TYPE_ACCELEROMETER)
 				return;
 			/*
 			 * record the accelerometer data, the event's timestamp as well as
@@ -598,7 +617,8 @@ public class DiceGame2DActivity extends Activity {
 				break;
 			}
 
-			mSensorTimeStamp = event.timestamp;
+//			mSensorTimeStamp = event.timestamp;
+			mSensorTimeStamp = timestamp.get(timestamp.size()-1);
 			mCpuTimeStamp = System.nanoTime();
 		}
 
