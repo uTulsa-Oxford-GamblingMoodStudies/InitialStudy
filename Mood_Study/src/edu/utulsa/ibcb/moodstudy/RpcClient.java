@@ -22,7 +22,7 @@ public class RpcClient {
 	private static final String configFile = ".settings";
 
 	private static final String protocol = "https";
-	private static final String RPCserver = "129.244.231.5";
+	private static final String RPCserver = "129.244.204.83";
 	// private static final String RPCport = "80";
 	
 	/** name of the php file server side procedure calls are to**/
