@@ -3,6 +3,7 @@ package org.xmlrpc.android;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.StringReader;
+import java.lang.reflect.Array;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -63,11 +64,11 @@ class XMLRPCSerializer implements IXMLRPCSerializer {
 			}
 			serializer.endTag(null, TAG_DATA).endTag(null, TYPE_ARRAY);
 		} else
-		if (object instanceof Object[]) {
+		if (object.getClass().isArray()) {
 			serializer.startTag(null, TYPE_ARRAY).startTag(null, TAG_DATA);
-			Object[] objects = (Object[]) object;
-			for (int i=0; i<objects.length; i++) {
-				Object o = objects[i];
+//			Object[] objects = (Object[]) object;
+			for (int i=0; i<Array.getLength(object); i++) {
+				Object o = Array.get(object, i);
 				serializer.startTag(null, TAG_VALUE);
 				serialize(serializer, o);
 				serializer.endTag(null, TAG_VALUE);
@@ -96,7 +97,18 @@ class XMLRPCSerializer implements IXMLRPCSerializer {
 			XMLRPCSerializable serializable = (XMLRPCSerializable) object;
 			serialize(serializer, serializable.getSerializable());
 		} else {
-			throw new IOException("Cannot serialize " + object);
+/*			System.out.println("** " + object.toString() + " is instance of " + object.getClass().getCanonicalName() + " **");
+			if(object==null) {
+				System.out.println("Object is null.");
+			} else {
+				System.out.println("Object is not null.");
+				if(((Object[]) object).length==0) {
+					System.out.println("Object has zero length.");
+				} else {
+					System.out.println("Object has nonzero length");
+				}
+			}
+*/			throw new IOException("Cannot serialize " + object);
 		}
 	}
 	
