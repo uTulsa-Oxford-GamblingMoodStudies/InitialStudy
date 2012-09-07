@@ -35,7 +35,7 @@ public class FinalSurveyActivity extends Activity implements OnClickListener {
 
 		SharedPreferences settings = PreferenceManager
 				.getDefaultSharedPreferences(this);
-		
+
 		// Load layout
 		setContentView(R.layout.final_survey);
 

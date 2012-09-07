@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+    
+    <RelativeLayout
+        android:id="@+id/relativeLayout1"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp" >
+	
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" android:orientation="vertical"
+            android:layout_alignParentTop="true">
+	        
+		    <TextView
+		        android:id="@+id/instructionTextView"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:text="Question"
+		        android:textAppearance="?android:attr/textAppearanceLarge" />
+		
+		    <RadioButton
+		        android:id="@+id/radioButton1"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:text="Response1" />
+		
+		    <RadioButton
+		        android:id="@+id/radioButton2"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:text="Response2" />
+		
+		    <RadioButton
+		        android:id="@+id/radioButton3"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:text="Response3" />
+		
+		    <RadioButton
+		        android:id="@+id/radioButton4"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:text="Response4" />
+		
+		    <RadioButton
+		        android:id="@+id/radioButton5"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:text="Response5" />
+		
+		    <RadioButton
+		        android:id="@+id/radioButton6"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:text="Response6" />
+		
+		    <RadioButton
+		        android:id="@+id/radioButton7"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:text="Response7" />
+		</LinearLayout>
+        <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" android:layout_alignParentBottom="true">
+	
+            <Button
+                android:id="@+id/previousButton"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/previous" 
+                android:layout_weight="1"
+                />
+
+            <Button
+                android:id="@+id/exitButton"
+                android:text="invisible"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:visibility="invisible" android:clickable="false"/>
+
+            <Button
+                android:id="@+id/nextButton"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/next" 
+                android:layout_weight="1"/>
+	
+	        </LinearLayout>
+	        
+	  </RelativeLayout>
+	    
+</LinearLayout>
