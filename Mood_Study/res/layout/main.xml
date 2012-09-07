@@ -22,6 +22,14 @@
         android:text="@string/play" />
 
     <Button
+        android:id="@+id/registerButtonMain"
+        style="@style/AppText.Main"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/register"/>
+    
+    
+    <Button
         android:id="@+id/loginButtonMain"
         style="@style/AppText.Main"
         android:layout_width="match_parent"

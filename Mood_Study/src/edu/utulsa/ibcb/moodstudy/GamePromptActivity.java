@@ -42,15 +42,15 @@ public class GamePromptActivity extends Activity implements OnClickListener {
 
 		SharedPreferences settings = PreferenceManager
 				.getDefaultSharedPreferences(this);
-		
+
 		// Load layout
 		setContentView(R.layout.game_prompt);
-		
+
 		// Check graphics mode
 		if (settings.getString("GraphicsMode", "").equals("3D"))
 			threeD = true;
-		
-//		luckyFeeling = getIntent().getExtras().getInt("luckyFeeling", -1);
+
+		luckyFeeling = getIntent().getExtras().getInt("luckyFeeling", -1);
 
 		int winning = 0;// (int)(Math.ceil(6*Math.random()));//0
 		int play = 0;// (int)(Math.ceil(6*Math.random()));//0
@@ -147,56 +147,50 @@ public class GamePromptActivity extends Activity implements OnClickListener {
 		iDiceGame.putExtra("prompt", promptedRoll);
 		iDiceGame.putExtra("actual", actualRoll);
 		iDiceGame.putExtra("luckyFeeling", luckyFeeling);
-		
-		Log.i("pa",promptedRoll +" "+actualRoll);
-		
+
+		Log.i("pa", promptedRoll + " " + actualRoll);
+
 		switch (v.getId()) {
 		case R.id.prize1Button:
-			if (promptedRoll == 1){
+			if (promptedRoll == 1) {
 				setContentView(R.layout.placeholder);
 				startActivity(iDiceGame);
-			}
-			else
+			} else
 				showWrongDialog();
 			break;
 		case R.id.prize2Button:
-			if (promptedRoll == 2){
+			if (promptedRoll == 2) {
 				setContentView(R.layout.placeholder);
 				startActivity(iDiceGame);
-			}
-			else
+			} else
 				showWrongDialog();
 			break;
 		case R.id.prize3Button:
-			if (promptedRoll == 3){
+			if (promptedRoll == 3) {
 				setContentView(R.layout.placeholder);
 				startActivity(iDiceGame);
-			}
-			else
+			} else
 				showWrongDialog();
 			break;
 		case R.id.prize4Button:
-			if (promptedRoll == 4){
+			if (promptedRoll == 4) {
 				setContentView(R.layout.placeholder);
 				startActivity(iDiceGame);
-			}
-			else
+			} else
 				showWrongDialog();
 			break;
 		case R.id.prize5Button:
-			if (promptedRoll == 5){
+			if (promptedRoll == 5) {
 				setContentView(R.layout.placeholder);
 				startActivity(iDiceGame);
-			}
-			else
+			} else
 				showWrongDialog();
 			break;
 		case R.id.prize6Button:
-			if (promptedRoll == 6){
+			if (promptedRoll == 6) {
 				setContentView(R.layout.placeholder);
 				startActivity(iDiceGame);
-			}
-			else
+			} else
 				showWrongDialog();
 			break;
 		}

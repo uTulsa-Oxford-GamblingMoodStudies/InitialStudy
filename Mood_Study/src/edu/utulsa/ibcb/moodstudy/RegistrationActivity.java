@@ -107,9 +107,9 @@ public class RegistrationActivity extends Activity implements OnClickListener {
 		String user = ((TextView) findViewById(R.id.username_field)).getText()
 				.toString();
 		String pass1 = ((TextView) findViewById(R.id.pass1_field)).getText()
-				.toString()+"filler0";
+				.toString() + "filler0";
 		String pass2 = ((TextView) findViewById(R.id.pass2_field)).getText()
-				.toString()+"filler0";
+				.toString() + "filler0";
 		String name = ((TextView) findViewById(R.id.realname_field)).getText()
 				.toString();
 		String captcha = ((TextView) findViewById(R.id.captchaEntry)).getText()

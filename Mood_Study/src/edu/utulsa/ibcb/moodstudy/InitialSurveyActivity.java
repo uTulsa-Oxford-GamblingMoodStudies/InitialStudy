@@ -35,7 +35,7 @@ public class InitialSurveyActivity extends Activity implements OnClickListener {
 
 		SharedPreferences settings = PreferenceManager
 				.getDefaultSharedPreferences(this);
-		
+
 		// Load layout
 		setContentView(R.layout.initial_survey);
 
@@ -45,7 +45,7 @@ public class InitialSurveyActivity extends Activity implements OnClickListener {
 
 	public void onClick(View v) {
 		int lucky = ((SeekBar) findViewById(R.id.moodSeekBar)).getProgress();
-		
+
 		Intent iNext = new Intent(this, GamePromptActivity.class);
 		iNext.putExtra("luckyFeeling", lucky);
 

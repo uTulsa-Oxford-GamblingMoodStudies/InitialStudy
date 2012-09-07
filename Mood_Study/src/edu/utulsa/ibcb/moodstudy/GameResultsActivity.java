@@ -25,6 +25,7 @@ public class GameResultsActivity extends Activity implements OnClickListener {
 
 	private boolean won;
 	private int prizeNumber;
+	private int luckyFeeling;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -33,47 +34,53 @@ public class GameResultsActivity extends Activity implements OnClickListener {
 		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
 				WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-		
 		SharedPreferences settings = PreferenceManager
 				.getDefaultSharedPreferences(this);
-		
-		
+
 		// Load layout from final_survey.xml
 		won = getIntent().getExtras().getBoolean("won");
 		prizeNumber = getIntent().getExtras().getInt("prize");
-		Log.i("pa",prizeNumber +" "+won);
-		
-		if (won){
+		luckyFeeling = getIntent().getExtras().getInt("luckyFeeling");
+		Log.i("pa", prizeNumber + " " + won);
+
+		if (won) {
 			setContentView(R.layout.win);
-			
-			//look up prize message
-			String prize ="";
-			switch(prizeNumber){
-				case 1: prize = getString(R.string.prize1); break;
-				case 2: prize = getString(R.string.prize2);	break;
-				case 3: prize = getString(R.string.prize3);	break;
-				case 4: prize = getString(R.string.prize4);	break;
-				case 5: prize = getString(R.string.prize5);	break;
-				case 6: prize = getString(R.string.prize6);
+
+			// look up prize message
+			String prize = "";
+			switch (prizeNumber) {
+			case 1:
+				prize = getString(R.string.prize1);
+				break;
+			case 2:
+				prize = getString(R.string.prize2);
+				break;
+			case 3:
+				prize = getString(R.string.prize3);
+				break;
+			case 4:
+				prize = getString(R.string.prize4);
+				break;
+			case 5:
+				prize = getString(R.string.prize5);
+				break;
+			case 6:
+				prize = getString(R.string.prize6);
 			}
-			
-			//set prize message
-			TextView message =((TextView)findViewById(R.id.resultsTextView));
-			message.setText(message.getText()+" "+prize+"!");
-		}
-		else{
+
+			// set prize message
+			TextView message = ((TextView) findViewById(R.id.resultsTextView));
+			message.setText(message.getText() + " " + prize + "!");
+		} else {
 			setContentView(R.layout.lose);
 		}
-		
+
 		Button replayButton = (Button) findViewById(R.id.replayButton);
 		replayButton.setOnClickListener(this);
-		
-		Button exitButton = (Button) findViewById(R.id.exitButton);
-		exitButton.setOnClickListener(this);
-		
-		//initialize media player 
-		 MediaPlayer mediaPlayer = MediaPlayer.create(this, R.raw.payout);
-/*		 try {
+
+		// initialize media player
+		MediaPlayer mediaPlayer = MediaPlayer.create(this, R.raw.payout);
+		try {
 			mediaPlayer.prepare();
 		} catch (IllegalStateException e) {
 			// TODO Auto-generated catch block
@@ -82,21 +89,22 @@ public class GameResultsActivity extends Activity implements OnClickListener {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-*/
-		if(won)
+		if (won)
 			mediaPlayer.start();
-			
-		mediaPlayer.reset();
-		mediaPlayer.release();
 	}
 
 	public void onClick(View v) {
 		switch (v.getId()) {
-			case R.id.exitButton:	startActivity(new Intent(this, FinalSurveyActivity.class)); break;
-			case R.id.replayButton:	startActivity(new Intent(this, GamePromptActivity.class));
+		case R.id.exitButton:
+			startActivity(new Intent(this, FinalSurveyActivity.class));
+			break;
+		case R.id.replayButton:
+			Intent i = new Intent(this, GamePromptActivity.class);
+			i.putExtra("luckyFeeling", luckyFeeling);
+			startActivity(i);
 		}
 	}
-	
+
 	@Override
 	public void onBackPressed() {
 		startActivity(new Intent(this, FinalSurveyActivity.class));
