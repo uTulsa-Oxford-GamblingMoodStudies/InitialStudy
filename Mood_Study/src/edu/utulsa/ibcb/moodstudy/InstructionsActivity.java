@@ -54,7 +54,7 @@ public class InstructionsActivity extends Activity implements OnClickListener {
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.continueButton:
-			startActivity(new Intent(this, GamblingSurvey.class));
+			startActivity(new Intent(this, InitialSurveyActivity.class));
 			break;
 		}
 	}
