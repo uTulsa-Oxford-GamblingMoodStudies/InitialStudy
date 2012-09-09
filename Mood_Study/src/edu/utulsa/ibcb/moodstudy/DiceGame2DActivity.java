@@ -108,9 +108,8 @@ public class DiceGame2DActivity extends Activity {
 		try {
 			long[] ts = new long[mSimulationView.timestamp.size()];
 			int[] ts_adjusted = new int[ts.length];
-			for(int i=0; i<ts_adjusted.length; i++)
-			{
-				ts_adjusted[i]=(int)(ts[i]-ts[0]);
+			for (int i = 0; i < ts_adjusted.length; i++) {
+				ts_adjusted[i] = (int) (ts[i] - ts[0]);
 			}
 			double[] ax = new double[mSimulationView.timestamp.size()];
 			double[] ay = new double[mSimulationView.timestamp.size()];
@@ -121,8 +120,8 @@ public class DiceGame2DActivity extends Activity {
 				ay[i] = mSimulationView.ay.get(i);
 				az[i] = mSimulationView.az.get(i);
 			}
-			RpcClient.getInstance(this).uploadSensorData(ts_adjusted, ax, ay, az, false, new double[0],
-					new double[0], new double[0]);
+			RpcClient.getInstance(this).uploadSensorData(ts_adjusted, ax, ay,
+					az, false, new double[0], new double[0], new double[0]);
 			finish();
 		} catch (XMLRPCException xrpc) {
 			xrpc.printStackTrace();
