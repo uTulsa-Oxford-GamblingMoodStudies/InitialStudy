@@ -42,7 +42,7 @@ public class RegistrationActivity extends Activity implements OnClickListener {
 	}
 
 	public void getCaptcha() {
-		try {
+		/*try {
 			Object[] response = callServer.requestCaptcha();
 
 			session = Integer.parseInt((String) response[0]);
@@ -82,7 +82,7 @@ public class RegistrationActivity extends Activity implements OnClickListener {
 							});
 			AlertDialog alert = builder.create();
 			alert.show();
-		}
+		}*/
 	}
 
 	public void createDialog(String title, String message,
