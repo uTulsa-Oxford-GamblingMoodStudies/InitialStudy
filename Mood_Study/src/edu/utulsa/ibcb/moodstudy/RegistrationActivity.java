@@ -42,47 +42,38 @@ public class RegistrationActivity extends Activity implements OnClickListener {
 	}
 
 	public void getCaptcha() {
-		try {
-			Object[] response = callServer.requestCaptcha();
-
-			session = Integer.parseInt((String) response[0]);
-			base64_img = (String) response[1];
-
-			// decode base64_img
-
-			base64_img = base64_img.substring("data:image/jpeg;base64,"
-					.length());
-
-			byte[] img_data = Base64.decode(base64_img, Base64.DEFAULT);
-
-			Bitmap bm = BitmapFactory.decodeByteArray(img_data, 0,
-					img_data.length);
-
-			System.out.println("Img:" + bm.getHeight() + "x" + bm.getWidth());
-			// set to image
-			ImageView captchaView = (ImageView) findViewById(R.id.captchaImage);
-			captchaView.setImageBitmap(bm);
-
-		} catch (XMLRPCException xrpc) {
-			xrpc.printStackTrace();
-
-			StackTraceElement[] stack = xrpc.getStackTrace();
-
-			AlertDialog.Builder builder = new AlertDialog.Builder(this);
-			builder.setMessage(
-					"Error:" + xrpc.getMessage() + "\nIn:"
-							+ stack[stack.length - 1].getClassName())
-					.setTitle("Error")
-					.setNeutralButton("Ok",
-							new DialogInterface.OnClickListener() {
-								public void onClick(DialogInterface dialog,
-										int id) {
-									RegistrationActivity.this.finish();
-								}
-							});
-			AlertDialog alert = builder.create();
-			alert.show();
-		}
+		/*
+		 * try { Object[] response = callServer.requestCaptcha();
+		 * 
+		 * session = Integer.parseInt((String) response[0]); base64_img =
+		 * (String) response[1];
+		 * 
+		 * // decode base64_img
+		 * 
+		 * base64_img = base64_img.substring("data:image/jpeg;base64,"
+		 * .length());
+		 * 
+		 * byte[] img_data = Base64.decode(base64_img, Base64.DEFAULT);
+		 * 
+		 * Bitmap bm = BitmapFactory.decodeByteArray(img_data, 0,
+		 * img_data.length);
+		 * 
+		 * System.out.println("Img:" + bm.getHeight() + "x" + bm.getWidth()); //
+		 * set to image ImageView captchaView = (ImageView)
+		 * findViewById(R.id.captchaImage); captchaView.setImageBitmap(bm);
+		 * 
+		 * } catch (XMLRPCException xrpc) { xrpc.printStackTrace();
+		 * 
+		 * StackTraceElement[] stack = xrpc.getStackTrace();
+		 * 
+		 * AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		 * builder.setMessage( "Error:" + xrpc.getMessage() + "\nIn:" +
+		 * stack[stack.length - 1].getClassName()) .setTitle("Error")
+		 * .setNeutralButton("Ok", new DialogInterface.OnClickListener() {
+		 * public void onClick(DialogInterface dialog, int id) {
+		 * RegistrationActivity.this.finish(); } }); AlertDialog alert =
+		 * builder.create(); alert.show(); }
+		 */
 	}
 
 	public void createDialog(String title, String message,

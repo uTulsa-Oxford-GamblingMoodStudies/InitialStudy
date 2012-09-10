@@ -1,12 +1,301 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <string-array name="graphics">
-        <item >2D</item>
-        <item >3D</item>
+        <item>2D</item>
+        <item>3D</item>
     </string-array>
     <string-array name="graphics_values">
-        <item >2D</item>
-        <item >3D</item>
+        <item>2D</item>
+        <item>3D</item>
     </string-array>
-        
+    <string-array name="survey_questions">
+        <item>How often have you spent money on gambling in the past 12 months? (Including buying tickets for lotteries)</item>
+        <item>How much of your gambling in the past 12 months was done on the Internet?</item>
+        <item>Gambling makes me happier</item>
+        <item>I can’t function without gambling</item>
+        <item>Praying helps me win</item>
+        <item>Losses when gambling are bound to be followed by a series of wins</item>
+        <item>Relating my winnings to my skill and ability makes me continue gambling</item>
+        <item>Gambling makes things seem better</item>
+        <item>It is dif?cult to stop gambling as I am so out of control</item>
+        <item>Speci?c numbers and colours can help increase my chances of winning</item>
+        <item>A series of losses will provide me with a learning experience that will help me win later</item>
+        <item>Relating my losses to bad luck and bad circumstances makes me continue gambling</item>
+        <item>Gambling makes the future brighter</item>
+        <item>My desire to gamble is so overpowering</item>
+        <item>I collect specifc objects that help increase my chances of winning</item>
+        <item>When I have a win once, I will definitely win again</item>
+        <item>Relating my losses to probability makes me continue gambling</item>
+        <item>Having a gamble helps reduce tension and stress</item>
+        <item>I’m not strong enough to stop gambling</item>
+        <item>I have specific rituals and behaviours that increase my chances of winning</item>
+        <item>There are times that I feel lucky and thus, gamble those times only</item>
+        <item>Remembering how much money I won last time makes me continue gambling</item>
+        <item>I will never be able to stop gambling</item>
+        <item>I have some control over predicting my gambling wins</item>
+        <item>If I keep changing my numbers, I have less chances of winning than if I keep the same numbers every time</item>
+        <item>Have you bet more than you could really afford to lose?</item>
+        <item>Have you needed to gamble with larger amounts of money to get the same feeling of excitement?</item>
+        <item>Have you gone back another day to try to win back the money you lost?</item>
+        <item>Have you borrowed money or sold anything to get money to gamble?</item>
+        <item>Have you felt that you might have a problem with gambling?</item>
+        <item>Have people criticised your betting or told you that you had a gambling problem, regardless of whether or not you thought it was true?</item>
+        <item>Have you felt guilty about the way you gamble, or what happens when you gamble?</item>
+        <item>Has your gambling caused you any health problems, including stress or anxiety?</item>
+        <item>Has your gambling caused any financial problems for you or your household?</item>
+    </string-array>
+    <string-array name="survey_answer_1">
+        <item>Not at all in the past 12 months </item>
+        <item>None of it </item>
+        <item>strongly disagree</item>
+        <item>strongly disagree</item>
+        <item>strongly disagree</item>
+        <item>strongly disagree</item>
+        <item>strongly disagree</item>
+        <item>strongly disagree</item>
+        <item>strongly disagree</item>
+        <item>strongly disagree</item>
+        <item>strongly disagree</item>
+        <item>strongly disagree</item>
+        <item>strongly disagree</item>
+        <item>strongly disagree</item>
+        <item>strongly disagree</item>
+        <item>strongly disagree</item>
+        <item>strongly disagree</item>
+        <item>strongly disagree</item>
+        <item>strongly disagree</item>
+        <item>strongly disagree</item>
+        <item>strongly disagree</item>
+        <item>strongly disagree</item>
+        <item>strongly disagree</item>
+        <item>strongly disagree</item>
+        <item>strongly disagree</item>
+        <item>Never</item>
+        <item>Never</item>
+        <item>Never</item>
+        <item>Never</item>
+        <item>Never</item>
+        <item>Never</item>
+        <item>Never</item>
+        <item>Never</item>
+        <item>Never</item>
+    </string-array>
+    <string-array name="survey_answer_2">
+        <item>1-5 times a year</item>
+        <item>Less than half of it</item>
+        <item>moderately disagree</item>
+        <item>moderately disagree</item>
+        <item>moderately disagree</item>
+        <item>moderately disagree</item>
+        <item>moderately disagree</item>
+        <item>moderately disagree</item>
+        <item>moderately disagree</item>
+        <item>moderately disagree</item>
+        <item>moderately disagree</item>
+        <item>moderately disagree</item>
+        <item>moderately disagree</item>
+        <item>moderately disagree</item>
+        <item>moderately disagree</item>
+        <item>moderately disagree</item>
+        <item>moderately disagree</item>
+        <item>moderately disagree</item>
+        <item>moderately disagree</item>
+        <item>moderately disagree</item>
+        <item>moderately disagree</item>
+        <item>moderately disagree</item>
+        <item>moderately disagree</item>
+        <item>moderately disagree</item>
+        <item>moderately disagree</item>
+        <item>Sometimes</item>
+        <item>Sometimes</item>
+        <item>Sometimes</item>
+        <item>Sometimes</item>
+        <item>Sometimes</item>
+        <item>Sometimes</item>
+        <item>Sometimes</item>
+        <item>Sometimes</item>
+        <item>Sometimes</item>
+    </string-array>
+    <string-array name="survey_answer_3">
+        <item>6-11 times a year</item>
+        <item>More than half of it</item>
+        <item>mildly disagree</item>
+        <item>mildly disagree</item>
+        <item>mildly disagree</item>
+        <item>mildly disagree</item>
+        <item>mildly disagree</item>
+        <item>mildly disagree</item>
+        <item>mildly disagree</item>
+        <item>mildly disagree</item>
+        <item>mildly disagree</item>
+        <item>mildly disagree</item>
+        <item>mildly disagree</item>
+        <item>mildly disagree</item>
+        <item>mildly disagree</item>
+        <item>mildly disagree</item>
+        <item>mildly disagree</item>
+        <item>mildly disagree</item>
+        <item>mildly disagree</item>
+        <item>mildly disagree</item>
+        <item>mildly disagree</item>
+        <item>mildly disagree</item>
+        <item>mildly disagree</item>
+        <item>mildly disagree</item>
+        <item>mildly disagree</item>
+        <item>Most of the time</item>
+        <item>Most of the time</item>
+        <item>Most of the time</item>
+        <item>Most of the time</item>
+        <item>Most of the time</item>
+        <item>Most of the time</item>
+        <item>Most of the time</item>
+        <item>Most of the time</item>
+        <item>Most of the time</item>
+    </string-array>
+    <string-array name="survey_answer_4">
+        <item>About once a month</item>
+        <item>All of it</item>
+        <item>neither agree or disagree</item>
+        <item>neither agree or disagree</item>
+        <item>neither agree or disagree</item>
+        <item>neither agree or disagree</item>
+        <item>neither agree or disagree</item>
+        <item>neither agree or disagree</item>
+        <item>neither agree or disagree</item>
+        <item>neither agree or disagree</item>
+        <item>neither agree or disagree</item>
+        <item>neither agree or disagree</item>
+        <item>neither agree or disagree</item>
+        <item>neither agree or disagree</item>
+        <item>neither agree or disagree</item>
+        <item>neither agree or disagree</item>
+        <item>neither agree or disagree</item>
+        <item>neither agree or disagree</item>
+        <item>neither agree or disagree</item>
+        <item>neither agree or disagree</item>
+        <item>neither agree or disagree</item>
+        <item>neither agree or disagree</item>
+        <item>neither agree or disagree</item>
+        <item>neither agree or disagree</item>
+        <item>neither agree or disagree</item>
+        <item>Almost always</item>
+        <item>Almost always</item>
+        <item>Almost always</item>
+        <item>Almost always</item>
+        <item>Almost always</item>
+        <item>Almost always</item>
+        <item>Almost always</item>
+        <item>Almost always</item>
+        <item>Almost always</item>
+    </string-array>
+    <string-array name="survey_answer_5">
+        <item>About once a week</item>
+        <item></item>
+        <item>mildly agree</item>
+        <item>mildly agree</item>
+        <item>mildly agree</item>
+        <item>mildly agree</item>
+        <item>mildly agree</item>
+        <item>mildly agree</item>
+        <item>mildly agree</item>
+        <item>mildly agree</item>
+        <item>mildly agree</item>
+        <item>mildly agree</item>
+        <item>mildly agree</item>
+        <item>mildly agree</item>
+        <item>mildly agree</item>
+        <item>mildly agree</item>
+        <item>mildly agree</item>
+        <item>mildly agree</item>
+        <item>mildly agree</item>
+        <item>mildly agree</item>
+        <item>mildly agree</item>
+        <item>mildly agree</item>
+        <item>mildly agree</item>
+        <item>mildly agree</item>
+        <item>mildly agree</item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+    </string-array>
+    <string-array name="survey_answer_6">
+        <item>3-5 days a week</item>
+        <item></item>
+        <item>moderately agree</item>
+        <item>moderately agree</item>
+        <item>moderately agree</item>
+        <item>moderately agree</item>
+        <item>moderately agree</item>
+        <item>moderately agree</item>
+        <item>moderately agree</item>
+        <item>moderately agree</item>
+        <item>moderately agree</item>
+        <item>moderately agree</item>
+        <item>moderately agree</item>
+        <item>moderately agree</item>
+        <item>moderately agree</item>
+        <item>moderately agree</item>
+        <item>moderately agree</item>
+        <item>moderately agree</item>
+        <item>moderately agree</item>
+        <item>moderately agree</item>
+        <item>moderately agree</item>
+        <item>moderately agree</item>
+        <item>moderately agree</item>
+        <item>moderately agree</item>
+        <item>moderately agree</item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+    </string-array>
+    <string-array name="survey_answer_7">
+        <item>Every day/ almost every day</item>
+        <item></item>
+        <item> strongly agree</item>
+        <item> strongly agree</item>
+        <item> strongly agree</item>
+        <item> strongly agree</item>
+        <item> strongly agree</item>
+        <item> strongly agree</item>
+        <item> strongly agree</item>
+        <item> strongly agree</item>
+        <item> strongly agree</item>
+        <item> strongly agree</item>
+        <item> strongly agree</item>
+        <item> strongly agree</item>
+        <item> strongly agree</item>
+        <item> strongly agree</item>
+        <item> strongly agree</item>
+        <item> strongly agree</item>
+        <item> strongly agree</item>
+        <item> strongly agree</item>
+        <item> strongly agree</item>
+        <item> strongly agree</item>
+        <item> strongly agree</item>
+        <item> strongly agree</item>
+        <item> strongly agree</item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+    </string-array>
+
 </resources>
