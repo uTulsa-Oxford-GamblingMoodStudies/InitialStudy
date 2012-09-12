@@ -21,7 +21,7 @@ public class RpcClient {
 
 	private static final String configFile = ".settings";
 
-	private static final String protocol = "https";
+	private static final String protocol = "http";//s
 	private static final String RPCserver = "87.106.100.214"; // "129.244.204.83";
 	// private static final String RPCport = "80";
 
