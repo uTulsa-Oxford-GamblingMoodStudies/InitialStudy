@@ -107,10 +107,7 @@ public class DiceGame2DActivity extends Activity {
 	public void uploadSensorData() {
 		try {
 			long[] ts = new long[mSimulationView.timestamp.size()];
-			int[] ts_adjusted = new int[ts.length];
-			for (int i = 0; i < ts_adjusted.length; i++) {
-				ts_adjusted[i] = (int) (ts[i] - ts[0]);
-			}
+			
 			double[] ax = new double[mSimulationView.timestamp.size()];
 			double[] ay = new double[mSimulationView.timestamp.size()];
 			double[] az = new double[mSimulationView.timestamp.size()];
@@ -120,6 +117,12 @@ public class DiceGame2DActivity extends Activity {
 				ay[i] = mSimulationView.ay.get(i);
 				az[i] = mSimulationView.az.get(i);
 			}
+			
+			int[] ts_adjusted = new int[ts.length];
+			for (int i = 0; i < ts_adjusted.length; i++) {
+				ts_adjusted[i] = (int) ((ts[i] - ts[0])/1000000);//normalize from start time and then convert to miliseconds
+			}
+			
 			RpcClient.getInstance(this).uploadSensorData(ts_adjusted, ax, ay,
 					az, false, new double[0], new double[0], new double[0]);
 			finish();
