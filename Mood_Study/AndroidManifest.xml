@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
       package="edu.utulsa.ibcb.moodstudy"
-      android:versionCode="11"
-      android:versionName="0.9.0">
+      android:versionCode="14"
+      android:versionName="0.9.3">
     <uses-sdk android:minSdkVersion="9" />
     <uses-permission android:name="android.permission.WAKE_LOCK"/>
     <uses-permission android:name="android.permission.VIBRATE"/>
@@ -31,6 +31,7 @@
         <activity android:name="FinalSurveyActivity" android:screenOrientation="portrait" android:configChanges="keyboard|keyboardHidden|orientation" android:noHistory="true"></activity>
         <activity android:name="DevelopmentPreferencesActivity" android:screenOrientation="portrait" android:configChanges="keyboard|keyboardHidden|orientation" android:noHistory="true"></activity>
         <activity android:name="GameResultsActivity" android:screenOrientation="portrait" android:configChanges="keyboard|keyboardHidden|orientation" android:noHistory="true"></activity>
-        <activity android:name="GamblingSurvey"></activity>
+        <activity android:name="GamblingSurvey" android:screenOrientation="portrait" android:configChanges="keyboard|keyboardHidden|orientation" android:noHistory="true"></activity>
+    	<activity android:name="PlayerIdentificationActivity" android:screenOrientation="portrait" android:configChanges="keyboard|keyboardHidden|orientation" android:noHistory="true"></activity>
     </application>
 </manifest>
