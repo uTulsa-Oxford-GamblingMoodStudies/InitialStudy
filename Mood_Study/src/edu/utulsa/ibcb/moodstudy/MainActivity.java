@@ -115,7 +115,7 @@ public class MainActivity extends Activity implements OnClickListener,
 						});
 			break;
 		case R.id.registerButtonMain:
-			startActivity(new Intent(this, RegistrationSurveyActivity.class));
+			startActivity(new Intent(this, PlayerIdentificationActivity.class));
 			break;
 		case R.id.settingsButtonMain:
 			startActivity(new Intent(this, DevelopmentPreferencesActivity.class));

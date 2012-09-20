@@ -82,10 +82,15 @@ public class RegistrationSurveyActivity extends Activity implements
 		
 		
 	    for (int i = 0; i < radioGroup .getChildCount(); i++) {
-	            if(responses[questionNumber-1]==i+1)
-	            	((RadioButton) radioGroup.getChildAt(i)).setChecked(true);
-	            else
-	            	((RadioButton) radioGroup.getChildAt(i)).setChecked(false);
+	    	if(((RadioButton) radioGroup.getChildAt(i)).getText().equals(""))
+	    		((RadioButton) radioGroup.getChildAt(i)).setVisibility(RadioButton.INVISIBLE);
+	    	else
+	    		((RadioButton) radioGroup.getChildAt(i)).setVisibility(RadioButton.VISIBLE);	
+	    	
+    		if(responses[questionNumber-1]==i+1)
+            	((RadioButton) radioGroup.getChildAt(i)).setChecked(true);
+            else
+            	((RadioButton) radioGroup.getChildAt(i)).setChecked(false);
 	        }
 	}
 	

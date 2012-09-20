@@ -60,5 +60,6 @@
 	<string name="a_problem_with_gambling">How often have you ever felt that you had a problem with gambling?</string>
 	<string name="the_way_you_gamble">Have you ever feltguilty about the way you gamble?</string>
 	<string name="including_stress_or_anxiety">Hs your gambling caused any health problems, including stress or anxiety?</string>
-    <string name="replay_prompt">Let\'s go</string>    
+    <string name="replay_prompt">Let\'s go</string>
+    <string name="enter_id">Enter your player registration number</string>    
 </resources>
