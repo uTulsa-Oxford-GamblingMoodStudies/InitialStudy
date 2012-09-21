@@ -10,8 +10,9 @@
         android:id="@+id/resultsTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
         android:text="@string/losing_message"
-        android:textAppearance="?android:attr/textAppearanceLarge" android:layout_centerInParent="true"/>
+        android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <LinearLayout
         android:id="@+id/LinearLayout1"

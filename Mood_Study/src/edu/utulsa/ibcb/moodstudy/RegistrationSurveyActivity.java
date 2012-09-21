@@ -32,7 +32,8 @@ public class RegistrationSurveyActivity extends Activity implements
 	TextView question;
 	RadioGroup radioGroup;
 	private String[] questions;
-	private String[] answer1,answer2,answer3,answer4,answer5,answer6,answer7;
+	private String[] answer1, answer2, answer3, answer4, answer5, answer6,
+			answer7;
 
 	/** Called when the activity is first created. */
 	@Override
@@ -54,8 +55,8 @@ public class RegistrationSurveyActivity extends Activity implements
 		previousButton.setOnClickListener(this);
 
 		question = (TextView) findViewById(R.id.instructionTextView);
-		radioGroup = (RadioGroup)findViewById(R.id.surveyRadioGroup);
-		
+		radioGroup = (RadioGroup) findViewById(R.id.surveyRadioGroup);
+
 		questions = getResources().getStringArray(R.array.survey_questions);
 		answer1 = getResources().getStringArray(R.array.survey_answer_1);
 		answer2 = getResources().getStringArray(R.array.survey_answer_2);
@@ -65,44 +66,51 @@ public class RegistrationSurveyActivity extends Activity implements
 		answer6 = getResources().getStringArray(R.array.survey_answer_6);
 		answer7 = getResources().getStringArray(R.array.survey_answer_7);
 		responses = new int[questions.length];
-	
+
 		loadQuestion();
 	}
 
-	private void loadQuestion(){
-		question.setText(questions[questionNumber-1]);
-		((RadioButton) radioGroup.getChildAt(0)).setText(answer1[questionNumber-1]);
-		((RadioButton) radioGroup.getChildAt(1)).setText(answer2[questionNumber-1]);
-		((RadioButton) radioGroup.getChildAt(2)).setText(answer3[questionNumber-1]);
-		((RadioButton) radioGroup.getChildAt(3)).setText(answer4[questionNumber-1]);
-		((RadioButton) radioGroup.getChildAt(4)).setText(answer5[questionNumber-1]);
-		((RadioButton) radioGroup.getChildAt(5)).setText(answer6[questionNumber-1]);
-		((RadioButton) radioGroup.getChildAt(6)).setText(answer7[questionNumber-1]);
-		
-		
-		
-	    for (int i = 0; i < radioGroup .getChildCount(); i++) {
-	    	if(((RadioButton) radioGroup.getChildAt(i)).getText().equals(""))
-	    		((RadioButton) radioGroup.getChildAt(i)).setVisibility(RadioButton.INVISIBLE);
-	    	else
-	    		((RadioButton) radioGroup.getChildAt(i)).setVisibility(RadioButton.VISIBLE);	
-	    	
-    		if(responses[questionNumber-1]==i+1)
-            	((RadioButton) radioGroup.getChildAt(i)).setChecked(true);
-            else
-            	((RadioButton) radioGroup.getChildAt(i)).setChecked(false);
-	        }
+	private void loadQuestion() {
+		question.setText(questions[questionNumber - 1]);
+		((RadioButton) radioGroup.getChildAt(0))
+				.setText(answer1[questionNumber - 1]);
+		((RadioButton) radioGroup.getChildAt(1))
+				.setText(answer2[questionNumber - 1]);
+		((RadioButton) radioGroup.getChildAt(2))
+				.setText(answer3[questionNumber - 1]);
+		((RadioButton) radioGroup.getChildAt(3))
+				.setText(answer4[questionNumber - 1]);
+		((RadioButton) radioGroup.getChildAt(4))
+				.setText(answer5[questionNumber - 1]);
+		((RadioButton) radioGroup.getChildAt(5))
+				.setText(answer6[questionNumber - 1]);
+		((RadioButton) radioGroup.getChildAt(6))
+				.setText(answer7[questionNumber - 1]);
+
+		for (int i = 0; i < radioGroup.getChildCount(); i++) {
+			if (((RadioButton) radioGroup.getChildAt(i)).getText().equals(""))
+				((RadioButton) radioGroup.getChildAt(i))
+						.setVisibility(RadioButton.INVISIBLE);
+			else
+				((RadioButton) radioGroup.getChildAt(i))
+						.setVisibility(RadioButton.VISIBLE);
+
+			if (responses[questionNumber - 1] == i + 1)
+				((RadioButton) radioGroup.getChildAt(i)).setChecked(true);
+			else
+				((RadioButton) radioGroup.getChildAt(i)).setChecked(false);
+		}
 	}
-	
-	private void saveQuestion(){
-		
-	    for (int i = 0; i < radioGroup .getChildCount(); i++) {
-	            if(((RadioButton) radioGroup.getChildAt(i)).isChecked())
-	            	responses[questionNumber-1]=i+1;
-	            	
-	        }
+
+	private void saveQuestion() {
+
+		for (int i = 0; i < radioGroup.getChildCount(); i++) {
+			if (((RadioButton) radioGroup.getChildAt(i)).isChecked())
+				responses[questionNumber - 1] = i + 1;
+
+		}
 	}
-	
+
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.previousButton:
