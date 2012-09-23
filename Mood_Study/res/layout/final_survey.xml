@@ -16,7 +16,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="@string/start_survey_prompt"
+            android:text="@string/final_survey_prompt"
             android:textAppearance="?android:attr/textAppearanceLarge" >
         </TextView>
 
@@ -35,7 +35,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_centerVertical="true"
-            android:text="@string/start_survey_low"
+            android:text="@string/final_survey_low"
             android:textAppearance="?android:attr/textAppearanceMedium" >
         </TextView>
 
@@ -46,17 +46,41 @@
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
             android:layout_centerVertical="true"
-            android:text="@string/start_survey_high"
+            android:text="@string/final_survey_high"
             android:textAppearance="?android:attr/textAppearanceMedium" >
         </TextView>
 
-        <Button
-            android:id="@+id/playButton"
-            android:layout_width="100dp"
+        <LinearLayout
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true"
-            android:text="@string/next_continue" />
+            android:layout_alignParentBottom="true" >
+
+            <Button
+                android:id="@+id/exitButton"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="@string/exit" />
+
+            <Button
+                android:id="@+id/button1"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:clickable="false"
+                android:text="invisible"
+                android:visibility="invisible" />
+
+            <Button
+                android:id="@+id/continueButton"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:clickable="false"
+                android:text="@string/replay"
+                android:visibility="invisible" />
+        </LinearLayout>
     </RelativeLayout>
 
 </LinearLayout>
