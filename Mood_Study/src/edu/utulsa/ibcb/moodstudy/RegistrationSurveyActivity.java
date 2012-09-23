@@ -130,32 +130,7 @@ public class RegistrationSurveyActivity extends Activity implements
 				loadQuestion();
 		}
 
-		/*
-		 * int lucky = ((SeekBar) findViewById(R.id.moodSeekBar)).getProgress();
-		 * 
-		 * 
-		 * Intent iNext = new Intent(this, GamePromptActivity.class);
-		 * iNext.putExtra("luckyFeeling", lucky);
-		 * 
-		 * try { Integer session_id = RpcClient.getInstance(this)
-		 * .startSession(lucky);
-		 * 
-		 * RpcClient.getInstance(this).setSession(session_id);
-		 * 
-		 * // TODO pass survey results before leaving switch (v.getId()) { case
-		 * R.id.doneButton: startActivity(iNext); break; } } catch
-		 * (XMLRPCException xrpc) { xrpc.printStackTrace();
-		 * 
-		 * StackTraceElement[] stack = xrpc.getStackTrace();
-		 * 
-		 * AlertDialog.Builder builder = new AlertDialog.Builder(this);
-		 * builder.setMessage( "Error:" + xrpc.getMessage() + "\nIn:" +
-		 * stack[stack.length - 1].getClassName()) .setTitle("Error")
-		 * .setNeutralButton("Ok", new DialogInterface.OnClickListener() {
-		 * public void onClick(DialogInterface dialog, int id) {
-		 * RegistrationSurveyActivity.this.finish(); } }); AlertDialog alert =
-		 * builder.create(); alert.show(); }
-		 */
+
 	}
 
 }
