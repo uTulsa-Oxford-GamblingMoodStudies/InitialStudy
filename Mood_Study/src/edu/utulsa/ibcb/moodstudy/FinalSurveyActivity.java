@@ -51,7 +51,8 @@ public class FinalSurveyActivity extends Activity implements OnClickListener {
 
 		switch (v.getId()) {
 		case R.id.exitButton:
-			int control = ((SeekBar) findViewById(R.id.moodSeekBar))
+			int[] control = new int[1];
+			control[0] = ((SeekBar) findViewById(R.id.moodSeekBar))
 					.getProgress();
 
 			try {
