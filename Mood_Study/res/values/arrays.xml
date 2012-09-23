@@ -9,6 +9,24 @@
         <item>2D</item>
         <item>3D</item>
     </string-array>
+    <string-array name="vas_questions">
+        <item>Players can influence the dice after having activated the play button</item>
+        <item>There is a method for controlling the outcome of the dice after the play button has been activated</item>
+        <item>A winning outcome is due to skill or a combination of skill and chance</item>
+        <item>There are strategies that could enable players to increase their chances of winning after the play button has been activated</item>
+    </string-array>
+    <string-array name="vas_answer_left">
+        <item>Strongly disagree</item>
+        <item>Strongly disagree</item>
+        <item>Strongly disagree</item>
+        <item>Strongly disagree</item>
+    </string-array>
+    <string-array name="vas_answer_right">
+        <item>Strongly agree</item>
+        <item>Strongly agree</item>
+        <item>Strongly agree</item>
+        <item>Strongly agree</item>
+    </string-array>
     <string-array name="survey_questions">
         <item>Are you male or female?</item>
         <item>How old are you?</item>
