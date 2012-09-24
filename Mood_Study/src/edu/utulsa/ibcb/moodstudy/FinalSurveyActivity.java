@@ -16,7 +16,9 @@ import android.view.View.OnClickListener;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.RadioGroup;
 import android.widget.SeekBar;
+import android.widget.TextView;
 
 /**
  * Survey user is presented upon game completion
@@ -24,6 +26,13 @@ import android.widget.SeekBar;
  * @author Eric Kuxhausen
  */
 public class FinalSurveyActivity extends Activity implements OnClickListener {
+
+	private int questionNumber = -1;
+	private int[] responses;
+	private TextView question, leftAnswer, rightAnswer;
+	private String[] questions, leftAnswers, rightAnswers;
+	private SeekBar visualAnalogScale;
+	private Button exitButton, continueButton;
 
 	/** Called when the activity is first created. */
 	@Override
@@ -39,24 +48,68 @@ public class FinalSurveyActivity extends Activity implements OnClickListener {
 		// Load layout
 		setContentView(R.layout.final_survey);
 
-		Button exitButton = (Button) findViewById(R.id.exitButton);
+		exitButton = (Button) findViewById(R.id.exitButton);
 		exitButton.setOnClickListener(this);
+		exitButton.setVisibility(TextView.INVISIBLE);
 
-		Button replayButton = (Button) findViewById(R.id.replayButton);
-		replayButton.setOnClickListener(this);
+		continueButton = (Button) findViewById(R.id.continueButton);
+		continueButton.setOnClickListener(this);
 
+		question = (TextView) findViewById(R.id.questionTextView);
+		leftAnswer = (TextView) findViewById(R.id.leftTextView);
+		rightAnswer = (TextView) findViewById(R.id.rightTextView);
+
+		visualAnalogScale = (SeekBar) findViewById(R.id.visualAnalogSeekBar);
+
+		questions = getResources().getStringArray(R.array.vas_questions);
+		leftAnswers = getResources().getStringArray(R.array.vas_answer_left);
+		rightAnswers = getResources().getStringArray(R.array.vas_answer_right);
+		responses = new int[questions.length];
+
+		loadNextQuestion();
+	}
+
+	public void loadNextQuestion() {
+		// Initialization case
+		if(questionNumber == -1){
+			questionNumber++;
+			visualAnalogScale.setProgress(50);
+			question.setText(questions[questionNumber]);
+			leftAnswer.setText(leftAnswers[questionNumber]);
+			rightAnswer.setText(rightAnswers[questionNumber]);
+			return;
+		}
+		// Loading last question case
+		else if(questionNumber + 2 == questions.length){
+			responses[questionNumber] = visualAnalogScale.getProgress();
+			questionNumber++;
+			visualAnalogScale.setProgress(50);
+			question.setText(questions[questionNumber]);
+			leftAnswer.setText(leftAnswers[questionNumber]);
+			rightAnswer.setText(rightAnswers[questionNumber]);
+			continueButton.setVisibility(TextView.INVISIBLE);
+			exitButton.setVisibility(TextView.VISIBLE);
+			return;
+		}
+		else{
+			responses[questionNumber] = visualAnalogScale.getProgress();
+			questionNumber++;
+			visualAnalogScale.setProgress(50);
+			question.setText(questions[questionNumber]);
+			leftAnswer.setText(leftAnswers[questionNumber]);
+			rightAnswer.setText(rightAnswers[questionNumber]);
+			return;
+		}
 	}
 
 	public void onClick(View v) {
 
 		switch (v.getId()) {
+		case R.id.continueButton:
+			loadNextQuestion(); break;
 		case R.id.exitButton:
-			int[] control = new int[1];
-			control[0] = ((SeekBar) findViewById(R.id.moodSeekBar))
-					.getProgress();
-
 			try {
-				RpcClient.getInstance(this).finalizeSession(control);
+				RpcClient.getInstance(this).finalizeSession(responses);
 				RpcClient.getInstance(this).setSession(-1);
 				finish();
 			} catch (XMLRPCException xrpc) {
@@ -82,8 +135,6 @@ public class FinalSurveyActivity extends Activity implements OnClickListener {
 
 			finish();
 			break;
-		case R.id.replayButton:
-			startActivity(new Intent(this, GamePromptActivity.class));
 		}
 
 	}

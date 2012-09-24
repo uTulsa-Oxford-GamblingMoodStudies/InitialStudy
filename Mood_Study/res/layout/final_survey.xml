@@ -12,16 +12,16 @@
         android:layout_margin="10dp" >
 
         <TextView
-            android:id="@+id/moodPromptTextView"
+            android:id="@+id/questionTextView"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="@string/final_survey_prompt"
+            android:text="questionTextView"
             android:textAppearance="?android:attr/textAppearanceLarge" >
         </TextView>
 
         <SeekBar
-            android:id="@+id/moodSeekBar"
+            android:id="@+id/visualAnalogSeekBar"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
@@ -30,24 +30,25 @@
         </SeekBar>
 
         <TextView
-            android:id="@+id/badMoodTextView"
+            android:id="@+id/leftTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_centerVertical="true"
-            android:text="@string/final_survey_low"
+            android:text="leftTextView"
             android:textAppearance="?android:attr/textAppearanceMedium" >
         </TextView>
 
         <TextView
-            android:id="@+id/goodMoodTextView"
+            android:id="@+id/rightTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
             android:layout_centerVertical="true"
-            android:text="@string/final_survey_high"
+            android:text="rightTextView"
             android:textAppearance="?android:attr/textAppearanceMedium" >
+
         </TextView>
 
         <LinearLayout
@@ -78,8 +79,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:clickable="false"
-                android:text="@string/replay"
-                android:visibility="invisible" />
+                android:text="@string/next_continue"
+                android:visibility="visible" />
         </LinearLayout>
     </RelativeLayout>
 
