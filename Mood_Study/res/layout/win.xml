@@ -34,7 +34,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:clickable="false"
-            android:text="invisible"
+            android:text="@string/placeholder"
             android:visibility="invisible" />
 
         <Button
