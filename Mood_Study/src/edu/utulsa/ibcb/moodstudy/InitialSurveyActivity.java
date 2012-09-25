@@ -49,7 +49,7 @@ public class InitialSurveyActivity extends Activity implements OnClickListener {
 		Intent iNext = new Intent(this, GamePromptActivity.class);
 		iNext.putExtra("luckyFeeling", lucky);
 
-		RpcClient.getInstance(this).initialSurveyActivityResult=lucky;
+		RpcClient.getInstance(this).setInitialSurveyActivityResult(lucky);
 		
 	}
 
