@@ -101,10 +101,12 @@ public class RpcClient {
 				controls[0]);
 	}
 
-	public void uploadSurveyData(int surveyNumber, String response)
+	public void uploadSurveyData(int[] resopnes)
 			throws XMLRPCException {
-		client.call("uploadSurveyData", options.get("username"),
-				options.get("password"), surveyNumber, response);
+		//TODO implement once server is updated
+		
+		//client.call("uploadSurveyData", options.get("username"),
+		//		options.get("password"), surveyNumber[0], response[0]);
 	}
 
 	/**

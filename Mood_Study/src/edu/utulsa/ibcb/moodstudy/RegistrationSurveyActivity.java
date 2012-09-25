@@ -124,8 +124,33 @@ public class RegistrationSurveyActivity extends Activity implements
 		case R.id.nextButton:
 			saveQuestion();
 			questionNumber++;
-			if (questionNumber > responses.length)
+			if (questionNumber > responses.length){
+				try {
+					RpcClient.getInstance(this).uploadSurveyData(responses);
+				} catch (XMLRPCException xrpc) {
+					xrpc.printStackTrace();
+
+					StackTraceElement[] stack = xrpc.getStackTrace();
+
+					AlertDialog.Builder builder = new AlertDialog.Builder(this);
+					builder.setMessage(
+							"Error:" + xrpc.getMessage() + "\nIn:"
+									+ stack[stack.length - 1].getClassName())
+							.setTitle("Error")
+							.setNeutralButton("Ok",
+									new DialogInterface.OnClickListener() {
+										public void onClick(DialogInterface dialog,
+												int id) {
+											RegistrationSurveyActivity.this.finish();
+										}
+									});
+					AlertDialog alert = builder.create();
+					alert.show();
+				}
+	
+			
 				onBackPressed();
+			}
 			else
 				loadQuestion();
 		}
