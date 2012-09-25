@@ -148,20 +148,22 @@ public class RpcClient {
 		return (Boolean) client.call("login", user, pass);
 	}
 
-	public Integer score() throws XMLRPCException {
+	/*public Integer score() throws XMLRPCException {
 		Object ret = client.call("score", options.get("username"),
 				options.get("password"));
 		System.out.println((String) ret);
 		return Integer.parseInt((String) ret);
-	}
+	}*/
 
 	public int[] play() throws XMLRPCException {
-		String rval = (String) client.call("play", options.get("username"),
+		/*String rval = (String) client.call("play", options.get("username"),
 				options.get("password"), session);
 		String[] items = rval.split(" ");
 		pid = Integer.parseInt(items[2]);
 		return new int[] { Integer.parseInt(items[0]),
 				Integer.parseInt(items[1]) };
+		*/
+		return new int[]{(int)(Math.ceil(6*Math.random())), (int)(Math.ceil(6*Math.random()))};
 	}
 
 	/*
