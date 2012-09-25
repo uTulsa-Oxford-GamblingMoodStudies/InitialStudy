@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <color name="prize_text">#FFFFFFFF</color>
     <color name="orange">#F26739</color>
     <color name="red">#E11F26</color>
@@ -8,5 +9,6 @@
     <color name="green">#378C42</color>
     <color name="light_blue">#5598D2</color>
     <color name="blue">#094F90</color>
-    <color name="black">#000000</color>   
+    <color name="black">#000000</color>
+
 </resources>

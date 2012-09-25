@@ -26,21 +26,24 @@
         style="@style/AppText.Main"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/register"/>
-    
-    
+        android:text="@string/register" />
+
     <Button
         android:id="@+id/loginButtonMain"
         style="@style/AppText.Main"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/login" android:clickable="false" android:visibility="gone"/>
+        android:clickable="false"
+        android:text="@string/login"
+        android:visibility="gone" />
 
     <Button
         android:id="@+id/settingsButtonMain"
         style="@style/AppText.Main"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/settings" android:clickable="false" android:visibility="gone"/>
+        android:clickable="false"
+        android:text="@string/settings"
+        android:visibility="gone" />
 
 </LinearLayout>

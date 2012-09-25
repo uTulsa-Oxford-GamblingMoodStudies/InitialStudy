@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" android:persistent="true">
-    <!-- <ListPreference android:key="GraphicsMode" android:title="@string/graphics_mode_preference" android:entryValues="@array/graphics_values" android:entries="@array/graphics" android:defaultValue="@string/graphics_mode_default" android:dialogTitle="@string/graphics_mode_preference"/> --> 
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    android:persistent="true" >
+
+    <!-- <ListPreference android:key="GraphicsMode" android:title="@string/graphics_mode_preference" android:entryValues="@array/graphics_values" android:entries="@array/graphics" android:defaultValue="@string/graphics_mode_default" android:dialogTitle="@string/graphics_mode_preference"/> -->
+
 </PreferenceScreen>

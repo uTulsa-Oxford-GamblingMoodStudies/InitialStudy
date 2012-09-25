@@ -22,7 +22,7 @@
                 android:layout_height="wrap_content"
                 android:text="Question"
                 android:textAppearance="?android:attr/textAppearanceLarge" />
-
+
             <RadioGroup
                 android:id="@+id/surveyRadioGroup"
                 android:layout_width="wrap_content"
@@ -70,39 +70,37 @@
                     android:layout_height="wrap_content"
                     android:text="Response7" />
             </RadioGroup>
-
         </LinearLayout>
 
         <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content" android:layout_alignParentBottom="true">
-	
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true" >
+
             <Button
                 android:id="@+id/previousButton"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="@string/previous" 
                 android:layout_weight="1"
-                />
+                android:gravity="center"
+                android:text="@string/previous" />
 
             <Button
                 android:id="@+id/exitButton"
-                android:text="invisible"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:visibility="invisible" android:clickable="false"/>
+                android:clickable="false"
+                android:text="invisible"
+                android:visibility="invisible" />
 
             <Button
                 android:id="@+id/nextButton"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/next" 
-                android:layout_weight="1"/>
-	
-	        </LinearLayout>
-	        
-	  </RelativeLayout>
-	    
+                android:layout_weight="1"
+                android:text="@string/next" />
+        </LinearLayout>
+    </RelativeLayout>
+
 </LinearLayout>

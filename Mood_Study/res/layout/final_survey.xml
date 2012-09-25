@@ -12,16 +12,16 @@
         android:layout_margin="10dp" >
 
         <TextView
-            android:id="@+id/moodPromptTextView"
+            android:id="@+id/questionTextView"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="@string/final_survey_prompt"
+            android:text="@string/placeholder"
             android:textAppearance="?android:attr/textAppearanceLarge" >
         </TextView>
 
         <SeekBar
-            android:id="@+id/moodSeekBar"
+            android:id="@+id/visualAnalogSeekBar"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
@@ -30,57 +30,58 @@
         </SeekBar>
 
         <TextView
-            android:id="@+id/badMoodTextView"
+            android:id="@+id/leftTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_centerVertical="true"
-            android:text="@string/final_survey_low"
+            android:text="@string/placeholder"
             android:textAppearance="?android:attr/textAppearanceMedium" >
         </TextView>
 
         <TextView
-            android:id="@+id/goodMoodTextView"
+            android:id="@+id/rightTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
             android:layout_centerVertical="true"
-            android:text="@string/final_survey_high"
+            android:text="@string/placeholder"
             android:textAppearance="?android:attr/textAppearanceMedium" >
+
         </TextView>
 
         <LinearLayout
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content" android:layout_alignParentBottom="true">
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true" >
 
             <Button
                 android:id="@+id/exitButton"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="@string/exit" 
                 android:layout_weight="1"
-                />
+                android:gravity="center"
+                android:text="@string/exit" />
 
             <Button
                 android:id="@+id/button1"
-                android:text="invisible"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:visibility="invisible" android:clickable="false"/>
+                android:clickable="false"
+                android:text="@string/placeholder"
+                android:visibility="invisible" />
 
             <Button
-                android:id="@+id/replayButton"
+                android:id="@+id/continueButton"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/replay" 
                 android:layout_weight="1"
-                android:visibility="invisible" android:clickable="false"/>
-
+                android:clickable="false"
+                android:text="@string/next_continue"
+                android:visibility="visible" />
         </LinearLayout>
-
     </RelativeLayout>
 
 </LinearLayout>
