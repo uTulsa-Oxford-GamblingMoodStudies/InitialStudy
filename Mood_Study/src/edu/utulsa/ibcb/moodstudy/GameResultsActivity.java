@@ -78,6 +78,9 @@ public class GameResultsActivity extends Activity implements OnClickListener {
 		Button replayButton = (Button) findViewById(R.id.replayButton);
 		replayButton.setOnClickListener(this);
 
+		Button exitButton = (Button) findViewById(R.id.exitButton);
+		exitButton.setOnClickListener(this);
+		
 		// initialize media player
 		MediaPlayer mediaPlayer = MediaPlayer.create(this, R.raw.payout);
 		try {
@@ -96,7 +99,7 @@ public class GameResultsActivity extends Activity implements OnClickListener {
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.exitButton:
-			startActivity(new Intent(this, FinalSurveyActivity.class));
+			onBackPressed();
 			break;
 		case R.id.replayButton:
 			Intent i = new Intent(this, GamePromptActivity.class);

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <string name="app_name">The Dice Is Right</string>
     <string name="email_entry">E-mail Address:</string>
     <string name="password_entry">Desired Password:</string>
@@ -22,44 +23,23 @@
     <string name="next_continue">Continue</string>
     <string name="play_prompt">This time roll a...</string>
     <string name="touch_prompt">Please touch the coresponding prize</string>
-	<string name="prize1">10p</string>
+    <string name="prize1">10p</string>
     <string name="prize2">20p</string>
     <string name="prize3">30p</string>
     <string name="prize4">40p</string>
     <string name="prize5">50p</string>
     <string name="prize6">60p</string>
-    <string name="final_survey_prompt">How much control did you have over game outcomes?</string>
-    <string name="final_survey_low">None at all</string>
-    <string name="final_survey_high">Total control</string>
     <string name="replay">Replay</string>
     <string name="exit">Exit</string>
     <string name="placeholder">placeholder</string>
     <string name="graphics_mode_preference">Graphics Mode</string>
     <string name="graphics_mode_default">2D</string>
-    <string name="theme_preference">Theme</string> 
+    <string name="theme_preference">Theme</string>
     <string name="theme_default">minimalist</string>
     <string name="settings">Settings</string>
     <string name="winning_message">You have won</string>
     <string name="losing_message">Too bad,  try again</string>
-	<string name="tickets_for_the_lotteries">How often have you spent money on gambling in the past 12 month? (This includes buying tickets for the lotteries)\"</string>
-	<string name="done_on_the_Internet">How much of your gambling in the past 12 months was done on the Internet?</string>
-	<string name="Gambling_make_you_happier">Does Gambling make you happier?</string>
-	<string name="to_function_without_gambling">Do you find yourself unable to function without gambling?</string>
-	<string name="praying_help_you_win">Does praying help you win?</string>
-	<string name="a_series_of_wins">Do you believe that losses when gambling are bound to be followed by a series of wins?</string>
-	<string name="makes_things_seem_better">Do you find that gambling makes things seem better?</string>
-	<string name="diffcult_to_stop_gambling">Is it ever diffcult to stop gambling?</string>
-	<string name="make_your_future_brighter">Does gambling ever seem to make your future brighter?</string>
-	<string name="your_chances_of_winning">Do you collect specific objects that help increase your chances of winning?</string>
-	<string name="reduce_tension_and_stress">Does having a gamble help reduce tension and stress?</string>
-	<string name="you_ever_continue_gambling">Does remembering how much money you won last time make you ever continue gambling?</string>
-	<string name="predicting_your_gambling_wins">Do you think you have some control over predicting your gambling wins?</string>
-	<string name="really_affod_to_lose">How often have you bet more than you could really affod to lose?</string>
-	<string name="same_feeling_of_excitement">How often have you needed to gamble with larger amounts of money to get the same feeling of excitement?</string>
-	<string name="get_money_to_gamble">How often have you borrowed money or sold anything to get money to gamble?</string>
-	<string name="a_problem_with_gambling">How often have you ever felt that you had a problem with gambling?</string>
-	<string name="the_way_you_gamble">Have you ever feltguilty about the way you gamble?</string>
-	<string name="including_stress_or_anxiety">Hs your gambling caused any health problems, including stress or anxiety?</string>
     <string name="replay_prompt">Let\'s go</string>
-    <string name="enter_id">Enter your player registration number</string>    
+    <string name="enter_id">Enter your player registration number</string>
+
 </resources>

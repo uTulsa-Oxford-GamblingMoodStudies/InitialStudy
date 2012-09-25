@@ -22,7 +22,8 @@ import android.widget.TextView;
  * 
  * @author Eric Kuxhausen
  */
-public class PlayerIdentificationActivity extends Activity implements OnClickListener {
+public class PlayerIdentificationActivity extends Activity implements
+		OnClickListener {
 
 	/** Called when the activity is first created. */
 	@Override
