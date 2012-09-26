@@ -126,7 +126,7 @@ public class RegistrationSurveyActivity extends Activity implements
 			questionNumber++;
 			if (questionNumber > responses.length){
 				try {
-					RpcClient.getInstance(this).uploadSurveyData(null, null);//responses);//TODO
+					RpcClient.getInstance(this).uploadSurveyData(this, null, null);//responses);//TODO
 				} catch (XMLRPCException xrpc) {
 					xrpc.printStackTrace();
 

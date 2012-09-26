@@ -52,6 +52,20 @@ public class MainActivity extends Activity implements OnClickListener,
 					getString(R.string.graphics_mode_preference));
 			settings.edit().commit();
 		}
+		
+		if (!settings.contains("initialSurveyActivityResult")) {
+			settings.edit().putInt("initialSurveyActivityResult", -1);
+			settings.edit().commit();
+		}
+		if (!settings.contains("SID")) {
+			settings.edit().putInt("SID", -1);
+			settings.edit().commit();
+		}
+		if (!settings.contains("username")) {
+			settings.edit().putString("username", "");
+			settings.edit().commit();
+		}
+		
 
 		load();
 
