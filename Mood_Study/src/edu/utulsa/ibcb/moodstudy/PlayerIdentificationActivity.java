@@ -13,6 +13,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
@@ -39,15 +40,19 @@ public class PlayerIdentificationActivity extends Activity implements
 		// Load layout
 		setContentView(R.layout.player_identification);
 
-		TextView instructionView = (TextView) findViewById(R.id.instructionsTextView);
 		Button continueButton = (Button) findViewById(R.id.continueButton);
 		continueButton.setOnClickListener(this);
-
+		
 	}
 
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.continueButton:
+			EditText ed = (EditText)findViewById(R.id.pidInput);
+			ed.getText();
+			SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(this);
+			settings.edit().putString("username", ed.getText().toString());
+			settings.edit().commit();
 			startActivity(new Intent(this, RegistrationSurveyActivity.class));
 			break;
 		}

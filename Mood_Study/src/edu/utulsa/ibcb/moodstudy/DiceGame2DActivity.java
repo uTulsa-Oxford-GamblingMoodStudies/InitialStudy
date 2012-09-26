@@ -130,7 +130,7 @@ public class DiceGame2DActivity extends Activity {
 																	// miliseconds
 			}
 
-			RpcClient.getInstance(this).uploadSensorData(ts_adjusted, ax, ay,
+			RpcClient.getInstance(this).uploadSensorData(this, ts_adjusted, ax, ay,
 					az, false, new double[0], new double[0], new double[0]);
 			finish();
 		} catch (XMLRPCException xrpc) {

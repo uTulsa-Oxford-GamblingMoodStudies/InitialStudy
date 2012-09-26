@@ -49,8 +49,10 @@ public class InitialSurveyActivity extends Activity implements OnClickListener {
 		Intent iNext = new Intent(this, GamePromptActivity.class);
 		iNext.putExtra("luckyFeeling", lucky);
 
-		RpcClient.getInstance(this).setInitialSurveyActivityResult(lucky);
-		
+		// Store initial visual analog scale result for upload later
+		SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(this);
+		settings.edit().putInt("initialSurveyActivityResult", lucky);
+		settings.edit().commit();
 	}
 
 }
