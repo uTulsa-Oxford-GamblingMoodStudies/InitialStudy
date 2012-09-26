@@ -299,11 +299,11 @@ public class DiceGame2DActivity extends Activity {
 					float gx = -sx * m;
 					float gy = -sy * m;
 
-					if (nearEndingAnimation) {
+				/*	if (nearEndingAnimation) {
 						gx = 0f;
 						gy = 0f;
 					}
-
+*/
 					/*
 					 * ·F = mA <=> A = ·F / m We could simplify the code by
 					 * completely eliminating "m" (the mass) from all the

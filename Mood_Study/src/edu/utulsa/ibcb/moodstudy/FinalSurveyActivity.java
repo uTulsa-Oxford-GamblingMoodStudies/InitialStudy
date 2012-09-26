@@ -109,8 +109,7 @@ public class FinalSurveyActivity extends Activity implements OnClickListener {
 			loadNextQuestion(); break;
 		case R.id.exitButton:
 			try {
-				RpcClient.getInstance(this).finalizeSession(responses);
-				RpcClient.getInstance(this).setSession(-1);
+				RpcClient.getInstance(this).uploadFinalSurveyData(responses);
 				finish();
 			} catch (XMLRPCException xrpc) {
 				xrpc.printStackTrace();
