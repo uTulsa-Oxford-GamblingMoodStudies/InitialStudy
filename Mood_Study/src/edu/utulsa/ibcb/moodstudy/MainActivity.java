@@ -36,8 +36,6 @@ public class MainActivity extends Activity implements OnClickListener,
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		// RpcClient.getInstance(this);
-
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
 				WindowManager.LayoutParams.FLAG_FULLSCREEN);
@@ -52,7 +50,7 @@ public class MainActivity extends Activity implements OnClickListener,
 					getString(R.string.graphics_mode_preference));
 			settings.edit().commit();
 		}
-		
+
 		if (!settings.contains("initialSurveyActivityResult")) {
 			settings.edit().putInt("initialSurveyActivityResult", -1);
 			settings.edit().commit();
@@ -65,7 +63,6 @@ public class MainActivity extends Activity implements OnClickListener,
 			settings.edit().putString("username", "");
 			settings.edit().commit();
 		}
-		
 
 		load();
 
@@ -86,10 +83,6 @@ public class MainActivity extends Activity implements OnClickListener,
 		// Load layout
 		setContentView(R.layout.main);
 
-		// create the typeface to be used by all app text
-		// Typeface tf = Typeface.createFromAsset(getApplicationContext()
-		// .getAssets(), "archer_medium_pro.otf");
-
 		Button playButton = (Button) findViewById(R.id.playButtonMain);
 		playButton.setOnClickListener(this);
 		// playButton.setTypeface(tf);
@@ -98,20 +91,10 @@ public class MainActivity extends Activity implements OnClickListener,
 		registerButton.setOnClickListener(this);
 		// playButton.setTypeface(tf);
 
-		/*
-		 * if (RpcClient.getInstance(this).getOption("username") != null){
-		 * registerButton.setClickable(false);
-		 * registerButton.setVisibility(Button.INVISIBLE); } else{
-		 * playButton.setClickable(false);
-		 * playButton.setVisibility(Button.INVISIBLE); }
-		 */
-		Button loginButton = (Button) findViewById(R.id.loginButtonMain);
-		loginButton.setOnClickListener(this);
-		// loginButton.setTypeface(tf);
 
 		Button settingsButton = (Button) findViewById(R.id.settingsButtonMain);
 		settingsButton.setOnClickListener(this);
-		// settingsButton.setTypeface(tf);
+		
 
 	}
 
@@ -134,7 +117,7 @@ public class MainActivity extends Activity implements OnClickListener,
 		case R.id.settingsButtonMain:
 			startActivity(new Intent(this, DevelopmentPreferencesActivity.class));
 			break;
-			
+
 		}
 	}
 

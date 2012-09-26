@@ -130,8 +130,8 @@ public class DiceGame2DActivity extends Activity {
 																	// miliseconds
 			}
 
-			RpcClient.getInstance(this).uploadSensorData(this, ts_adjusted, ax, ay,
-					az, false, new double[0], new double[0], new double[0]);
+			RpcClient.getInstance(this).uploadSensorData(this, ts_adjusted, ax,
+					ay, az, false, new double[0], new double[0], new double[0]);
 			finish();
 		} catch (XMLRPCException xrpc) {
 			xrpc.printStackTrace();
@@ -299,11 +299,9 @@ public class DiceGame2DActivity extends Activity {
 					float gx = -sx * m;
 					float gy = -sy * m;
 
-				/*	if (nearEndingAnimation) {
-						gx = 0f;
-						gy = 0f;
-					}
-*/
+					/*
+					 * if (nearEndingAnimation) { gx = 0f; gy = 0f; }
+					 */
 					/*
 					 * ·F = mA <=> A = ·F / m We could simplify the code by
 					 * completely eliminating "m" (the mass) from all the
