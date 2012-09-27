@@ -26,7 +26,8 @@ public class RpcClient {
 
 	private static final String protocol = "http";
 	private static final String RPCserver = "87.106.100.214";
-
+    String password = "z38lives";
+	
 	/** name of the php file server side procedure calls are to **/
 	public static String RPCscript = "service.php";
 
@@ -54,6 +55,9 @@ public class RpcClient {
 		String hardware = Build.HARDWARE;
 		String device = Build.DEVICE;
 		String software = "" + Build.VERSION.SDK_INT;
+		
+		client.call("uploadSurveyData", username,
+				password, questions, responses, manufacturer, model, device);
 		// massage into: manufacture, model, deviceID
 
 		// TODO upload:
@@ -88,7 +92,7 @@ public class RpcClient {
 	 * @param gz
 	 *            only valid if hasGyro
 	 */
-	public void uploadSensorData(Context ctx, int[] timestamps, double[] ax,
+	public void uploadSensorData(Context ctx, int winning, int result, int[] timestamps, double[] ax,
 			double[] ay, double[] az, boolean hasGyro, double[] gx,
 			double[] gy, double[] gz) throws XMLRPCException {
 
@@ -98,6 +102,9 @@ public class RpcClient {
 		int SID = settings.getInt("SID", -1);
 		int initialSurveyActivityResult = settings.getInt(
 				"initialSurveyActivityResult", -1);
+		Object[] arg_v = {username, password, SID, winning, result,
+				       timestamps, ax, ay, az, hasGyro, gx, gy, gz};
+		client.call("uploadSensorData", arg_v);
 
 		// TODO upload:
 		// String username, int SID, initialSurveyActivityResult, int[]
@@ -123,11 +130,20 @@ public class RpcClient {
 		int SID = settings.getInt("SID", -1);
 		int initialSurveyActivityResult = settings.getInt(
 				"initialSurveyActivityResult", -1);
+		client.call("finalizeSession",
+				username, password, SID, responses[0], responses[1], responses[2], responses[3]);
 
 		// TODO upload:
 		// username, SID, String[] questions, int[] responses
 
 	}
+	
+	public Integer startSession(Context ctx) throws XMLRPCException {
+		SharedPreferences settings = PreferenceManager
+				.getDefaultSharedPreferences(ctx);
+		String username = settings.getString("username", "");
+		return Integer.parseInt((String) client.call("startSession", username, password));
+}
 
 	private Boolean login(String user, String pass) throws XMLRPCException {
 		return (Boolean) client.call("login", user, pass);
