@@ -50,7 +50,8 @@ public class InitialSurveyActivity extends Activity implements OnClickListener {
 		iNext.putExtra("luckyFeeling", lucky);
 
 		// Store initial visual analog scale result for upload later
-		SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(this);
+		SharedPreferences settings = PreferenceManager
+				.getDefaultSharedPreferences(this);
 		settings.edit().putInt("initialSurveyActivityResult", lucky);
 		settings.edit().commit();
 	}

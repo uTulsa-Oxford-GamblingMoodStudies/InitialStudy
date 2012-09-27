@@ -40,8 +40,9 @@ public class InstructionsActivity extends Activity implements OnClickListener {
 		continueButton.setOnClickListener(this);
 
 		// Increment session ID
-		SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(this);
-		settings.edit().putInt("SID", settings.getInt("SID",-1) + 1);
+		SharedPreferences settings = PreferenceManager
+				.getDefaultSharedPreferences(this);
+		settings.edit().putInt("SID", settings.getInt("SID", -1) + 1);
 		settings.edit().commit();
 	}
 

@@ -51,8 +51,10 @@ public class RegistrationSurveyActivity extends Activity implements
 
 		Button nextButton = (Button) findViewById(R.id.nextButton);
 		nextButton.setOnClickListener(this);
-		Button previousButton = (Button) findViewById(R.id.previousButton);
-		previousButton.setOnClickListener(this);
+		
+		//Disabled back button
+		//Button previousButton = (Button) findViewById(R.id.previousButton);
+		//previousButton.setOnClickListener(this);
 
 		question = (TextView) findViewById(R.id.instructionTextView);
 		radioGroup = (RadioGroup) findViewById(R.id.surveyRadioGroup);
@@ -124,9 +126,10 @@ public class RegistrationSurveyActivity extends Activity implements
 		case R.id.nextButton:
 			saveQuestion();
 			questionNumber++;
-			if (questionNumber > responses.length){
+			if (questionNumber > responses.length) {
 				try {
-					RpcClient.getInstance(this).uploadSurveyData(this, null, null);//responses);//TODO
+					RpcClient.getInstance(this).uploadSurveyData(this, null,
+							null);// responses);//TODO
 				} catch (XMLRPCException xrpc) {
 					xrpc.printStackTrace();
 
@@ -139,22 +142,20 @@ public class RegistrationSurveyActivity extends Activity implements
 							.setTitle("Error")
 							.setNeutralButton("Ok",
 									new DialogInterface.OnClickListener() {
-										public void onClick(DialogInterface dialog,
-												int id) {
-											RegistrationSurveyActivity.this.finish();
+										public void onClick(
+												DialogInterface dialog, int id) {
+											RegistrationSurveyActivity.this
+													.finish();
 										}
 									});
 					AlertDialog alert = builder.create();
 					alert.show();
 				}
-	
-			
+
 				onBackPressed();
-			}
-			else
+			} else
 				loadQuestion();
 		}
-
 
 	}
 
