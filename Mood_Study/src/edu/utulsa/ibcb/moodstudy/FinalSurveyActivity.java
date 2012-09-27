@@ -71,7 +71,7 @@ public class FinalSurveyActivity extends Activity implements OnClickListener {
 
 	public void loadNextQuestion() {
 		// Initialization case
-		if(questionNumber == -1){
+		if (questionNumber == -1) {
 			questionNumber++;
 			visualAnalogScale.setProgress(50);
 			question.setText(questions[questionNumber]);
@@ -80,7 +80,7 @@ public class FinalSurveyActivity extends Activity implements OnClickListener {
 			return;
 		}
 		// Loading last question case
-		else if(questionNumber + 2 == questions.length){
+		else if (questionNumber + 2 == questions.length) {
 			responses[questionNumber] = visualAnalogScale.getProgress();
 			questionNumber++;
 			visualAnalogScale.setProgress(50);
@@ -90,8 +90,7 @@ public class FinalSurveyActivity extends Activity implements OnClickListener {
 			continueButton.setVisibility(TextView.INVISIBLE);
 			exitButton.setVisibility(TextView.VISIBLE);
 			return;
-		}
-		else{
+		} else {
 			responses[questionNumber] = visualAnalogScale.getProgress();
 			questionNumber++;
 			visualAnalogScale.setProgress(50);
@@ -106,10 +105,12 @@ public class FinalSurveyActivity extends Activity implements OnClickListener {
 
 		switch (v.getId()) {
 		case R.id.continueButton:
-			loadNextQuestion(); break;
+			loadNextQuestion();
+			break;
 		case R.id.exitButton:
 			try {
-				RpcClient.getInstance(this).uploadFinalSurveyData(this, questions, responses);
+				RpcClient.getInstance(this).uploadFinalSurveyData(this,
+						questions, responses);
 				finish();
 			} catch (XMLRPCException xrpc) {
 				xrpc.printStackTrace();

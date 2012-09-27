@@ -80,7 +80,7 @@ public class GameResultsActivity extends Activity implements OnClickListener {
 
 		Button exitButton = (Button) findViewById(R.id.exitButton);
 		exitButton.setOnClickListener(this);
-		
+
 		// initialize media player
 		MediaPlayer mediaPlayer = MediaPlayer.create(this, R.raw.payout);
 		try {

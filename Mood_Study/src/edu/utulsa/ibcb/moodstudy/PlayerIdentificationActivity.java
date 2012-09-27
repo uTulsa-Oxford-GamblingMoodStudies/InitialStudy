@@ -42,15 +42,16 @@ public class PlayerIdentificationActivity extends Activity implements
 
 		Button continueButton = (Button) findViewById(R.id.continueButton);
 		continueButton.setOnClickListener(this);
-		
+
 	}
 
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.continueButton:
-			EditText ed = (EditText)findViewById(R.id.pidInput);
+			EditText ed = (EditText) findViewById(R.id.pidInput);
 			ed.getText();
-			SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(this);
+			SharedPreferences settings = PreferenceManager
+					.getDefaultSharedPreferences(this);
 			settings.edit().putString("username", ed.getText().toString());
 			settings.edit().commit();
 			startActivity(new Intent(this, RegistrationSurveyActivity.class));
