@@ -51,8 +51,10 @@ public class RegistrationSurveyActivity extends Activity implements
 
 		Button nextButton = (Button) findViewById(R.id.nextButton);
 		nextButton.setOnClickListener(this);
-		Button previousButton = (Button) findViewById(R.id.previousButton);
-		previousButton.setOnClickListener(this);
+		
+		//Disabled back button
+		//Button previousButton = (Button) findViewById(R.id.previousButton);
+		//previousButton.setOnClickListener(this);
 
 		question = (TextView) findViewById(R.id.instructionTextView);
 		radioGroup = (RadioGroup) findViewById(R.id.surveyRadioGroup);
