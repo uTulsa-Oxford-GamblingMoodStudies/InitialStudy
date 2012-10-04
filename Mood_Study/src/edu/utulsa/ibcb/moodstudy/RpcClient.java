@@ -110,11 +110,7 @@ public class RpcClient {
 		// String username, int SID, initialSurveyActivityResult, int[]
 		// timestamps, initialSurveyActivityResult, double[] ax, double[] ay,
 		// double[] az, boolean hasGyro, double[] gx, double[] gy, double[] gyz
-
-		// Object[] arg_v = { options.get("username"), options.get("password"),
-		// pid, timestamps, ax, ay, az, hasGyro, gx, gy, gz };
-		// client.callEx("uploadSensorData", arg_v);
-	}
+		}
 
 	/**
 	 * @param controls
