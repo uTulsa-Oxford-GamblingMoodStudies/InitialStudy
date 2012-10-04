@@ -95,6 +95,33 @@ public class MainActivity extends Activity implements OnClickListener,
 		Button settingsButton = (Button) findViewById(R.id.settingsButtonMain);
 		settingsButton.setOnClickListener(this);
 		
+		
+		try {
+			int SID = RpcClient.getInstance(this).startSession(this);
+			settings.edit().putInt("SID", SID);
+			settings.edit().commit();
+		} catch (XMLRPCException xrpc) {
+			xrpc.printStackTrace();
+
+			StackTraceElement[] stack = xrpc.getStackTrace();
+
+			AlertDialog.Builder builder = new AlertDialog.Builder(this);
+			builder.setMessage(
+					"Error:" + xrpc.getMessage() + "\nIn:"
+							+ stack[stack.length - 1].getClassName())
+					.setTitle("Error")
+					.setNeutralButton("Ok",
+							new DialogInterface.OnClickListener() {
+								public void onClick(DialogInterface dialog,
+										int id) {
+									MainActivity.this.finish();
+								}
+							});
+			AlertDialog alert = builder.create();
+			;
+			alert.show();
+		}
+		
 
 	}
 
