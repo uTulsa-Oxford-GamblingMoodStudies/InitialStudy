@@ -5,6 +5,7 @@ import edu.utulsa.ibcb.moodstudy.R;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -48,13 +49,15 @@ public class PlayerIdentificationActivity extends Activity implements
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.continueButton:
+			SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(this);
 			EditText ed = (EditText) findViewById(R.id.pidInput);
 			if(ed.getText()!=null){
-			SharedPreferences settings = PreferenceManager
-					.getDefaultSharedPreferences(this);
-			settings.edit().putString("username", ed.getText().toString());
-			settings.edit().commit();
-			startActivity(new Intent(this, RegistrationSurveyActivity.class));
+				Editor editor = settings.edit();
+				editor.putString("username", ed.getText().toString());
+				editor.commit();
+			}
+			if (! settings.getString("username", "").equals("")){
+				startActivity(new Intent(this, RegistrationSurveyActivity.class));
 			}
 			break;
 		}
