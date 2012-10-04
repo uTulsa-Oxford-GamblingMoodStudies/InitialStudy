@@ -49,12 +49,13 @@ public class PlayerIdentificationActivity extends Activity implements
 		switch (v.getId()) {
 		case R.id.continueButton:
 			EditText ed = (EditText) findViewById(R.id.pidInput);
-			ed.getText();
+			if(ed.getText()!=null){
 			SharedPreferences settings = PreferenceManager
 					.getDefaultSharedPreferences(this);
 			settings.edit().putString("username", ed.getText().toString());
 			settings.edit().commit();
 			startActivity(new Intent(this, RegistrationSurveyActivity.class));
+			}
 			break;
 		}
 	}
