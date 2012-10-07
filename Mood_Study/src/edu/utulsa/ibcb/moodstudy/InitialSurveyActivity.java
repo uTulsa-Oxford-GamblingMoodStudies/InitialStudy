@@ -9,6 +9,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.View;
@@ -52,8 +53,16 @@ public class InitialSurveyActivity extends Activity implements OnClickListener {
 		// Store initial visual analog scale result for upload later
 		SharedPreferences settings = PreferenceManager
 				.getDefaultSharedPreferences(this);
-		settings.edit().putInt("initialSurveyActivityResult", lucky);
-		settings.edit().commit();
+		Editor edit = settings.edit();
+		edit.putInt("initialSurveyActivityResult", lucky);
+		edit.commit();
+		
+		switch (v.getId()) {
+		case R.id.playButton:
+			startActivity(iNext);
+			break;
+			
+		}
 	}
 
 }

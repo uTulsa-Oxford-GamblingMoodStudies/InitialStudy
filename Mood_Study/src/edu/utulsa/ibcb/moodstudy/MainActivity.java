@@ -11,6 +11,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.graphics.Typeface;
 import android.media.AudioManager;
@@ -46,22 +47,25 @@ public class MainActivity extends Activity implements OnClickListener,
 		settings.registerOnSharedPreferenceChangeListener(this);
 
 		if (!settings.contains("GraphicsMode")) {
-			settings.edit().putString("GraphicsMode",
-					getString(R.string.graphics_mode_preference));
-			settings.edit().commit();
+			Editor edit = settings.edit();
+			edit.putString("GraphicsMode", getString(R.string.graphics_mode_preference));
+			edit.commit();
 		}
 
 		if (!settings.contains("initialSurveyActivityResult")) {
-			settings.edit().putInt("initialSurveyActivityResult", -1);
-			settings.edit().commit();
+			Editor edit = settings.edit();
+			edit.putInt("initialSurveyActivityResult", -1);
+			edit.commit();
 		}
 		if (!settings.contains("SID")) {
-			settings.edit().putInt("SID", -1);
-			settings.edit().commit();
+			Editor edit = settings.edit();
+			edit.putInt("SID", -1);
+			edit.commit();
 		}
 		if (!settings.contains("username")) {
-			settings.edit().putString("username", "");
-			settings.edit().commit();
+			Editor edit = settings.edit();
+			edit.putString("username", "");
+			edit.commit();
 		}
 
 		load();
@@ -95,40 +99,14 @@ public class MainActivity extends Activity implements OnClickListener,
 		Button settingsButton = (Button) findViewById(R.id.settingsButtonMain);
 		settingsButton.setOnClickListener(this);
 		
-		
-		try {
-			int SID = RpcClient.getInstance(this).startSession(this);
-			settings.edit().putInt("SID", SID);
-			settings.edit().commit();
-		} catch (XMLRPCException xrpc) {
-			xrpc.printStackTrace();
-
-			StackTraceElement[] stack = xrpc.getStackTrace();
-
-			AlertDialog.Builder builder = new AlertDialog.Builder(this);
-			builder.setMessage(
-					"Error:" + xrpc.getMessage() + "\nIn:"
-							+ stack[stack.length - 1].getClassName())
-					.setTitle("Error")
-					.setNeutralButton("Ok",
-							new DialogInterface.OnClickListener() {
-								public void onClick(DialogInterface dialog,
-										int id) {
-									MainActivity.this.finish();
-								}
-							});
-			AlertDialog alert = builder.create();
-			;
-			alert.show();
-		}
-		
 
 	}
 
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.playButtonMain:
-			if (RpcClient.getInstance(this).getOption("username") != null)
+			SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(this);
+			if (! settings.getString("username", "").equals(""))
 				startActivity(new Intent(this, InstructionsActivity.class));
 			else
 				createDialog("Wait!", "Please register before playing.",

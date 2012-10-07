@@ -102,9 +102,9 @@ public class RpcClient {
 		int SID = settings.getInt("SID", -1);
 		int initialSurveyActivityResult = settings.getInt(
 				"initialSurveyActivityResult", -1);
-		Object[] arg_v = {username, password, SID, winning, result,
+		Object[] arg_v = {username, password, SID, initialSurveyActivityResult, winning, result,
 				       timestamps, ax, ay, az, hasGyro, gx, gy, gz};
-		client.call("uploadSensorData", arg_v);
+		client.callEx("uploadSensorData", arg_v);
 
 		// TODO upload:
 		// String username, int SID, initialSurveyActivityResult, int[]
@@ -156,9 +156,9 @@ public class RpcClient {
 			options = new ConcurrentHashMap<String, String>();
 
 			// temporary measure until a permanent login system is decided upon
-			/**/setOptions(context, "username", "matt.matlock@gmail.com",
+			/*setOptions(context, "username", "matt.matlock@gmail.com",
 					"password", "z38lives");
-
+			*/
 			load(context);
 		}
 	}

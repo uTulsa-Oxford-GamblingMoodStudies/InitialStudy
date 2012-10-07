@@ -31,9 +31,8 @@ public class RegistrationSurveyActivity extends Activity implements
 	private int[] responses;
 	TextView question;
 	RadioGroup radioGroup;
-	private String[] questions;
-	private String[] answer1, answer2, answer3, answer4, answer5, answer6,
-			answer7;
+	private String[] questions, responseText;
+	private String[][] answers;
 
 	/** Called when the activity is first created. */
 	@Override
@@ -60,35 +59,27 @@ public class RegistrationSurveyActivity extends Activity implements
 		radioGroup = (RadioGroup) findViewById(R.id.surveyRadioGroup);
 
 		questions = getResources().getStringArray(R.array.survey_questions);
-		answer1 = getResources().getStringArray(R.array.survey_answer_1);
-		answer2 = getResources().getStringArray(R.array.survey_answer_2);
-		answer3 = getResources().getStringArray(R.array.survey_answer_3);
-		answer4 = getResources().getStringArray(R.array.survey_answer_4);
-		answer5 = getResources().getStringArray(R.array.survey_answer_5);
-		answer6 = getResources().getStringArray(R.array.survey_answer_6);
-		answer7 = getResources().getStringArray(R.array.survey_answer_7);
+		answers = new String[7][];
+		answers[0] = getResources().getStringArray(R.array.survey_answer_1);
+		answers[1] = getResources().getStringArray(R.array.survey_answer_2);
+		answers[2] = getResources().getStringArray(R.array.survey_answer_3);
+		answers[3] = getResources().getStringArray(R.array.survey_answer_4);
+		answers[4] = getResources().getStringArray(R.array.survey_answer_5);
+		answers[5] = getResources().getStringArray(R.array.survey_answer_6);
+		answers[6] = getResources().getStringArray(R.array.survey_answer_7);
 		responses = new int[questions.length];
-
+		responseText = new String[questions.length];
+		
 		loadQuestion();
 	}
 
 	private void loadQuestion() {
 		question.setText(questions[questionNumber - 1]);
-		((RadioButton) radioGroup.getChildAt(0))
-				.setText(answer1[questionNumber - 1]);
-		((RadioButton) radioGroup.getChildAt(1))
-				.setText(answer2[questionNumber - 1]);
-		((RadioButton) radioGroup.getChildAt(2))
-				.setText(answer3[questionNumber - 1]);
-		((RadioButton) radioGroup.getChildAt(3))
-				.setText(answer4[questionNumber - 1]);
-		((RadioButton) radioGroup.getChildAt(4))
-				.setText(answer5[questionNumber - 1]);
-		((RadioButton) radioGroup.getChildAt(5))
-				.setText(answer6[questionNumber - 1]);
-		((RadioButton) radioGroup.getChildAt(6))
-				.setText(answer7[questionNumber - 1]);
-
+		for(int i = 0; i < answers.length; i++){
+			((RadioButton) radioGroup.getChildAt(i))
+			.setText(answers[i][questionNumber - 1]);
+		}
+		
 		for (int i = 0; i < radioGroup.getChildCount(); i++) {
 			if (((RadioButton) radioGroup.getChildAt(i)).getText().equals(""))
 				((RadioButton) radioGroup.getChildAt(i))
@@ -109,7 +100,7 @@ public class RegistrationSurveyActivity extends Activity implements
 		for (int i = 0; i < radioGroup.getChildCount(); i++) {
 			if (((RadioButton) radioGroup.getChildAt(i)).isChecked())
 				responses[questionNumber - 1] = i + 1;
-
+				//responseText[questionNumber - 1 ] = answers[i][questionNumber-1];
 		}
 	}
 
@@ -127,9 +118,9 @@ public class RegistrationSurveyActivity extends Activity implements
 			saveQuestion();
 			questionNumber++;
 			if (questionNumber > responses.length) {
+				String[] responses = new String[questions.length];
 				try {
-					RpcClient.getInstance(this).uploadSurveyData(this, null,
-							null);// responses);//TODO
+					RpcClient.getInstance(this).uploadSurveyData(this, questions, questions);// responseText);
 				} catch (XMLRPCException xrpc) {
 					xrpc.printStackTrace();
 
