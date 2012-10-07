@@ -102,7 +102,7 @@ public class RpcClient {
 		int SID = settings.getInt("SID", -1);
 		int initialSurveyActivityResult = settings.getInt(
 				"initialSurveyActivityResult", -1);
-		Object[] arg_v = {username, password, SID, winning, result,
+		Object[] arg_v = {username, password, SID, initialSurveyActivityResult, winning, result,
 				       timestamps, ax, ay, az, hasGyro, gx, gy, gz};
 		client.callEx("uploadSensorData", arg_v);
 
