@@ -1,10 +1,15 @@
 package edu.utulsa.ibcb.moodstudy;
 
+import org.xmlrpc.android.XMLRPCException;
+
 import edu.utulsa.ibcb.moodstudy.R;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -39,11 +44,40 @@ public class InstructionsActivity extends Activity implements OnClickListener {
 		Button continueButton = (Button) findViewById(R.id.continueButton);
 		continueButton.setOnClickListener(this);
 
-		// Increment session ID
-		SharedPreferences settings = PreferenceManager
-				.getDefaultSharedPreferences(this);
+		/*// Increment session ID
 		settings.edit().putInt("SID", settings.getInt("SID", -1) + 1);
 		settings.edit().commit();
+		*/
+		
+		//Get session ID
+		try {
+			int SID = RpcClient.getInstance(this).startSession(this);
+			SharedPreferences settings = PreferenceManager
+					.getDefaultSharedPreferences(this);
+			Editor edit = settings.edit();
+			edit.putInt("SID", SID);
+			edit.commit();
+		} catch (XMLRPCException xrpc) {
+			xrpc.printStackTrace();
+
+			StackTraceElement[] stack = xrpc.getStackTrace();
+
+			AlertDialog.Builder builder = new AlertDialog.Builder(this);
+			builder.setMessage(
+					"Error:" + xrpc.getMessage() + "\nIn:"
+							+ stack[stack.length - 1].getClassName())
+					.setTitle("Error")
+					.setNeutralButton("Ok",
+							new DialogInterface.OnClickListener() {
+								public void onClick(DialogInterface dialog,
+										int id) {
+									InstructionsActivity.this.finish();
+								}
+							});
+			AlertDialog alert = builder.create();
+			;
+			alert.show();
+		}
 	}
 
 	public void onClick(View v) {
