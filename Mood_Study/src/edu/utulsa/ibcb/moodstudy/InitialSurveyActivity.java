@@ -56,6 +56,13 @@ public class InitialSurveyActivity extends Activity implements OnClickListener {
 		Editor edit = settings.edit();
 		edit.putInt("initialSurveyActivityResult", lucky);
 		edit.commit();
+		
+		switch (v.getId()) {
+		case R.id.playButton:
+			startActivity(iNext);
+			break;
+			
+		}
 	}
 
 }
