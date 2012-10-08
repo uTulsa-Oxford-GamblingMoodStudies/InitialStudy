@@ -90,6 +90,11 @@ public class FinalSurveyActivity extends Activity implements OnClickListener {
 			continueButton.setVisibility(TextView.INVISIBLE);
 			exitButton.setVisibility(TextView.VISIBLE);
 			return;
+		}
+		// Last question case
+		else if (questionNumber + 1 == questions.length) {
+			responses[questionNumber] = visualAnalogScale.getProgress();
+			return;	
 		} else {
 			responses[questionNumber] = visualAnalogScale.getProgress();
 			questionNumber++;
@@ -103,10 +108,9 @@ public class FinalSurveyActivity extends Activity implements OnClickListener {
 
 	public void onClick(View v) {
 
+		loadNextQuestion();
+		
 		switch (v.getId()) {
-		case R.id.continueButton:
-			loadNextQuestion();
-			break;
 		case R.id.exitButton:
 			try {
 				RpcClient.getInstance(this).uploadFinalSurveyData(this,
