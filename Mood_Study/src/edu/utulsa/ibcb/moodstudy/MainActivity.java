@@ -23,8 +23,7 @@ import android.widget.Button;
  * 
  * @author Eric Kuxhausen
  */
-public class MainActivity extends Activity implements OnClickListener,
-		OnSharedPreferenceChangeListener {
+public class MainActivity extends Activity implements OnClickListener{
 
 	/** Called when the activity is first created. */
 	@Override
@@ -38,7 +37,6 @@ public class MainActivity extends Activity implements OnClickListener,
 		// add default preferences if no preferences exist
 		SharedPreferences settings = PreferenceManager
 				.getDefaultSharedPreferences(this);
-		settings.registerOnSharedPreferenceChangeListener(this);
 
 		if (!settings.contains("GraphicsMode")) {
 			Editor edit = settings.edit();
@@ -130,8 +128,4 @@ public class MainActivity extends Activity implements OnClickListener,
 		alert.show();
 	}
 
-	public void onSharedPreferenceChanged(SharedPreferences sharedPreferences,
-			String key) {
-
-	}
 }

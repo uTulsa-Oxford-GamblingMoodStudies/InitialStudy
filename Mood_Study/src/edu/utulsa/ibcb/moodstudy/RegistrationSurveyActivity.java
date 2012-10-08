@@ -5,6 +5,7 @@ import org.xmlrpc.android.XMLRPCException;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -148,5 +149,9 @@ public class RegistrationSurveyActivity extends Activity implements
 		}
 
 	}
-
+	
+	@Override
+	public void onBackPressed() {
+		startActivity(new Intent(this, MainActivity.class));
+	}
 }
