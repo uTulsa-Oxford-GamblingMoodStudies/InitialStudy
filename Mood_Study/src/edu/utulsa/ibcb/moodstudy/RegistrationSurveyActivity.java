@@ -19,7 +19,7 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 
 /**
- * Questionnare of mood before playing the game
+ * Questionnaire of mood before playing the game
  * 
  * @author Eric Kuxhausen
  */
@@ -49,10 +49,6 @@ public class RegistrationSurveyActivity extends Activity implements
 
 		Button nextButton = (Button) findViewById(R.id.nextButton);
 		nextButton.setOnClickListener(this);
-
-		// Disabled back button
-		// Button previousButton = (Button) findViewById(R.id.previousButton);
-		// previousButton.setOnClickListener(this);
 
 		question = (TextView) findViewById(R.id.instructionTextView);
 		radioGroup = (RadioGroup) findViewById(R.id.surveyRadioGroup);
@@ -149,7 +145,7 @@ public class RegistrationSurveyActivity extends Activity implements
 		}
 
 	}
-	
+
 	@Override
 	public void onBackPressed() {
 		startActivity(new Intent(this, MainActivity.class));

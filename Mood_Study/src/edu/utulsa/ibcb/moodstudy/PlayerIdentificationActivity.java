@@ -58,7 +58,7 @@ public class PlayerIdentificationActivity extends Activity implements
 			break;
 		}
 	}
-	
+
 	@Override
 	public void onBackPressed() {
 		startActivity(new Intent(this, MainActivity.class));

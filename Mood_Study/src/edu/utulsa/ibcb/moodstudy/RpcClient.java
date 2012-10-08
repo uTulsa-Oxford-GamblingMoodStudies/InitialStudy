@@ -57,9 +57,7 @@ public class RpcClient {
 
 		client.call("uploadSurveyData", username, password, questions,
 				responses, manufacturer, model, device);
-		// massage into: manufacture, model, deviceID
-
-		// TODO upload:
+		// UPLOAD
 		// username, string[] questions, string[] responses, string
 		// manufacturer, string model, string deviceID
 
@@ -107,7 +105,7 @@ public class RpcClient {
 				ay, az, hasGyro, gx, gy, gz };
 		client.callEx("uploadSensorData", arg_v);
 
-		// TODO upload:
+		// UPLOAD
 		// String username, int SID, initialSurveyActivityResult, int[]
 		// timestamps, initialSurveyActivityResult, double[] ax, double[] ay,
 		// double[] az, boolean hasGyro, double[] gx, double[] gy, double[] gyz
@@ -130,7 +128,7 @@ public class RpcClient {
 		client.call("finalizeSession", username, password, SID, responses[0],
 				responses[1], responses[2], responses[3]);
 
-		// TODO upload:
+		// UPLOAD
 		// username, SID, String[] questions, int[] responses
 
 	}
@@ -157,11 +155,6 @@ public class RpcClient {
 			client = new XMLRPCClient(url, context);
 			options = new ConcurrentHashMap<String, String>();
 
-			// temporary measure until a permanent login system is decided upon
-			/*
-			 * setOptions(context, "username", "matt.matlock@gmail.com",
-			 * "password", "z38lives");
-			 */
 			load(context);
 		}
 	}

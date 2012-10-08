@@ -38,9 +38,6 @@ public class FinalSurveyActivity extends Activity implements OnClickListener {
 		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
 				WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-		SharedPreferences settings = PreferenceManager
-				.getDefaultSharedPreferences(this);
-
 		// Load layout
 		setContentView(R.layout.final_survey);
 

@@ -58,7 +58,7 @@ public class InitialSurveyActivity extends Activity implements OnClickListener {
 
 		}
 	}
-	
+
 	@Override
 	public void onBackPressed() {
 		startActivity(new Intent(this, MainActivity.class));

@@ -23,7 +23,7 @@ import android.widget.Button;
  * 
  * @author Eric Kuxhausen
  */
-public class MainActivity extends Activity implements OnClickListener{
+public class MainActivity extends Activity implements OnClickListener {
 
 	/** Called when the activity is first created. */
 	@Override
@@ -82,11 +82,9 @@ public class MainActivity extends Activity implements OnClickListener{
 
 		Button playButton = (Button) findViewById(R.id.playButtonMain);
 		playButton.setOnClickListener(this);
-		// playButton.setTypeface(tf);
 
 		Button registerButton = (Button) findViewById(R.id.registerButtonMain);
 		registerButton.setOnClickListener(this);
-		// playButton.setTypeface(tf);
 
 		Button settingsButton = (Button) findViewById(R.id.settingsButtonMain);
 		settingsButton.setOnClickListener(this);
