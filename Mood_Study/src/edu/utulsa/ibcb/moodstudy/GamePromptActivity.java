@@ -2,6 +2,8 @@ package edu.utulsa.ibcb.moodstudy;
 
 import org.xmlrpc.android.XMLRPCException;
 
+import edu.utulsa.ibcb.moodstudy.opengl.DiceGameActivity;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;

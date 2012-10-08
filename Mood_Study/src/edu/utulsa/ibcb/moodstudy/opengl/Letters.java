@@ -1,4 +1,4 @@
-package edu.utulsa.ibcb.moodstudy;
+package edu.utulsa.ibcb.moodstudy.opengl;
 
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
