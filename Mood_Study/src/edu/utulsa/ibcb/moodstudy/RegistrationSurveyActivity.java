@@ -5,18 +5,16 @@ import org.xmlrpc.android.XMLRPCException;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.Window;
 import android.view.WindowManager;
-import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.SeekBar;
 import android.widget.TextView;
 
 /**
@@ -50,10 +48,10 @@ public class RegistrationSurveyActivity extends Activity implements
 
 		Button nextButton = (Button) findViewById(R.id.nextButton);
 		nextButton.setOnClickListener(this);
-		
-		//Disabled back button
-		//Button previousButton = (Button) findViewById(R.id.previousButton);
-		//previousButton.setOnClickListener(this);
+
+		// Disabled back button
+		// Button previousButton = (Button) findViewById(R.id.previousButton);
+		// previousButton.setOnClickListener(this);
 
 		question = (TextView) findViewById(R.id.instructionTextView);
 		radioGroup = (RadioGroup) findViewById(R.id.surveyRadioGroup);
@@ -69,17 +67,17 @@ public class RegistrationSurveyActivity extends Activity implements
 		answers[6] = getResources().getStringArray(R.array.survey_answer_7);
 		responses = new int[questions.length];
 		responseText = new String[questions.length];
-		
+
 		loadQuestion();
 	}
 
 	private void loadQuestion() {
 		question.setText(questions[questionNumber - 1]);
-		for(int i = 0; i < answers.length; i++){
+		for (int i = 0; i < answers.length; i++) {
 			((RadioButton) radioGroup.getChildAt(i))
-			.setText(answers[i][questionNumber - 1]);
+					.setText(answers[i][questionNumber - 1]);
 		}
-		
+
 		for (int i = 0; i < radioGroup.getChildCount(); i++) {
 			if (((RadioButton) radioGroup.getChildAt(i)).getText().equals(""))
 				((RadioButton) radioGroup.getChildAt(i))
@@ -100,7 +98,7 @@ public class RegistrationSurveyActivity extends Activity implements
 		for (int i = 0; i < radioGroup.getChildCount(); i++) {
 			if (((RadioButton) radioGroup.getChildAt(i)).isChecked())
 				responses[questionNumber - 1] = i + 1;
-				//responseText[questionNumber - 1 ] = answers[i][questionNumber-1];
+			// responseText[questionNumber - 1 ] = answers[i][questionNumber-1];
 		}
 	}
 
@@ -120,7 +118,8 @@ public class RegistrationSurveyActivity extends Activity implements
 			if (questionNumber > responses.length) {
 				String[] responses = new String[questions.length];
 				try {
-					RpcClient.getInstance(this).uploadSurveyData(this, questions, responseText);
+					RpcClient.getInstance(this).uploadSurveyData(this,
+							questions, responseText);
 				} catch (XMLRPCException xrpc) {
 					xrpc.printStackTrace();
 

@@ -1,10 +1,5 @@
 package edu.utulsa.ibcb.moodstudy;
 
-import org.xmlrpc.android.XMLRPCClient;
-import org.xmlrpc.android.XMLRPCException;
-
-import edu.utulsa.ibcb.moodstudy.R;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -13,14 +8,13 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
-import android.graphics.Typeface;
 import android.media.AudioManager;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.Window;
 import android.view.WindowManager;
-import android.view.View.OnClickListener;
 import android.widget.Button;
 
 /**
@@ -48,7 +42,8 @@ public class MainActivity extends Activity implements OnClickListener,
 
 		if (!settings.contains("GraphicsMode")) {
 			Editor edit = settings.edit();
-			edit.putString("GraphicsMode", getString(R.string.graphics_mode_preference));
+			edit.putString("GraphicsMode",
+					getString(R.string.graphics_mode_preference));
 			edit.commit();
 		}
 
@@ -95,18 +90,17 @@ public class MainActivity extends Activity implements OnClickListener,
 		registerButton.setOnClickListener(this);
 		// playButton.setTypeface(tf);
 
-
 		Button settingsButton = (Button) findViewById(R.id.settingsButtonMain);
 		settingsButton.setOnClickListener(this);
-		
 
 	}
 
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.playButtonMain:
-			SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(this);
-			if (! settings.getString("username", "").equals(""))
+			SharedPreferences settings = PreferenceManager
+					.getDefaultSharedPreferences(this);
+			if (!settings.getString("username", "").equals(""))
 				startActivity(new Intent(this, InstructionsActivity.class));
 			else
 				createDialog("Wait!", "Please register before playing.",

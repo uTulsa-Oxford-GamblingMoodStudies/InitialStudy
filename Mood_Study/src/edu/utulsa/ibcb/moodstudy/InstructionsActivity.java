@@ -2,23 +2,19 @@ package edu.utulsa.ibcb.moodstudy;
 
 import org.xmlrpc.android.XMLRPCException;
 
-import edu.utulsa.ibcb.moodstudy.R;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.Window;
 import android.view.WindowManager;
-import android.view.View.OnClickListener;
 import android.widget.Button;
-import android.widget.ScrollView;
 import android.widget.TextView;
 
 /**
@@ -44,12 +40,12 @@ public class InstructionsActivity extends Activity implements OnClickListener {
 		Button continueButton = (Button) findViewById(R.id.continueButton);
 		continueButton.setOnClickListener(this);
 
-		/*// Increment session ID
-		settings.edit().putInt("SID", settings.getInt("SID", -1) + 1);
-		settings.edit().commit();
-		*/
-		
-		//Get session ID
+		/*
+		 * // Increment session ID settings.edit().putInt("SID",
+		 * settings.getInt("SID", -1) + 1); settings.edit().commit();
+		 */
+
+		// Get session ID
 		try {
 			int SID = RpcClient.getInstance(this).startSession(this);
 			SharedPreferences settings = PreferenceManager

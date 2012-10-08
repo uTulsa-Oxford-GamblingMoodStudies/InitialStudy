@@ -1,12 +1,6 @@
 package edu.utulsa.ibcb.moodstudy;
 
-import org.xmlrpc.android.XMLRPCException;
-
-import edu.utulsa.ibcb.moodstudy.R;
-
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
@@ -56,12 +50,12 @@ public class InitialSurveyActivity extends Activity implements OnClickListener {
 		Editor edit = settings.edit();
 		edit.putInt("initialSurveyActivityResult", lucky);
 		edit.commit();
-		
+
 		switch (v.getId()) {
 		case R.id.playButton:
 			startActivity(iNext);
 			break;
-			
+
 		}
 	}
 

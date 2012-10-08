@@ -2,8 +2,6 @@ package edu.utulsa.ibcb.moodstudy;
 
 import android.os.Bundle;
 import android.preference.PreferenceActivity;
-import android.view.Window;
-import android.view.WindowManager;
 
 public class DevelopmentPreferencesActivity extends PreferenceActivity {
 	@Override

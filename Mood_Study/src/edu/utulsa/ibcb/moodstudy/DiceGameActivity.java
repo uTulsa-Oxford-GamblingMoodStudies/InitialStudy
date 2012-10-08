@@ -1,10 +1,5 @@
 package edu.utulsa.ibcb.moodstudy;
 
-import edu.utulsa.ibcb.moodstudy.R;
-import edu.utulsa.ibcb.moodstudy.opengl.CupEnvironment;
-import edu.utulsa.ibcb.moodstudy.opengl.DiceRenderer;
-import edu.utulsa.ibcb.moodstudy.opengl.DiceRollEnvironment;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.opengl.GLSurfaceView;
@@ -13,6 +8,9 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
 import android.view.WindowManager;
+import edu.utulsa.ibcb.moodstudy.opengl.CupEnvironment;
+import edu.utulsa.ibcb.moodstudy.opengl.DiceRenderer;
+import edu.utulsa.ibcb.moodstudy.opengl.DiceRollEnvironment;
 
 public class DiceGameActivity extends Activity implements OnClickListener {
 
