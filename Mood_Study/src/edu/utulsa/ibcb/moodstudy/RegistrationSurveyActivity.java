@@ -26,7 +26,7 @@ import android.widget.TextView;
 public class RegistrationSurveyActivity extends Activity implements
 		OnClickListener {
 
-	private int questionNumber = 1;
+	private int questionIndex = 0;
 	private int[] responses;
 	TextView question;
 	RadioGroup radioGroup;
@@ -64,15 +64,19 @@ public class RegistrationSurveyActivity extends Activity implements
 		answers[6] = getResources().getStringArray(R.array.survey_answer_7);
 		responses = new int[questions.length];
 		responseText = new String[questions.length];
+		for(int i = 0; i<responseText.length; i++)
+		{
+			responseText[i]="";
+		}
 
 		loadQuestion();
 	}
 
 	private void loadQuestion() {
-		question.setText(questions[questionNumber - 1]);
+		question.setText(questions[questionIndex]);
 		for (int i = 0; i < answers.length; i++) {
 			((RadioButton) radioGroup.getChildAt(i))
-					.setText(answers[i][questionNumber - 1]);
+					.setText(answers[i][questionIndex]);
 		}
 
 		for (int i = 0; i < radioGroup.getChildCount(); i++) {
@@ -83,7 +87,7 @@ public class RegistrationSurveyActivity extends Activity implements
 				((RadioButton) radioGroup.getChildAt(i))
 						.setVisibility(RadioButton.VISIBLE);
 
-			if (responses[questionNumber - 1] == i + 1)
+			if (responses[questionIndex] == i + 1)
 				((RadioButton) radioGroup.getChildAt(i)).setChecked(true);
 			else
 				((RadioButton) radioGroup.getChildAt(i)).setChecked(false);
@@ -94,8 +98,8 @@ public class RegistrationSurveyActivity extends Activity implements
 
 		for (int i = 0; i < radioGroup.getChildCount(); i++) {
 			if (((RadioButton) radioGroup.getChildAt(i)).isChecked())
-				responses[questionNumber - 1] = i + 1;
-			// responseText[questionNumber - 1 ] = answers[i][questionNumber-1];
+				responses[questionIndex] = i + 1;
+			responseText[questionIndex] = answers[i][questionIndex];
 		}
 	}
 
@@ -103,16 +107,16 @@ public class RegistrationSurveyActivity extends Activity implements
 		switch (v.getId()) {
 		case R.id.previousButton:
 			saveQuestion();
-			questionNumber--;
-			if (questionNumber < 1)
+			questionIndex--;
+			if (questionIndex < 0)
 				onBackPressed();
 			else
 				loadQuestion();
 			break;
 		case R.id.nextButton:
 			saveQuestion();
-			questionNumber++;
-			if (questionNumber > responses.length) {
+			questionIndex++;
+			if (questionIndex >= responses.length) {
 				String[] responses = new String[questions.length];
 				try {
 					RpcClient.getInstance(this).uploadSurveyData(this,
