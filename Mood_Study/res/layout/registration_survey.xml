@@ -20,7 +20,7 @@
                 android:id="@+id/instructionTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Question"
+                android:text="@string/placeholder"
                 android:textAppearance="?android:attr/textAppearanceLarge" />
 
             <RadioGroup
@@ -32,43 +32,51 @@
                     android:id="@+id/radioButton1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Response1" />
+                    android:text="@string/placeholder"
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
 
                 <RadioButton
                     android:id="@+id/radioButton2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Response2" />
+                    android:text="@string/placeholder"
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
 
                 <RadioButton
                     android:id="@+id/radioButton3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Response3" />
+                    android:text="@string/placeholder"
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
 
                 <RadioButton
                     android:id="@+id/radioButton4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Response4" />
+                    android:text="@string/placeholder"
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
 
                 <RadioButton
                     android:id="@+id/radioButton5"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Response5" />
+                    android:text="@string/placeholder"
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
 
                 <RadioButton
                     android:id="@+id/radioButton6"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Response6" />
+                    android:text="@string/placeholder"
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
 
                 <RadioButton
                     android:id="@+id/radioButton7"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Response7" />
+                    android:text="@string/placeholder"
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
+
             </RadioGroup>
         </LinearLayout>
 
