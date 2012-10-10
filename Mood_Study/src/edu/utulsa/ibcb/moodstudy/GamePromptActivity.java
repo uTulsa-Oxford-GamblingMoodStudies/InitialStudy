@@ -54,31 +54,11 @@ public class GamePromptActivity extends Activity implements OnClickListener {
 
 		int winning = 0;// (int)(Math.ceil(6*Math.random()));//0
 		int play = 0;// (int)(Math.ceil(6*Math.random()));//0
-		try {
-			int[] response = RpcClient.getInstance(this).play();
-			winning = response[0];
-			play = response[1];
-		} catch (XMLRPCException xrpc) {
-			xrpc.printStackTrace();
-
-			StackTraceElement[] stack = xrpc.getStackTrace();
-
-			AlertDialog.Builder builder = new AlertDialog.Builder(this);
-			builder.setMessage(
-					"Error:" + xrpc.getMessage() + "\nIn:"
-							+ stack[stack.length - 1].getClassName())
-					.setTitle("Error")
-					.setNeutralButton("Ok",
-							new DialogInterface.OnClickListener() {
-								public void onClick(DialogInterface dialog,
-										int id) {
-									GamePromptActivity.this.finish();
-								}
-							});
-			AlertDialog alert = builder.create();
-			alert.show();
-		}
-
+		
+		int[] response = RpcClient.getInstance(this).play();
+		winning = response[0];
+		play = response[1];
+		
 		promptedRoll = winning;
 		actualRoll = play;
 

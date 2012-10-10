@@ -13,6 +13,7 @@ import org.xmlrpc.android.XMLRPCException;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.os.Build;
 import android.preference.PreferenceManager;
 
@@ -55,15 +56,21 @@ public class RpcClient {
 		String device = Build.DEVICE;
 		String software = "" + Build.VERSION.SDK_INT;
 
+		//initialize play number tracking for this user
+				if (!settings.contains("playNumberFor" + username)) {
+					Editor edit = settings.edit();
+					edit.putInt("playNumberFor" + username, 1);
+					edit.commit();
+				}
+		
 		client.call("uploadSurveyData", username, password, questions,
 				responses, manufacturer, model, device);
 		// UPLOAD
 		// username, string[] questions, string[] responses, string
 		// manufacturer, string model, string deviceID
-
 	}
 
-	public int[] play() throws XMLRPCException {
+	public int[] play() {
 		return new int[] { (int) (Math.ceil(6 * Math.random())),
 				(int) (Math.ceil(6 * Math.random())) };
 	}

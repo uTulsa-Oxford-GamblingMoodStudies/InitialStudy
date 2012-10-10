@@ -32,6 +32,7 @@ public class RegistrationSurveyActivity extends Activity implements
 	RadioGroup radioGroup;
 	private String[] questions, responseText;
 	private String[][] answers;
+	Button nextButton;
 
 	/** Called when the activity is first created. */
 	@Override
@@ -47,7 +48,7 @@ public class RegistrationSurveyActivity extends Activity implements
 		// Load layout
 		setContentView(R.layout.registration_survey);
 
-		Button nextButton = (Button) findViewById(R.id.nextButton);
+		nextButton = (Button) findViewById(R.id.nextButton);
 		nextButton.setOnClickListener(this);
 
 		question = (TextView) findViewById(R.id.instructionTextView);
@@ -117,7 +118,9 @@ public class RegistrationSurveyActivity extends Activity implements
 			questionIndex++;
 			if (questionIndex >= responses.length) {
 				String[] responses = new String[questions.length];
+				
 				try {
+					nextButton.setClickable(false);
 					RpcClient.getInstance(this).uploadSurveyData(this,
 							questions, responseText);
 				} catch (XMLRPCException xrpc) {
