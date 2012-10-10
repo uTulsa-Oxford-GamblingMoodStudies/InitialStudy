@@ -78,7 +78,7 @@ public class RegistrationSurveyActivity extends Activity implements
 			((RadioButton) radioGroup.getChildAt(i))
 					.setText(answers[i][questionIndex]);
 		}
-
+		radioGroup.clearCheck();
 		for (int i = 0; i < radioGroup.getChildCount(); i++) {
 			if (((RadioButton) radioGroup.getChildAt(i)).getText().equals(""))
 				((RadioButton) radioGroup.getChildAt(i))
@@ -87,11 +87,10 @@ public class RegistrationSurveyActivity extends Activity implements
 				((RadioButton) radioGroup.getChildAt(i))
 						.setVisibility(RadioButton.VISIBLE);
 
-			if (responses[questionIndex] == i + 1)
-				((RadioButton) radioGroup.getChildAt(i)).setChecked(true);
-			else
-				((RadioButton) radioGroup.getChildAt(i)).setChecked(false);
+			//if (responses[questionIndex] == i + 1)
+			//	((RadioButton) radioGroup.getChildAt(i)).setChecked(true);
 		}
+		
 	}
 
 	private void saveQuestion() {
