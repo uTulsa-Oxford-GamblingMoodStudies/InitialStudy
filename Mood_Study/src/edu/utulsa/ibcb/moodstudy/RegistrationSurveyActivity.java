@@ -4,11 +4,15 @@ import org.xmlrpc.android.XMLRPCException;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
@@ -33,6 +37,7 @@ public class RegistrationSurveyActivity extends Activity implements
 	private String[] questions, responseText;
 	private String[][] answers;
 	Button nextButton;
+	ProgressDialog progDiag;
 
 	/** Called when the activity is first created. */
 	@Override
@@ -119,33 +124,18 @@ public class RegistrationSurveyActivity extends Activity implements
 			if (questionIndex >= responses.length) {
 				String[] responses = new String[questions.length];
 				
-				try {
-					nextButton.setClickable(false);
-					RpcClient.getInstance(this).uploadSurveyData(this,
-							questions, responseText);
-				} catch (XMLRPCException xrpc) {
-					xrpc.printStackTrace();
-
-					StackTraceElement[] stack = xrpc.getStackTrace();
-
-					AlertDialog.Builder builder = new AlertDialog.Builder(this);
-					builder.setMessage(
-							"Error:" + xrpc.getMessage() + "\nIn:"
-									+ stack[stack.length - 1].getClassName())
-							.setTitle("Error")
-							.setNeutralButton("Ok",
-									new DialogInterface.OnClickListener() {
-										public void onClick(
-												DialogInterface dialog, int id) {
-											RegistrationSurveyActivity.this
-													.finish();
-										}
-									});
-					AlertDialog alert = builder.create();
-					alert.show();
-				}
-
-				onBackPressed();
+				//
+				progDiag = new ProgressDialog(this);
+				progDiag.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+				progDiag.show();
+				
+				
+				nextButton.setClickable(false);
+				
+				new SurveyUploader().execute(this,questions,responseText);
+				
+				//
+				
 			} else
 				loadQuestion();
 		}
@@ -155,5 +145,62 @@ public class RegistrationSurveyActivity extends Activity implements
 	@Override
 	public void onBackPressed() {
 		startActivity(new Intent(this, MainActivity.class));
+	}
+	
+	
+	private class SurveyUploader extends AsyncTask<Object, Void, Integer> {
+
+		XMLRPCException xrpcE;
+		Context cont;
+		
+		@Override
+		protected Integer doInBackground(Object... params) {
+			// TODO Auto-generated method stub
+			
+			cont = (Context)params[0];
+			String[] questions = (String[])params[1];
+			String[] responseText = (String[])params[2];
+			Log.i("asyncTask","doing");
+			try {
+				RpcClient.getInstance(cont).uploadSurveyData(cont,
+						questions, responseText);
+			} catch (XMLRPCException xrpc) {
+				xrpcE = xrpc;
+			}
+			Log.i("asyncTask","finishing");
+			return 1;
+		}
+
+		@Override
+		protected void onPostExecute(Integer result) {
+			Log.i("asyncTask","finished");
+			if(xrpcE!=null){
+				xrpcE.printStackTrace();
+
+				StackTraceElement[] stack = xrpcE.getStackTrace();
+				
+				AlertDialog.Builder builder = new AlertDialog.Builder(cont);
+				builder.setMessage(
+						"Error:" + xrpcE.getMessage() + "\nIn:"
+								+ stack[stack.length - 1].getClassName())
+						.setTitle("Error")
+						.setNeutralButton("Ok",
+								new DialogInterface.OnClickListener() {
+									public void onClick(
+											DialogInterface dialog, int id) {
+										RegistrationSurveyActivity.this
+												.finish();
+									}
+								});
+				AlertDialog alert = builder.create();
+				alert.show();
+			}
+			
+			
+			progDiag.dismiss();
+			//
+			onBackPressed();
+	    }
+
 	}
 }
