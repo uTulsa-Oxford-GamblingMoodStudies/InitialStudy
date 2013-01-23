@@ -70,9 +70,8 @@ public class RegistrationSurveyActivity extends Activity implements
 		answers[6] = getResources().getStringArray(R.array.survey_answer_7);
 		responses = new int[questions.length];
 		responseText = new String[questions.length];
-		for(int i = 0; i<responseText.length; i++)
-		{
-			responseText[i]="";
+		for (int i = 0; i < responseText.length; i++) {
+			responseText[i] = "";
 		}
 
 		loadQuestion();
@@ -93,10 +92,10 @@ public class RegistrationSurveyActivity extends Activity implements
 				((RadioButton) radioGroup.getChildAt(i))
 						.setVisibility(RadioButton.VISIBLE);
 
-			//if (responses[questionIndex] == i + 1)
-			//	((RadioButton) radioGroup.getChildAt(i)).setChecked(true);
+			// if (responses[questionIndex] == i + 1)
+			// ((RadioButton) radioGroup.getChildAt(i)).setChecked(true);
 		}
-		
+
 	}
 
 	private void saveQuestion() {
@@ -123,19 +122,18 @@ public class RegistrationSurveyActivity extends Activity implements
 			questionIndex++;
 			if (questionIndex >= responses.length) {
 				String[] responses = new String[questions.length];
-				
+
 				//
 				progDiag = new ProgressDialog(this);
 				progDiag.setProgressStyle(ProgressDialog.STYLE_SPINNER);
 				progDiag.show();
-				
-				
+
 				nextButton.setClickable(false);
-				
-				new SurveyUploader().execute(this,questions,responseText);
-				
+
+				new SurveyUploader().execute(this, questions, responseText);
+
 				//
-				
+
 			} else
 				loadQuestion();
 		}
@@ -146,39 +144,38 @@ public class RegistrationSurveyActivity extends Activity implements
 	public void onBackPressed() {
 		startActivity(new Intent(this, MainActivity.class));
 	}
-	
-	
+
 	private class SurveyUploader extends AsyncTask<Object, Void, Integer> {
 
 		XMLRPCException xrpcE;
 		Context cont;
-		
+
 		@Override
 		protected Integer doInBackground(Object... params) {
 			// TODO Auto-generated method stub
-			
-			cont = (Context)params[0];
-			String[] questions = (String[])params[1];
-			String[] responseText = (String[])params[2];
-			Log.i("asyncTask","doing");
+
+			cont = (Context) params[0];
+			String[] questions = (String[]) params[1];
+			String[] responseText = (String[]) params[2];
+			Log.i("asyncTask", "doing");
 			try {
-				RpcClient.getInstance(cont).uploadSurveyData(cont,
-						questions, responseText);
+				RpcClient.getInstance(cont).uploadSurveyData(cont, questions,
+						responseText);
 			} catch (XMLRPCException xrpc) {
 				xrpcE = xrpc;
 			}
-			Log.i("asyncTask","finishing");
+			Log.i("asyncTask", "finishing");
 			return 1;
 		}
 
 		@Override
 		protected void onPostExecute(Integer result) {
-			Log.i("asyncTask","finished");
-			if(xrpcE!=null){
+			Log.i("asyncTask", "finished");
+			if (xrpcE != null) {
 				xrpcE.printStackTrace();
 
 				StackTraceElement[] stack = xrpcE.getStackTrace();
-				
+
 				AlertDialog.Builder builder = new AlertDialog.Builder(cont);
 				builder.setMessage(
 						"Error:" + xrpcE.getMessage() + "\nIn:"
@@ -186,8 +183,8 @@ public class RegistrationSurveyActivity extends Activity implements
 						.setTitle("Error")
 						.setNeutralButton("Ok",
 								new DialogInterface.OnClickListener() {
-									public void onClick(
-											DialogInterface dialog, int id) {
+									public void onClick(DialogInterface dialog,
+											int id) {
 										RegistrationSurveyActivity.this
 												.finish();
 									}
@@ -195,12 +192,11 @@ public class RegistrationSurveyActivity extends Activity implements
 				AlertDialog alert = builder.create();
 				alert.show();
 			}
-			
-			
+
 			progDiag.dismiss();
 			//
 			onBackPressed();
-	    }
+		}
 
 	}
 }

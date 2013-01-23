@@ -54,11 +54,11 @@ public class GamePromptActivity extends Activity implements OnClickListener {
 
 		int winning = 0;// (int)(Math.ceil(6*Math.random()));//0
 		int play = 0;// (int)(Math.ceil(6*Math.random()));//0
-		
+
 		int[] response = RpcClient.getInstance(this).play();
 		winning = response[0];
 		play = response[1];
-		
+
 		promptedRoll = winning;
 		actualRoll = play;
 

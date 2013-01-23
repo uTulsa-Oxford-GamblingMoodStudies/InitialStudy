@@ -56,13 +56,13 @@ public class RpcClient {
 		String device = Build.DEVICE;
 		String software = "" + Build.VERSION.SDK_INT;
 
-		//initialize play number tracking for this user
-				if (!settings.contains("playNumberFor" + username)) {
-					Editor edit = settings.edit();
-					edit.putInt("playNumberFor" + username, 1);
-					edit.commit();
-				}
-		
+		// initialize play number tracking for this user
+		if (!settings.contains("playNumberFor" + username)) {
+			Editor edit = settings.edit();
+			edit.putInt("playNumberFor" + username, 1);
+			edit.commit();
+		}
+
 		client.call("uploadSurveyData", username, password, questions,
 				responses, manufacturer, model, device);
 		// UPLOAD
