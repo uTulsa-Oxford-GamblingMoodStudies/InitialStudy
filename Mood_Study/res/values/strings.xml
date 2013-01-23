@@ -21,7 +21,7 @@
     <string name="start_survey_low">None at all</string>
     <string name="start_survey_high">Very</string>
     <string name="next_continue">Continue</string>
-    <string name="play_prompt">This time roll a...</string>
+    <string name="play_prompt">This time roll a…</string>
     <string name="touch_prompt">Please touch the coresponding prize</string>
     <string name="prize1">10p</string>
     <string name="prize2">20p</string>
