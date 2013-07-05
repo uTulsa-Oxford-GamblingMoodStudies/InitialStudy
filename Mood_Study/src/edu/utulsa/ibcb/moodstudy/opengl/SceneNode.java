@@ -11,101 +11,106 @@ import javax.vecmath.Vector4f;
 import com.bulletphysics.dynamics.RigidBody;
 
 public class SceneNode {
-	
+
 	// change Object to GL10
 	public interface RenderState {
 		public void start(Object o);
+
 		public void stop(Object o);
 	}
-	
+
 	protected Vector3f x;
 	protected Matrix3f R;
-	
+
 	protected RigidBody rb = null;
-	
+
 	String name;
-	
+
 	SceneNode parent = null;
 	ArrayList<SceneNode> children = new ArrayList<SceneNode>();
-	
+
 	ArrayList<Mesh> meshes = new ArrayList<Mesh>();
-	
+
 	RenderState rs = null;
-	
-	public boolean isSimulated(){
+
+	public boolean isSimulated() {
 		return rb != null;
 	}
-	
-	public RigidBody getRigidBody(){
+
+	public RigidBody getRigidBody() {
 		return rb;
 	}
-	
-	public void setRigidBody(RigidBody rb){
+
+	public void setRigidBody(RigidBody rb) {
 		this.rb = rb;
 	}
-	
-	public void setOrientation(Matrix3f m){
+
+	public void setOrientation(Matrix3f m) {
 		R = m;
 	}
-	public void setPosition(Vector3f v){
+
+	public void setPosition(Vector3f v) {
 		x = v;
 	}
-	public void orient(Matrix3f m){
+
+	public void orient(Matrix3f m) {
 		R.mul(m);
 	}
-	public void translate(Vector3f v){
+
+	public void translate(Vector3f v) {
 		x.add(v);
 	}
-	public Matrix3f getOrientation(){
+
+	public Matrix3f getOrientation() {
 		return R;
 	}
-	public Vector3f getTranslation(){
+
+	public Vector3f getTranslation() {
 		return x;
 	}
-	
-	public void setParent(SceneNode n){
+
+	public void setParent(SceneNode n) {
 		parent = n;
 	}
-	
-	public String getName(){
+
+	public String getName() {
 		return name;
 	}
-	
-	public void setRenderState(RenderState rs){
-		this.rs=rs;
+
+	public void setRenderState(RenderState rs) {
+		this.rs = rs;
 	}
-	
-	public RenderState getRenderState(){
+
+	public RenderState getRenderState() {
 		return rs;
 	}
-	
-	public void addChild(SceneNode n){
+
+	public void addChild(SceneNode n) {
 		n.setParent(this);
 		children.add(n);
 	}
-	
-	public SceneNode(String n){
-		name=n;
-		
+
+	public SceneNode(String n) {
+		name = n;
+
 		R = new Matrix3f(Solver.identity);
-		x = new Vector3f(0,0,0);
+		x = new Vector3f(0, 0, 0);
 	}
-	
-	
-	public List<Mesh> getObjects(){
+
+	public List<Mesh> getObjects() {
 		return meshes;
 	}
-	
-	public void init(){
+
+	public void init() {
 		// create display lists using the meshes
 	}
-	
-	public void addMesh(Mesh object){
+
+	public void addMesh(Mesh object) {
 		meshes.add(object);
 	}
-	
-	public List<SceneNode> getChildren(){
+
+	public List<SceneNode> getChildren() {
 		return children;
 	}
-	
+
 }

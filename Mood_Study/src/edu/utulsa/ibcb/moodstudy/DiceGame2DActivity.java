@@ -5,8 +5,6 @@ import java.util.ArrayList;
 
 import org.xmlrpc.android.XMLRPCException;
 
-import edu.utulsa.ibcb.moodstudy.R;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -25,8 +23,8 @@ import android.hardware.SensorManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.PowerManager;
-import android.os.Vibrator;
 import android.os.PowerManager.WakeLock;
+import android.os.Vibrator;
 import android.preference.PreferenceManager;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -130,8 +128,9 @@ public class DiceGame2DActivity extends Activity {
 																	// miliseconds
 			}
 
-			RpcClient.getInstance(this).uploadSensorData(this, prompt, actual, ts_adjusted, ax,
-					ay, az, false, new double[0], new double[0], new double[0]);
+			RpcClient.getInstance(this).uploadSensorData(this, prompt, actual,
+					ts_adjusted, ax, ay, az, false, new double[0],
+					new double[0], new double[0]);
 			finish();
 		} catch (XMLRPCException xrpc) {
 			xrpc.printStackTrace();
