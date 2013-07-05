@@ -2,12 +2,9 @@ package edu.utulsa.ibcb.moodstudy;
 
 import org.xmlrpc.android.XMLRPCException;
 
-import edu.utulsa.ibcb.moodstudy.R;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -16,7 +13,6 @@ import android.view.View.OnClickListener;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.RadioGroup;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
@@ -41,9 +37,6 @@ public class FinalSurveyActivity extends Activity implements OnClickListener {
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
 				WindowManager.LayoutParams.FLAG_FULLSCREEN);
-
-		SharedPreferences settings = PreferenceManager
-				.getDefaultSharedPreferences(this);
 
 		// Load layout
 		setContentView(R.layout.final_survey);
@@ -90,6 +83,11 @@ public class FinalSurveyActivity extends Activity implements OnClickListener {
 			continueButton.setVisibility(TextView.INVISIBLE);
 			exitButton.setVisibility(TextView.VISIBLE);
 			return;
+		}
+		// Last question case
+		else if (questionNumber + 1 == questions.length) {
+			responses[questionNumber] = visualAnalogScale.getProgress();
+			return;
 		} else {
 			responses[questionNumber] = visualAnalogScale.getProgress();
 			questionNumber++;
@@ -103,10 +101,9 @@ public class FinalSurveyActivity extends Activity implements OnClickListener {
 
 	public void onClick(View v) {
 
+		loadNextQuestion();
+
 		switch (v.getId()) {
-		case R.id.continueButton:
-			loadNextQuestion();
-			break;
 		case R.id.exitButton:
 			try {
 				RpcClient.getInstance(this).uploadFinalSurveyData(this,

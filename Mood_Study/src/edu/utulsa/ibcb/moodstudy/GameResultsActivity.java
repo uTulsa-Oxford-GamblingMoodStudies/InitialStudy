@@ -2,23 +2,19 @@ package edu.utulsa.ibcb.moodstudy;
 
 import java.io.IOException;
 
-import org.xmlrpc.android.XMLRPCException;
-
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.Window;
 import android.view.WindowManager;
-import android.view.View.OnClickListener;
 import android.widget.Button;
-import android.widget.SeekBar;
 import android.widget.TextView;
 
 public class GameResultsActivity extends Activity implements OnClickListener {
@@ -41,7 +37,7 @@ public class GameResultsActivity extends Activity implements OnClickListener {
 		won = getIntent().getExtras().getBoolean("won");
 		prizeNumber = getIntent().getExtras().getInt("prize");
 		luckyFeeling = getIntent().getExtras().getInt("luckyFeeling");
-		Log.i("pa", prizeNumber + " " + won);
+		// Log.i("pa", prizeNumber + " " + won);
 
 		if (won) {
 			setContentView(R.layout.win);
@@ -80,6 +76,24 @@ public class GameResultsActivity extends Activity implements OnClickListener {
 
 		Button exitButton = (Button) findViewById(R.id.exitButton);
 		exitButton.setOnClickListener(this);
+
+		// disable exit button unless on play number 36
+		String username = settings.getString("username", "");
+		if (settings.getInt("playNumberFor" + username, Integer.MAX_VALUE) >= 36) {
+			// disable replay button
+			replayButton.setVisibility(Button.INVISIBLE);
+			replayButton.setClickable(false);
+		} else {
+			// disable exit button
+			exitButton.setVisibility(Button.INVISIBLE);
+			exitButton.setClickable(false);
+
+			// increment play number
+			Editor edit = settings.edit();
+			edit.putInt("playNumberFor" + username, settings.getInt(
+					"playNumberFor" + username, Integer.MAX_VALUE) + 1);
+			edit.commit();
+		}
 
 		// initialize media player
 		MediaPlayer mediaPlayer = MediaPlayer.create(this, R.raw.payout);

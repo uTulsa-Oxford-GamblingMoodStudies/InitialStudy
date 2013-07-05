@@ -13,9 +13,9 @@ import org.xmlrpc.android.XMLRPCException;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.os.Build;
 import android.preference.PreferenceManager;
-import android.util.Base64;
 
 public class RpcClient {
 
@@ -26,8 +26,8 @@ public class RpcClient {
 
 	private static final String protocol = "http";
 	private static final String RPCserver = "87.106.100.214";
-    String password = "z38lives";
-	
+	String password = "z38lives";
+
 	/** name of the php file server side procedure calls are to **/
 	public static String RPCscript = "service.php";
 
@@ -55,18 +55,22 @@ public class RpcClient {
 		String hardware = Build.HARDWARE;
 		String device = Build.DEVICE;
 		String software = "" + Build.VERSION.SDK_INT;
-		
-		client.call("uploadSurveyData", username,
-				password, questions, responses, manufacturer, model, device);
-		// massage into: manufacture, model, deviceID
 
-		// TODO upload:
+		// initialize play number tracking for this user
+		if (!settings.contains("playNumberFor" + username)) {
+			Editor edit = settings.edit();
+			edit.putInt("playNumberFor" + username, 1);
+			edit.commit();
+		}
+
+		client.call("uploadSurveyData", username, password, questions,
+				responses, manufacturer, model, device);
+		// UPLOAD
 		// username, string[] questions, string[] responses, string
 		// manufacturer, string model, string deviceID
-
 	}
 
-	public int[] play() throws XMLRPCException {
+	public int[] play() {
 		return new int[] { (int) (Math.ceil(6 * Math.random())),
 				(int) (Math.ceil(6 * Math.random())) };
 	}
@@ -92,9 +96,10 @@ public class RpcClient {
 	 * @param gz
 	 *            only valid if hasGyro
 	 */
-	public void uploadSensorData(Context ctx, int winning, int result, int[] timestamps, double[] ax,
-			double[] ay, double[] az, boolean hasGyro, double[] gx,
-			double[] gy, double[] gz) throws XMLRPCException {
+	public void uploadSensorData(Context ctx, int winning, int result,
+			int[] timestamps, double[] ax, double[] ay, double[] az,
+			boolean hasGyro, double[] gx, double[] gy, double[] gz)
+			throws XMLRPCException {
 
 		SharedPreferences settings = PreferenceManager
 				.getDefaultSharedPreferences(ctx);
@@ -102,15 +107,16 @@ public class RpcClient {
 		int SID = settings.getInt("SID", -1);
 		int initialSurveyActivityResult = settings.getInt(
 				"initialSurveyActivityResult", -1);
-		Object[] arg_v = {username, password, SID, initialSurveyActivityResult, winning, result,
-				       timestamps, ax, ay, az, hasGyro, gx, gy, gz};
+		Object[] arg_v = { username, password, SID,
+				initialSurveyActivityResult, winning, result, timestamps, ax,
+				ay, az, hasGyro, gx, gy, gz };
 		client.callEx("uploadSensorData", arg_v);
 
-		// TODO upload:
+		// UPLOAD
 		// String username, int SID, initialSurveyActivityResult, int[]
 		// timestamps, initialSurveyActivityResult, double[] ax, double[] ay,
 		// double[] az, boolean hasGyro, double[] gx, double[] gy, double[] gyz
-		}
+	}
 
 	/**
 	 * @param controls
@@ -126,20 +132,21 @@ public class RpcClient {
 		int SID = settings.getInt("SID", -1);
 		int initialSurveyActivityResult = settings.getInt(
 				"initialSurveyActivityResult", -1);
-		client.call("finalizeSession",
-				username, password, SID, responses[0], responses[1], responses[2], responses[3]);
+		client.call("finalizeSession", username, password, SID, responses[0],
+				responses[1], responses[2], responses[3]);
 
-		// TODO upload:
+		// UPLOAD
 		// username, SID, String[] questions, int[] responses
 
 	}
-	
+
 	public Integer startSession(Context ctx) throws XMLRPCException {
 		SharedPreferences settings = PreferenceManager
 				.getDefaultSharedPreferences(ctx);
 		String username = settings.getString("username", "");
-		return Integer.parseInt((String) client.call("startSession", username, password));
-}
+		return Integer.parseInt((String) client.call("startSession", username,
+				password));
+	}
 
 	private Boolean login(String user, String pass) throws XMLRPCException {
 		return (Boolean) client.call("login", user, pass);
@@ -155,10 +162,6 @@ public class RpcClient {
 			client = new XMLRPCClient(url, context);
 			options = new ConcurrentHashMap<String, String>();
 
-			// temporary measure until a permanent login system is decided upon
-			/*setOptions(context, "username", "matt.matlock@gmail.com",
-					"password", "z38lives");
-			*/
 			load(context);
 		}
 	}

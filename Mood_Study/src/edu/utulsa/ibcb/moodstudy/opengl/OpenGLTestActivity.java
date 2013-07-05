@@ -1,4 +1,4 @@
-package edu.utulsa.ibcb.moodstudy;
+package edu.utulsa.ibcb.moodstudy.opengl;
 
 import android.app.Activity;
 import android.opengl.GLSurfaceView;
